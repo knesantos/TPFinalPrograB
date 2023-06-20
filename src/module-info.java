@@ -6,4 +6,5 @@
  *
  */
 module extremeF1 {
+	requires java.desktop;
 }
