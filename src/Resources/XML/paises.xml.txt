@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<paises>
+  <pais>
+    <nombre>Australia</nombre>
+    <nombreAbreviado>AUS</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Brasil</nombre>
+    <nombreAbreviado>BRA</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Emiratos Árabes Unidos</nombre>
+    <nombreAbreviado>UAE</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>España</nombre>
+    <nombreAbreviado>ESP</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Estados Unidos</nombre>
+    <nombreAbreviado>USA</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Gran Bretaña</nombre>
+    <nombreAbreviado>GBR</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Italia</nombre>
+    <nombreAbreviado>ITA</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>México</nombre>
+    <nombreAbreviado>MEX</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Países Bajos</nombre>
+    <nombreAbreviado>NED</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Canadá</nombre>
+    <nombreAbreviado>CAN</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Francia</nombre>
+    <nombreAbreviado>FRA</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Austria</nombre>
+    <nombreAbreviado>AUT</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Azerbaiyán</nombre>
+    <nombreAbreviado>AZE</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Baréin</nombre>
+    <nombreAbreviado>BHR</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Bélgica</nombre>
+    <nombreAbreviado>BEL</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Hungría</nombre>
+    <nombreAbreviado>HUN</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Rusia</nombre>
+    <nombreAbreviado>RUS</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Singapur</nombre>
+    <nombreAbreviado>SGP</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Japón</nombre>
+    <nombreAbreviado>JPN</nombreAbreviado>
+  </pais>
+  <pais>
+    <nombre>Arabia Saudita</nombre>
+    <nombreAbreviado>SAU</nombreAbreviado>
+  </pais>
+</paises>

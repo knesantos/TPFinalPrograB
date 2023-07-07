@@ -7,6 +7,8 @@ public abstract class Neumatico {
 		private int velocidad;
 		private int agarre;
 		
+		
+		
 		public Neumatico(int desgaste, int durabilidad, int consumo, int velocidad, int agarre) {
 			super();
 			this.desgaste = desgaste;

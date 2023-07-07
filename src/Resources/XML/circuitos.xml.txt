@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<circuitos>
+  <circuito>
+    <cantVueltas>52</cantVueltas>
+    <infografia>https://example.com/infografia1</infografia>
+    <longitud>5800</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>18</cantCurvas>
+    <recordVueltaRapida>95000</recordVueltaRapida>
+    <pais>UK</pais>
+    <nombre>Silverstone Circuit</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>72</cantVueltas>
+    <infografia>https://example.com/infografia2</infografia>
+    <longitud>4200</longitud>
+    <cantZonasSobrepaso>4</cantZonasSobrepaso>
+    <cantCurvas>14</cantCurvas>
+    <recordVueltaRapida>89000</recordVueltaRapida>
+    <pais>NED</pais>
+    <nombre>Circuit Zandvoort</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>53</cantVueltas>
+    <infografia>https://example.com/infografia3</infografia>
+    <longitud>5300</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>17</cantCurvas>
+    <recordVueltaRapida>94000</recordVueltaRapida>
+    <pais>ITA</pais>
+    <nombre>Autodromo Nazionale Monza</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>60</cantVueltas>
+    <infografia>https://example.com/infografia4</infografia>
+    <longitud>4400</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>15</cantCurvas>
+    <recordVueltaRapida>90000</recordVueltaRapida>
+    <pais>MON</pais>
+    <nombre>Circuit de Monaco</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>71</cantVueltas>
+    <infografia>https://example.com/infografia5</infografia>
+    <longitud>5300</longitud>
+    <cantZonasSobrepaso>4</cantZonasSobrepaso>
+    <cantCurvas>15</cantCurvas>
+    <recordVueltaRapida>92000</recordVueltaRapida>
+    <pais>SIN</pais>
+    <nombre>Marina Bay Street Circuit</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>71</cantVueltas>
+    <infografia>https://example.com/infografia6</infografia>
+    <longitud>4200</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>16</cantCurvas>
+    <recordVueltaRapida>93000</recordVueltaRapida>
+    <pais>RUS</pais>
+    <nombre>Sochi Autodrom</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>56</cantVueltas>
+    <infografia>https://example.com/infografia7</infografia>
+    <longitud>4900</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>13</cantCurvas>
+    <recordVueltaRapida>91000</recordVueltaRapida>
+    <pais>AUT</pais>
+    <nombre>Red Bull Ring</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>61</cantVueltas>
+    <infografia>https://example.com/infografia8</infografia>
+    <longitud>5300</longitud>
+    <cantZonasSobrepaso>4</cantZonasSobrepaso>
+    <cantCurvas>18</cantCurvas>
+    <recordVueltaRapida>96000</recordVueltaRapida>
+    <pais>SIN</pais>
+    <nombre>Marina Bay Street Circuit</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>67</cantVueltas>
+    <infografia>https://example.com/infografia9</infografia>
+    <longitud>5900</longitud>
+    <cantZonasSobrepaso>3</cantZonasSobrepaso>
+    <cantCurvas>19</cantCurvas>
+    <recordVueltaRapida>97000</recordVueltaRapida>
+    <pais>MEX</pais>
+    <nombre>Autódromo Hermanos Rodríguez</nombre>
+  </circuito>
+  <circuito>
+    <cantVueltas>54</cantVueltas>
+    <infografia>https://example.com/infografia10</infografia>
+    <longitud>4600</longitud>
+    <cantZonasSobrepaso>2</cantZonasSobrepaso>
+    <cantCurvas>14</cantCurvas>
+    <recordVueltaRapida>88000</recordVueltaRapida>
+    <pais>USA</pais>
+    <nombre>Circuit of the Americas</nombre>
+  </circuito>
+</circuitos>
