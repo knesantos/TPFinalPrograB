@@ -1,5 +1,7 @@
 package Core.Entities;
 
+import java.util.Objects;
+
 public class Pais {
 	private String nombre;
 	private String nombreAbrev;
@@ -26,6 +28,12 @@ public class Pais {
 	    this.nombreAbrev = nombreAbrev;
 	}
 
+	@Override
+	public String toString() {
+		return "Pais [nombre=" + nombre + ", nombreAbrev=" + nombreAbrev + "]";
+	}
+
 	
+
 }
 

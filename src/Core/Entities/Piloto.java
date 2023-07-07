@@ -1,7 +1,7 @@
 package Core.Entities;
 
 public class Piloto {
-	private long presupuesto;
+	private char presupuesto;    /*alto-medio-bajo*/
 	private int defensa;
 	private int sobrepaso;
 	private int clasificacion;
@@ -17,7 +17,7 @@ public class Piloto {
 	
 	
 
-	public Piloto(long presupuesto, int defensa, int sobrepaso, int clasificacion, int cuidadoNeumaticos, int largada,
+	public Piloto(char presupuesto, int defensa, int sobrepaso, int clasificacion, int cuidadoNeumaticos, int largada,
 			String nombre, String nombreAbrev, int cantCarrerasGanadas, int cantPolePosition, int cantCampeonatos,
 			int cantParticipaciones) {
 		super();
@@ -35,7 +35,7 @@ public class Piloto {
 		this.cantParticipaciones = cantParticipaciones;
 	}
 
-	public long getpresupuesto () {
+	public char getpresupuesto () {
 		return presupuesto;
 	}
 		
@@ -88,7 +88,7 @@ public class Piloto {
 	
 	
 	
-	public void setpresupuesto(long presupuesto) {
+	public void setpresupuesto(char presupuesto) {
 	       this.presupuesto = presupuesto;
 	}
 		
