@@ -59,11 +59,11 @@ public class Piloto {
 		return largada;
 	}
 		
-	public string getnombre () {
+	public String getnombre () {
 		return nombre;
 	}
 		
-	public string getnombreAbrev () {
+	public String getnombreAbrev () {
 		return nombreAbrev;
 	}
 		
@@ -112,11 +112,11 @@ public class Piloto {
 	    this.largada = largada;
 	}
 	
-	public void setnombre(string nombre) {
+	public void setnombre(String nombre) {
 	       this.nombre = nombre;
 	}
 		
-	public void setnombreAbrev(string nombreAbrev) {
+	public void setnombreAbrev(String nombreAbrev) {
 	    this.nombreAbrev = nombreAbrev;
 	}
 	
@@ -124,8 +124,8 @@ public class Piloto {
 	       this.cantCarrerasGanadas = cantCarrerasGanadas;
 	}
 		
-	public void setcantpoleposition(int cantpoleposition) {
-	    this.cantpoleposition = cantpoleposition;
+	public void setcantPolePosition(int cantPolePosition) {
+	    this.cantPolePosition = cantPolePosition;
 	}
 	
 	public void setcantCampeonatos(int cantCampeonatos) {
