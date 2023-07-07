@@ -1,6 +1,5 @@
 package Core.Entities;
 
-import java.util.Objects;
 
 public class Pais {
 	private String nombre;

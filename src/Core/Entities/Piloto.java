@@ -13,13 +13,13 @@ public class Piloto {
 	private int cantPolePosition;
 	private int cantCampeonatos;
 	private int cantParticipaciones;
-	
+	private Pais pais;
 	
 	
 
 	public Piloto(char presupuesto, int defensa, int sobrepaso, int clasificacion, int cuidadoNeumaticos, int largada,
 			String nombre, String nombreAbrev, int cantCarrerasGanadas, int cantPolePosition, int cantCampeonatos,
-			int cantParticipaciones) {
+			int cantParticipaciones, Pais pais) {
 		super();
 		this.presupuesto = presupuesto;
 		this.defensa = defensa;
@@ -33,6 +33,7 @@ public class Piloto {
 		this.cantPolePosition = cantPolePosition;
 		this.cantCampeonatos = cantCampeonatos;
 		this.cantParticipaciones = cantParticipaciones;
+		this.pais = pais;
 	}
 
 	public char getpresupuesto () {
@@ -83,7 +84,9 @@ public class Piloto {
 		return cantParticipaciones;
 	}
 		
-	
+	public Pais getpais () {
+		return pais;
+	}
 		
 	
 	
@@ -134,6 +137,10 @@ public class Piloto {
 		
 	public void setcantParticipaciones(int cantParticipaciones) {
 	    this.cantParticipaciones = cantParticipaciones;
+	}
+	
+	public void setpais(Pais pais) {
+	    this.pais = pais;
 	}
 }
 
