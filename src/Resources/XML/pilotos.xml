@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pilotos>
+  <piloto>
+    <presupuesto>50</presupuesto>
+    <defensa>70</defensa>
+    <sobrepaso>80</sobrepaso>
+    <clasificacion>90</clasificacion>
+    <cuidadoNeumaticos>75</cuidadoNeumaticos>
+    <largada>85</largada>
+    <nombre>Lewis Hamilton</nombre>
+    <nombreAbreviado>L. Hamilton</nombreAbreviado>
+    <cantCarrerasGanadas>100</cantCarrerasGanadas>
+    <cantPolePositions>101</cantPolePositions>
+    <cantCampeonatos>7</cantCampeonatos>
+    <cantParticipaciones>250</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>30</presupuesto>
+    <defensa>65</defensa>
+    <sobrepaso>75</sobrepaso>
+    <clasificacion>80</clasificacion>
+    <cuidadoNeumaticos>70</cuidadoNeumaticos>
+    <largada>75</largada>
+    <nombre>Max Verstappen</nombre>
+    <nombreAbreviado>M. Verstappen</nombreAbreviado>
+    <cantCarrerasGanadas>12</cantCarrerasGanadas>
+    <cantPolePositions>10</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>70</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>45</presupuesto>
+    <defensa>80</defensa>
+    <sobrepaso>70</sobrepaso>
+    <clasificacion>85</clasificacion>
+    <cuidadoNeumaticos>90</cuidadoNeumaticos>
+    <largada>95</largada>
+    <nombre>Sebastian Vettel</nombre>
+    <nombreAbreviado>S. Vettel</nombreAbreviado>
+    <cantCarrerasGanadas>53</cantCarrerasGanadas>
+    <cantPolePositions>57</cantPolePositions>
+    <cantCampeonatos>4</cantCampeonatos>
+    <cantParticipaciones>250</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>35</presupuesto>
+    <defensa>60</defensa>
+    <sobrepaso>75</sobrepaso>
+    <clasificacion>80</clasificacion>
+    <cuidadoNeumaticos>70</cuidadoNeumaticos>
+    <largada>70</largada>
+    <nombre>Charles Leclerc</nombre>
+    <nombreAbreviado>C. Leclerc</nombreAbreviado>
+    <cantCarrerasGanadas>2</cantCarrerasGanadas>
+    <cantPolePositions>7</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>40</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>40</presupuesto>
+    <defensa>75</defensa>
+    <sobrepaso>80</sobrepaso>
+    <clasificacion>85</clasificacion>
+    <cuidadoNeumaticos>80</cuidadoNeumaticos>
+    <largada>80</largada>
+    <nombre>Esteban Ocon</nombre>
+    <nombreAbreviado>E. Ocon</nombreAbreviado>
+    <cantCarrerasGanadas>1</cantCarrerasGanadas>
+    <cantPolePositions>1</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>60</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>35</presupuesto>
+    <defensa>70</defensa>
+    <sobrepaso>75</sobrepaso>
+    <clasificacion>80</clasificacion>
+    <cuidadoNeumaticos>70</cuidadoNeumaticos>
+    <largada>75</largada>
+    <nombre>Antonio Giovinazzi</nombre>
+    <nombreAbreviado>A. Giovinazzi</nombreAbreviado>
+    <cantCarrerasGanadas>0</cantCarrerasGanadas>
+    <cantPolePositions>0</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>50</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>30</presupuesto>
+    <defensa>65</defensa>
+    <sobrepaso>70</sobrepaso>
+    <clasificacion>75</clasificacion>
+    <cuidadoNeumaticos>65</cuidadoNeumaticos>
+    <largada>70</largada>
+    <nombre>Nikita Mazepin</nombre>
+    <nombreAbreviado>N. Mazepin</nombreAbreviado>
+    <cantCarrerasGanadas>0</cantCarrerasGanadas>
+    <cantPolePositions>0</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>20</cantParticipaciones>
+  </piloto>
+  <piloto>
+    <presupuesto>25</presupuesto>
+    <defensa>60</defensa>
+    <sobrepaso>70</sobrepaso>
+    <clasificacion>75</clasificacion>
+    <cuidadoNeumaticos>65</cuidadoNeumaticos>
+    <largada>70</largada>
+    <nombre>Yuki Tsunoda</nombre>
+    <nombreAbreviado>Y. Tsunoda</nombreAbreviado>
+    <cantCarrerasGanadas>0</cantCarrerasGanadas>
+    <cantPolePositions>0</cantPolePositions>
+    <cantCampeonatos>0</cantCampeonatos>
+    <cantParticipaciones>20</cantParticipaciones>
+  </piloto>
+</pilotos>
