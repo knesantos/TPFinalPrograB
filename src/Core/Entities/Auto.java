@@ -6,7 +6,9 @@ public class Auto {
 	private double peso;
 	private int fiabilidad;
 	private int velocidadMax;
+
 	private double aceleracion;
+
 	private int potencia;
 	private int consumo;
 	private Neumatico neumatico;
@@ -15,6 +17,7 @@ public class Auto {
 	
 	public Auto(int performanceSobrepaso, int performanceCurvas, double peso, int fiabilidad, int velocidadMax,
 			double aceleracion, int potencia, int consumo, Neumatico neumatico, String marca, String modelo) {
+
 		super();
 		this.performanceSobrepaso = performanceSobrepaso;
 		this.performanceCurvas = performanceCurvas;
@@ -59,7 +62,9 @@ public class Auto {
 	public void setVelocidadMax(int velocidadMax) {
 		this.velocidadMax = velocidadMax;
 	}
+
 	public double getAceleracion() {
+
 		return aceleracion;
 	}
 	public void setAceleracion(int aceleracion) {
