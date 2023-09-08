@@ -7,4 +7,14 @@ public class Hard extends Neumatico {
 		
 	}
 
+	@Override
+    public boolean esAdecuadoPara(String condicionClimatica) {
+        return condicionClimatica.equalsIgnoreCase("Seco");
+    }
+
+	@Override
+	public double obtenerFactorModificacionTiempo() {
+		return 1.1;//10% mas lento
+	}
+	
 }

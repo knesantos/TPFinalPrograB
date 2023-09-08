@@ -35,15 +35,30 @@ public class Piloto {
 		this.cantParticipaciones = cantParticipaciones;
 	}
 
+	public Piloto() {
+		this.presupuesto = 1000000;
+		this.defensa = 80;
+		this.sobrepaso = 100;
+		this.clasificacion = 1;
+		this.cuidadoNeumaticos = 100;
+		this.largada = 100;
+		this.nombre = "Santi";
+		this.nombreAbrev = "SAN";
+		this.cantCarrerasGanadas = 10000;
+		this.cantPolePosition = 9;
+		this.cantCampeonatos = 100000;
+		this.cantParticipaciones = 1;
+	}
+
 	public long getpresupuesto () {
 		return presupuesto;
 	}
 		
-	public int getdefensa () {
+	public int getDefensa () {
 		return defensa;
 	}
 		
-	public int getsobrepaso () {
+	public int getSobrepaso () {
 		return sobrepaso;
 	}
 		
@@ -51,7 +66,7 @@ public class Piloto {
 		return clasificacion;
 	}
 		
-	public int getcuidadoNeumaticos () {
+	public int getCuidadoNeumaticos () {
 		return cuidadoNeumaticos;
 	}
 		
