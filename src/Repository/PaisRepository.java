@@ -21,7 +21,7 @@ public class PaisRepository {
     }
 
     public void loadPaisesFromXML() {
-    	 String paisesXMLPath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\paises.xml.txt";
+    	 String paisesXMLPath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\paises.xml";
          
         try {
             File file = new File(paisesXMLPath);

@@ -10,7 +10,7 @@ import Repository.AutoRepository;
 import Repository.CircuitoRepository;
 import Repository.PaisRepository;
 import Repository.PilotoRepository;
-import extremeF1.Views.Example.ExampleView;
+import extremeF1.Views.StartView;
 
 public class ExampleController {
 
@@ -20,6 +20,9 @@ public class ExampleController {
         CircuitoRepository circuitoRepository = new CircuitoRepository();
         PaisRepository paisRepository = new PaisRepository();
         PilotoRepository pilotoRepository = new PilotoRepository();
+        
+        StartView startView = new StartView();
+        startView.setVisible(true);
 
         // Ruta absoluta al archivo autos.xml
         autoRepository.loadAutosFromXML();
@@ -58,5 +61,7 @@ public class ExampleController {
         for (Piloto piloto : pilotos) {
             System.out.println(piloto.toString());
         }
+        
+        
     }
 }
