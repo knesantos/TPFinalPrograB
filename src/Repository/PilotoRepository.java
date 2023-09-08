@@ -21,7 +21,7 @@ public class PilotoRepository {
     }
 
     public void loadPilotosFromXML() {
-    	 String pilotosXMLPath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\pilotos.xml.txt";
+    	 String pilotosXMLPath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\pilotos.xml";
          
         try {
             File file = new File(pilotosXMLPath);

@@ -24,7 +24,7 @@ public class AutoRepository {
     }
 
     public void loadAutosFromXML() {
-        String filePath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\autos.xml.txt";
+        String filePath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\autos.xml";
 
         try {
             File file = new File(filePath);
