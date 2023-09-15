@@ -21,22 +21,20 @@ public class SelcetionView extends JFrame{
 	
 	
  public SelcetionView(List<Piloto> listpilotos) {
+	 Pilotos = listpilotos;
+	 //ventana//
 	 setSize(1000,500);
 	 setTitle("ExtremeF1");
-	// this.setLocation(500, 300);
-	// this.setBounds(500, 300, 5000, 500);
 	 setLocationRelativeTo(null);
 	 getContentPane().setBackground(Color.black);
 
-	 
-	 Pilotos = listpilotos;
-
+	 //Panel principal//
 	 	panel = new JPanel();
 	 	this.getContentPane().add(panel);
 	 	panel.setBackground(Color.gray);
 	 	panel.setLayout(null);
     
-    
+    //Botones//
 	 	boton1 = new JButton();
 	 	boton2 = new JButton();
 	 	panel.add(boton2);
@@ -46,7 +44,7 @@ public class SelcetionView extends JFrame{
 	 	boton1.setText("<");
 	 	boton2.setText(">");
 	
-	
+	//labels//
 		titulo = new JLabel();
 		titulo.setBounds(425, 0,300, 20);
 		titulo.setText("Seleccione su piloto");
@@ -58,7 +56,7 @@ public class SelcetionView extends JFrame{
 		panel.add(nombre);
 		
 		nomabv = new JLabel();
-		nomabv.setBounds(280, 100, 20, 15);
+		nomabv.setBounds(220, 100, 100, 15);
 		nomabv.setText(Pilotos.get(0).getnombreAbrev());
 		nomabv.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(nomabv);
