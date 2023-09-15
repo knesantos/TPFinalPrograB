@@ -10,6 +10,7 @@ import Repository.AutoRepository;
 import Repository.CircuitoRepository;
 import Repository.PaisRepository;
 import Repository.PilotoRepository;
+import extremeF1.Views.SelcetionView;
 import extremeF1.Views.StartView;
 
 public class ExampleController {
@@ -21,8 +22,7 @@ public class ExampleController {
         PaisRepository paisRepository = new PaisRepository();
         PilotoRepository pilotoRepository = new PilotoRepository();
         
-        StartView startView = new StartView();
-        startView.setVisible(true);
+       
 
         // Ruta absoluta al archivo autos.xml
         autoRepository.loadAutosFromXML();
@@ -40,6 +40,10 @@ public class ExampleController {
         List<Circuito> circuitos = circuitoRepository.getCircuitos();
         List<Pais> paises = paisRepository.getPaises();
         List<Piloto> pilotos = pilotoRepository.getPilotos();
+        
+        
+        SelcetionView v1 = new SelcetionView(pilotos);
+		v1.setVisible(true);
 
         // Mostrar las listas por consola
         System.out.println("Lista de Autos:");
