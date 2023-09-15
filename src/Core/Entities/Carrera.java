@@ -11,7 +11,7 @@ public class Carrera {
 	
 	private Date fecha;
 	private Circuito circuito;
-	private CondicionCarrera condicion;
+	private CondicionCarrera condicion = new CondicionCarrera("Soleado", 20, 0);
 	private int id;
 	List<Auto> autos = new ArrayList<>();
 	List<Double> tiemposAutos = new ArrayList<>();
@@ -87,8 +87,11 @@ public class Carrera {
             for (int i = 0; i < autos.size(); i++) {
                 Auto auto = autos.get(i);
                 Piloto piloto =new Piloto();
-                double tiempoVuelta = auto.simularVuelta(circuito, condicion,piloto);
-                tiemposAutos.set(i, tiemposAutos.get(i) + tiempoVuelta);
+                if (!auto.isEstaRoto()) { // Solo simula la vuelta si el auto no está roto
+                    double tiempoVuelta = auto.simularVuelta(circuito, condicion, piloto);
+                    tiemposAutos.set(i, tiemposAutos.get(i) + tiempoVuelta);
+                } 
+                
             }
             
             actualizaPosiciones();

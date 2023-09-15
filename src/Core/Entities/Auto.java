@@ -9,14 +9,16 @@ public class Auto implements Runnable {
 	private double aceleracion;
 	private int potencia;
 	private int consumo; //Litros por vuelta
-	private Neumatico neumatico;
+	private Neumatico neumatico = new Medium(50, 50, 50, 50, 50);
 	private String marca;
 	private String modelo;
 	private int vida; // Representa la "vida" del auto, podría estar en un rango de 0-100, donde 100 es el estado óptimo y 0 es un auto inoperable.
 	private double combustible; // en litros
-	private ModoManejo modoManejo;
+	private ModoManejo modoManejo = new ModoManejo(50,50,"Moderado");
 	private double kilometrosRecorridos = 0.0;
 	private Jugador jugador;
+	
+	 private boolean estaRoto = false;
 	
 	public Auto(int performanceSobrepaso, int performanceCurvas, double peso, int fiabilidad, int velocidadMax,
 			double aceleracion, int potencia, int consumo, Neumatico neumatico, String marca, String modelo) {
@@ -136,7 +138,7 @@ public class Auto implements Runnable {
 	        return kilometrosRecorridos;
 	    }
 	  
-	    public void changeConsumo(String modoManejo) {
+	    public void changeConsumo(String modoManejo) { //EVENTO
 	        // Ajustamos el consumo de combustible según el modo de manejo
 	        switch (modoManejo) {
 	            case "Rápido":
@@ -151,13 +153,13 @@ public class Auto implements Runnable {
 	        }
 	    }
 	    
-	    public void verificarEstadoAuto() {
+	    public void verificarEstadoAuto() { //EVENTOS 
 	        if (vida <= 0) {
-	            System.out.println("El auto " + marca + " " + modelo + " está roto y no puede continuar.");
+	            estaRoto = true;
 	        } else if (vida < 20 || neumatico.getDesgaste() > 70) {
-	            System.out.println("El auto " + marca + " " + modelo + " necesita ir a los pits.");
+	            //PITS
 	        } else {
-	            System.out.println("El auto " + marca + " " + modelo + " puede continuar en la carrera.");
+	            //OK
 	        }
 	    }
 	    
@@ -170,48 +172,55 @@ public class Auto implements Runnable {
 	    }
 	    
 	    
-	public double simularVuelta(Circuito circuito,CondicionCarrera condicion,Piloto piloto) {
-	    // Definimos una variable para almacenar el tiempo que tarda el auto en completar la vuelta
-	    double tiempoVuelta = 0.0;
-	    
-	    
-	    int velocidadMaxAjustada = (int) (velocidadMax * (1 + modoManejo.getAgresividad() / 100.0));
-	    double aceleracionAjustada = aceleracion * (1 + modoManejo.getAgresividad() / 100.0);
+	    public double simularVuelta(Circuito circuito, CondicionCarrera condicion, Piloto piloto) {
+	        // Definimos una variable para almacenar el tiempo del auto en la vuelta
+	        double tiempoVuelta = 0.0;
 
-	    
-	    
-	    // Simulamos diferentes secciones de la pista (rectas, curvas, etc.) y sumamos el tiempo que tarda el auto en cada sección
-	    // Sección Base
-	    tiempoVuelta += (circuito.getLongitud() / velocidadMaxAjustada) * (1 - aceleracionAjustada / 100);
+	        // Ajustamos la velocidad máxima y la aceleración basándonos en el modo de manejo
+	        int velocidadMaxAjustada = (int) (velocidadMax * (1 + modoManejo.getAgresividad() / 100.0));
+	        double aceleracionAjustada = aceleracion * (1 + modoManejo.getAgresividad() / 100.0);
 
-	    // Curvas
-	    tiempoVuelta += (circuito.getcantCurvas() / velocidadMaxAjustada) * (1 + (100 - performanceCurvas) / 100) * (1 + neumatico.getDesgaste() / 100);
+	        // Simulamos diferentes secciones de la pista y sumamos el tiempo 
+	        // Sección Base
+	        tiempoVuelta += (circuito.getLongitud() / velocidadMaxAjustada) * 60 * (1 - aceleracionAjustada / 100);
 
-	    // Zonas de sobrepaso
-	    double factorDefensa = piloto.getDefensa() / 100.0;
-	    double factorSobrepaso = piloto.getSobrepaso() / 100.0;
-	    tiempoVuelta += (circuito.getcantZonasSobrepaso() / velocidadMaxAjustada) * (1 - (performanceSobrepaso / 100) - (factorSobrepaso * 0.05) + (factorDefensa * 0.05));
+	        // Curvas
+	        tiempoVuelta += (circuito.getcantCurvas() * 0.2) * 60 * (1 + (100 - performanceCurvas) / 100) * (1 + neumatico.getDesgaste() / 100);
 
-	    //Factor neumatico
-	    double factorCuidadoNeumaticos = piloto.getCuidadoNeumaticos() / 100.0;
-	    neumatico.setDesgaste(neumatico.getDesgaste() + (neumatico.getDurabilidad() * modoManejo.getAgresividad() / 100.0) * (1 - factorCuidadoNeumaticos * 0.05));
+	        // Zonas de sobrepaso
+	        double factorDefensa = piloto.getDefensa() / 100.0;
+	        double factorSobrepaso = piloto.getSobrepaso() / 100.0;
+	        tiempoVuelta += (circuito.getcantZonasSobrepaso() * 0.3) * 60 * (1 - (performanceSobrepaso / 100) - (factorSobrepaso * 0.05) + (factorDefensa * 0.05));
 
-	   
-	    
-	    // Al final, imprimimos el tiempo que tardó el auto en completar la vuelta
-	    if (neumatico.esAdecuadoPara(condicion.getCondicion())) {
-	        tiempoVuelta *= 0.95; 
+	        // Factor neumático
+	        double factorCuidadoNeumaticos = piloto.getCuidadoNeumaticos() / 100.0;
+	        neumatico.setDesgaste(neumatico.getDesgaste() + (neumatico.getDurabilidad() * modoManejo.getAgresividad() / 100.0) * (1 - factorCuidadoNeumaticos * 0.05));
+
+	        // Ajuste por condición climática
+	        if (neumatico.esAdecuadoPara(condicion.getCondicion())) {
+	            tiempoVuelta *= 0.95;
 	        }
-	    neumatico.setDesgaste(neumatico.getDesgaste() + (neumatico.getDurabilidad() * modoManejo.getAgresividad() / 100.0));
-	    kilometrosRecorridos += circuito.getLongitud();
-	    vida -= (100 - fiabilidad) * 0.01; // Reducimos la vida en un porcentaje basado en la fiabilidad
-	    combustible -= consumo;
-        peso -= consumo;
-        verificarEstadoAuto();
-	    System.out.println("El auto " + marca + " " + modelo + " completó la vuelta en " + tiempoVuelta + " segundos.");
-	    return tiempoVuelta;
-	}
-	
+
+	        // Actualizamos los atributos del auto
+	        kilometrosRecorridos += circuito.getLongitud();
+	        vida -= (100 - fiabilidad) * 0.01;
+	        combustible -= consumo;
+	        peso -= consumo;
+	        	
+
+	        paradaEnPits();if (Math.random() < 0.4) { //  50% de probabilidad de que el auto haga una parada en pits
+	              paradaEnPits();// ESTO DEBE SER UN EVENTO
+	            }
+	        // Verificamos el estado del auto
+	        verificarEstadoAuto();
+	        if (estaRoto) {
+	            System.out.println("El auto " + marca + " " + modelo + " se ha roto y no puede continuar.");
+	            return tiempoVuelta; // Esto esta bien?
+	        }
+	        // Imprimimos el tiempo que tardó el auto en completar la vuelta
+	        System.out.println("El auto " + marca + " " + modelo + " completó la vuelta en " + tiempoVuelta + " segundos.");
+	        return tiempoVuelta;
+	    }
 	
 	
 	
@@ -223,6 +232,14 @@ public class Auto implements Runnable {
 	public void run() {
 		
 		
+	}
+
+	public boolean isEstaRoto() {
+		return estaRoto;
+	}
+
+	public void setEstaRoto(boolean estaRoto) {
+		this.estaRoto = estaRoto;
 	} 
 
 }
