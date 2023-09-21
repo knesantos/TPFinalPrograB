@@ -11,17 +11,22 @@ import java.awt.Color;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Core.Entities.Events.AceptPilotEvent;
+import Core.Entities.Events.AceptPilotListener;
 
-public class SelcetionView extends JFrame {
+public class SelcetionView extends JFrame implements SelectionViewInterface  {
 	
 	private JPanel panel;
-	private JButton boton1,boton2;
+	private JButton boton1,boton2,ButtomSelect,ButtomCancel;
 	private JLabel titulo,nombre,nomabv,imagen,presupuesto,defensa,sobrepaso,clasificacion,cantCarrerasGanadas,cantPolePosition,cantCampeonatos,cantParticipaciones,cuidadoNeumaticos,largada;
 	private List<Piloto> Pilotos = new ArrayList<>();
 	private int i=0;
+	private AceptPilotListener aceptpilotlistener;
 	
  public SelcetionView(List<Piloto> listpilotos) {
 	 Pilotos = listpilotos;
+
+	 
 	 //ventana//
 	 setSize(1000,500);
 	 setTitle("ExtremeF1");
@@ -89,6 +94,32 @@ public class SelcetionView extends JFrame {
 			}
 	 		
 	 	});
+	 	
+	 	ButtomSelect = new JButton();
+	 	ButtomSelect.setBounds(75,270, 100, 50);
+	 	ButtomSelect.setText("Aceptar");
+	 	panel.add(ButtomSelect);
+	 	
+	 		ButtomSelect.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				 int index = i;
+				aceptpilotlistener.listenerAceptPilotEvent(new AceptPilotEvent(index));
+
+				}
+	 			
+	 		});
+	 	
+	 	ButtomCancel = new JButton();
+	 	ButtomCancel.setBounds(175,270, 100, 50);
+	 	ButtomCancel.setText("Cancelar");
+	 	panel.add(ButtomCancel);
+	 	
+	 	
+	 	
+	 	
+	 	
 	 	
 	 	
 	//labels//
@@ -166,5 +197,11 @@ public class SelcetionView extends JFrame {
 
 		
  }
+
+@Override
+public void setAceptPilotListener(AceptPilotListener listener) {
+	// TODO Auto-generated method stub
+	aceptpilotlistener = listener;
+}
 
 }

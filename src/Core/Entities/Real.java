@@ -1,5 +1,7 @@
 package Core.Entities;
 
+import Core.Entities.Piloto;
+
 public class Real extends Jugador {
 
 	public Real(String nombre, int id) {
@@ -7,6 +9,8 @@ public class Real extends Jugador {
 		
 	}
 
-	
+	public void setPilot(Piloto pilot) {
+		
+	}
 
 }
