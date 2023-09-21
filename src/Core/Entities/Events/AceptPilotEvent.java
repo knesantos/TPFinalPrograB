@@ -1,13 +1,15 @@
 package Core.Entities.Events;
 
+import Core.Entities.Piloto;
+
 public class AceptPilotEvent {
-	private int index;
+	private Piloto Piloto;
 	
-	public AceptPilotEvent(int index) {
-		this.index = index;
+	public AceptPilotEvent(Piloto piloto) {
+		this.Piloto = piloto;
 	}
 	
-	public int getIndex() {
-		return  index;
+	public Piloto getPiloto() {
+		return  Piloto;
 	}
 }

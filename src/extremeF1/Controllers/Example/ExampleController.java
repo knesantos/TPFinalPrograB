@@ -1,13 +1,9 @@
 package extremeF1.Controllers.Example;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import Core.Entities.Events.AceptPilotEvent;
-import Core.Entities.Events.AceptPilotListener;
+import java.util.List;
 import Core.Entities.Auto;
 import Core.Entities.Circuito;
-import Core.Entities.Jugador;
 import Core.Entities.Pais;
 import Core.Entities.Piloto;
 import Core.Entities.Real;
@@ -15,10 +11,10 @@ import Repository.AutoRepository;
 import Repository.CircuitoRepository;
 import Repository.PaisRepository;
 import Repository.PilotoRepository;
-import extremeF1.Views.SelcetionView;
-import extremeF1.Views.StartView;
 
-public class ExampleController implements AceptPilotListener{
+
+
+public class ExampleController{
     public static void main(String[] args) {
         // Crear instancias de los repositorios
         AutoRepository autoRepository = new AutoRepository();
@@ -43,20 +39,10 @@ public class ExampleController implements AceptPilotListener{
         List<Auto> autos = autoRepository.getAutos();
         List<Circuito> circuitos = circuitoRepository.getCircuitos();
         List<Pais> paises = paisRepository.getPaises();
-        List<Piloto> pilotos = pilotoRepository.getPilotos();
-
-        SelcetionView v1 = new SelcetionView(pilotos);
-		v1.setVisible(true);
-
-		
+        List<Piloto> pilotos = pilotoRepository.getPilotos();	
 
     }
 
-	@Override
-	public void listenerAceptPilotEvent(AceptPilotEvent event) {
-		// TODO Auto-generated method stub
-		System.out.println(event.getIndex());
-		
-	}
+
 
 }

@@ -35,6 +35,10 @@ public class Piloto {
 		this.cantParticipaciones = cantParticipaciones;
 	}
 
+	public Piloto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getpresupuesto () {
 		return presupuesto;
 	}

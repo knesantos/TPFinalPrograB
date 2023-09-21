@@ -32,6 +32,10 @@ public class Auto {
 		this.modelo = modelo;
 	}
 	
+	public Auto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getPerformanceSobrepaso() {
 		return performanceSobrepaso;
 	}
