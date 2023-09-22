@@ -22,7 +22,6 @@ public class PaisRepository {
 
     public void loadPaisesFromXML() {
     	 String paisesXMLPath = "src\\Resources\\XML\\paises.xml";
-         
         try {
             File file = new File(paisesXMLPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

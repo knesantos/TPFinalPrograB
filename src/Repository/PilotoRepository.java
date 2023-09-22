@@ -22,7 +22,6 @@ public class PilotoRepository {
 
     public void loadPilotosFromXML() {
     	 String pilotosXMLPath = "src\\Resources\\XML\\pilotos.xml";
-         
         try {
             File file = new File(pilotosXMLPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
