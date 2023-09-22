@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class Carrera {
     
@@ -85,33 +86,48 @@ public class Carrera {
         // Implementa el código para mostrar los resultados finales aquí
     }
     
-    public void simularCarrera() {
-        // Iniciar la carrera
-        System.out.println("La carrera ha comenzado en " + circuito.getNombre());
-        carreraEnProgreso = true;
+
+public void simularCarrera() {
+    // Iniciar la carrera
+    System.out.println("La carrera ha comenzado en " + circuito.getNombre());
+    carreraEnProgreso = true;
+    for (int i = 0; i < jugadores.size(); i++) {
+        tiemposJugadores.add(0.0); // Inicializa tiempos
+    }
+
+    // Simular cada vuelta
+    for (int vuelta = 1; vuelta <= circuito.getcantVueltas() && carreraEnProgreso; vuelta++) {
+        System.out.println("Vuelta " + vuelta);
+
+        CountDownLatch latch = new CountDownLatch(jugadores.size()); // Para esperar a que todos los hilos terminen
+
         for (int i = 0; i < jugadores.size(); i++) {
-            tiemposJugadores.add(0.0); // Inicializa tiempos
-        }
-
-        // Simular cada vuelta
-        for (int vuelta = 1; vuelta <= circuito.getcantVueltas() && carreraEnProgreso; vuelta++) {
-            System.out.println("Vuelta " + vuelta);
-
-            for (int i = 0; i < jugadores.size(); i++) {
-                Jugador jugador = jugadores.get(i);
+            final int index = i; // Necesario para usarlo en el lambda
+            new Thread(() -> {
+                Jugador jugador = jugadores.get(index);
                 Auto auto = jugador.getAuto();
                 Piloto piloto = jugador.getPiloto();
                 if (!auto.isEstaRoto()) {
                     double tiempoVuelta = auto.simularVuelta(circuito, condicion, piloto);
-                    tiemposJugadores.set(i, tiemposJugadores.get(i) + tiempoVuelta);
+                    synchronized (tiemposJugadores) { // Sincronización para evitar condiciones de carrera
+                        tiemposJugadores.set(index, tiemposJugadores.get(index) + tiempoVuelta);
+                    }
                 }
-            }
-            
-            actualizaPosiciones();
-            verificaCondiciones();
+                latch.countDown(); // Decrementar el contador del latch
+            }).start();
         }
 
-        System.out.println("La carrera ha terminado!");
-        mostrarResultados();
+        try {
+            latch.await(); // Esperar a que todos los hilos terminen
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        actualizaPosiciones();
+        verificaCondiciones();
     }
+
+    System.out.println("La carrera ha terminado!");
+    mostrarResultados();
+}
 }
