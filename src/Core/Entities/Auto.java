@@ -208,17 +208,16 @@ public class Auto implements Runnable {
 	        peso -= consumo;
 	        	
 
-	        paradaEnPits();if (Math.random() < 0.4) { //  50% de probabilidad de que el auto haga una parada en pits
+	        if (Math.random() < 0.6) { 
 	              paradaEnPits();// ESTO DEBE SER UN EVENTO
 	            }
-	        // Verificamos el estado del auto
 	        verificarEstadoAuto();
 	        if (estaRoto) {
 	            System.out.println("El auto " + marca + " " + modelo + " se ha roto y no puede continuar.");
 	            return tiempoVuelta; // Esto esta bien?
 	        }
 	        // Imprimimos el tiempo que tardó el auto en completar la vuelta
-	        System.out.println("El auto " + marca + " " + modelo + " completó la vuelta en " + tiempoVuelta + " segundos.");
+	        System.out.println("El auto " + marca + " " + modelo + " completó la vuelta en " + tiempoVuelta + " segundos y recorrio "+kilometrosRecorridos+" Km");
 	        return tiempoVuelta;
 	    }
 	

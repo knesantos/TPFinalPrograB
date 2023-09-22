@@ -1,12 +1,8 @@
 package extremeF1.Controllers.Example;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import Core.Entities.Auto;
-import Core.Entities.Carrera;
-import Core.Entities.Circuito;
-import Core.Entities.Pais;
-import Core.Entities.Piloto;
+import Core.Entities.*;
 import Repository.AutoRepository;
 import Repository.CircuitoRepository;
 import Repository.PaisRepository;
@@ -40,8 +36,22 @@ public class ExampleController {
         List<Circuito> circuitos = circuitoRepository.getCircuitos();
         List<Pais> paises = paisRepository.getPaises();
         List<Piloto> pilotos = pilotoRepository.getPilotos();
-        
-        Carrera carrera = new Carrera(null, 0,autos,circuitos.get(1));
+        List<Jugador> jugadores = new ArrayList<>();
+
+     
+     if(pilotos.size() <= autos.size()) {
+         for (int i = 0; i < pilotos.size(); i++) {
+             Jugador jugador = new Simulado();
+             jugador.setPiloto(pilotos.get(i)); // Asigna un piloto al jugador
+             jugador.setAuto(autos.get(i)); // Asigna un auto al jugador
+             jugador.setNombre("Jugador " + (i + 1)); // Asigna un nombre al jugador
+             jugadores.add(jugador); // Añade el jugador a la lista
+         }
+     } else {
+         System.out.println("No hay suficientes autos para todos los pilotos.");
+     }
+     
+        Carrera carrera = new Carrera(null, 0,jugadores,circuitos.get(1));
         System.out.println("Se corre la carrer");
         carrera.simularCarrera();
         
