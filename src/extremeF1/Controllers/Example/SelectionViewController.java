@@ -80,8 +80,7 @@ public class SelectionViewController {
 	
 	private void checkSelectionComplete() {
         if (isButtonAcceptSelectionPressed) {
-            if (observer != null) {
-            	
+            if (observer != null) {       	
                 observer.onSelectionComplete();
             }
         }

@@ -38,7 +38,7 @@ public class Auto implements Runnable {
 	}
 	
 	public Auto() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int getPerformanceSobrepaso() {
