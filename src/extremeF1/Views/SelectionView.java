@@ -18,11 +18,14 @@ import Core.Entities.Events.AceptCarEvent;
 import Core.Entities.Events.AceptCarListener;
 import Core.Entities.Events.AceptPilotEvent;
 import Core.Entities.Events.AceptPilotListener;
+import Core.Entities.Events.AceptSelectionEvent;
+import Core.Entities.Events.AceptSelectionListener;
+import Core.Interfaces.SelectionObserver;
 
-public class SelcetionView extends JFrame implements SelectionViewInterface {
+public class SelectionView extends JFrame implements SelectionViewInterface {
 
 	private JPanel panel;
-	private JButton boton1, boton2,boton3,boton4, ButtomSelect1, ButtomCancel1,ButtomSelect2,ButtomCancel2;
+	private JButton boton1, boton2,boton3,boton4, ButtomSelect1, ButtomCancel1,ButtomSelect2,ButtomCancel2 ,btnAceptarSeleccion;
 	private JLabel titulo, nombre, nomabv, imagen, presupuesto, defensa, sobrepaso, clasificacion, cantCarrerasGanadas,
 			cantPolePosition, cantCampeonatos, cantParticipaciones, cuidadoNeumaticos, largada,marca,modelo,peso,aceleracion,
 			velocidadmax,potencia,consumo,fiabilidad,performancecurvas,performancesobrepaso;
@@ -31,8 +34,20 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 	private int i = 0, j= 0;
 	private AceptPilotListener aceptpilotlistener;
 	private AceptCarListener aceptcarlistener;
+	private AceptSelectionListener buttonAcceptSelectionListener;
+	
+	private List<SelectionObserver> observers = new ArrayList<>();
+	
+	private boolean isPilotSelected = false;
+	private boolean isCarSelected = false;
+	
+	private boolean isAceptSelectionButtonPressed = false;
+	
+	 public void addObserver(SelectionObserver observer) {
+	        observers.add(observer);
+	    }
 
-	public SelcetionView(List<Piloto> listpilotos,List<Auto> listaautos) {
+	public SelectionView(List<Piloto> listpilotos,List<Auto> listaautos) {
 		Pilotos = listpilotos;
 		Autos = listaautos;
 		
@@ -54,6 +69,11 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 		
 		public void SeleccionPiloto () {
 		// Botones//
+		btnAceptarSeleccion = new JButton("Aceptar Selección");
+		btnAceptarSeleccion.setEnabled(false);
+	    btnAceptarSeleccion.setBounds(600, 400, 150, 50);  // Ajusta la posición y tamaño según necesites
+	    panel.add(btnAceptarSeleccion);	
+		
 		boton1 = new JButton();
 		boton2 = new JButton();
 		panel.add(boton2);
@@ -74,12 +94,12 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 					nombre.setText("Nombre: " + Pilotos.get(i).getnombre());
 					nomabv.setText(Pilotos.get(i).getnombreAbrev());
 					presupuesto.setText("Presupuesto: " + Pilotos.get(i).getpresupuesto());
-					defensa.setText("Defensa: " + Pilotos.get(i).getdefensa());
-					sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getsobrepaso());
+					defensa.setText("Defensa: " + Pilotos.get(i).getDefensa());
+					sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getSobrepaso());
 					clasificacion.setText("Clasificacion: " + Pilotos.get(i).getclasificacion());
 					cantCarrerasGanadas.setText("Cantiddad de carreras ganadas: " + Pilotos.get(i).getcantCarrerasGanadas());
 					cantParticipaciones.setText("Cantiddad de parcitipaciones: " + Pilotos.get(i).getcantParticipaciones());
-					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getcuidadoNeumaticos());
+					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getCuidadoNeumaticos());
 					largada.setText("Largada: " + Pilotos.get(i).getlargada());
 				}
 			}
@@ -97,12 +117,12 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 					nombre.setText("Nombre: " + Pilotos.get(i).getnombre());
 					nomabv.setText(Pilotos.get(i).getnombreAbrev());
 					presupuesto.setText("Presupuesto: " + Pilotos.get(i).getpresupuesto());
-					defensa.setText("Defensa: " + Pilotos.get(i).getdefensa());
-					sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getsobrepaso());
+					defensa.setText("Defensa: " + Pilotos.get(i).getDefensa());
+					sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getSobrepaso());
 					clasificacion.setText("Clasificacion: " + Pilotos.get(i).getclasificacion());
 					cantCarrerasGanadas.setText("Cantiddad de carreras ganadas: " + Pilotos.get(i).getcantCarrerasGanadas());
 					cantParticipaciones.setText("Cantiddad de parcitipaciones: " + Pilotos.get(i).getcantParticipaciones());
-					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getcuidadoNeumaticos());
+					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getCuidadoNeumaticos());
 					largada.setText("Largada: " + Pilotos.get(i).getlargada());
 				}
 			}
@@ -125,6 +145,8 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 				boton1.setEnabled(false);
 				boton2.setEnabled(false);
 				ButtomCancel1.setEnabled(true);
+				isPilotSelected = true;
+		        checkBothSelected();
 			}
 
 		});
@@ -171,12 +193,12 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 
 		defensa = new JLabel();
 		defensa.setBounds(75, 130, 200, 15);
-		defensa.setText("Defensa: " + Pilotos.get(i).getdefensa());
+		defensa.setText("Defensa: " + Pilotos.get(i).getDefensa());
 		panel.add(defensa);
 
 		sobrepaso = new JLabel();
 		sobrepaso.setBounds(75, 145, 200, 15);
-		sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getsobrepaso());
+		sobrepaso.setText("Sobrepaso: " + Pilotos.get(i).getSobrepaso());
 		panel.add(sobrepaso);
 
 		clasificacion = new JLabel();
@@ -206,7 +228,7 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 
 		cuidadoNeumaticos = new JLabel();
 		cuidadoNeumaticos.setBounds(75, 235, 200, 15);
-		cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getcuidadoNeumaticos());
+		cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Pilotos.get(i).getCuidadoNeumaticos());
 		panel.add(cuidadoNeumaticos);
 
 		largada = new JLabel();
@@ -295,6 +317,8 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 				boton3.setEnabled(false);
 				boton4.setEnabled(false);
 				ButtomCancel2.setEnabled(true);
+				isCarSelected = true;
+		        checkBothSelected();
 			}
 
 		});
@@ -380,20 +404,42 @@ public class SelcetionView extends JFrame implements SelectionViewInterface {
 		imagen.setBackground(Color.black);
 		panel.add(imagen);
 		
-	}
-		
 	
+		
+		btnAceptarSeleccion.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        if (buttonAcceptSelectionListener != null) {
+		            buttonAcceptSelectionListener.listenerAceptSelectionEvent(new AceptSelectionEvent(true));
+		        }
+		    }
+		});}
 
 	@Override
 	public void setAceptPilotListener(AceptPilotListener listener) {
-		// TODO Auto-generated method stub
 		aceptpilotlistener = listener;
 	}
 
 	@Override
 	public void setAceptCarListener(AceptCarListener listener) {
-		// TODO Auto-generated method stub
 		aceptcarlistener = listener;
 	}
+	
+	private void checkBothSelected() {
+	    if (isPilotSelected && isCarSelected) {
+	        btnAceptarSeleccion.setEnabled(true);
+	    }
+	}
+
+
+	@Override
+	public void setButtonAcceptSelectionListener(AceptSelectionListener listener) {
+		buttonAcceptSelectionListener = listener;
+		
+	}
+
+	
+	
+	
 
 }
