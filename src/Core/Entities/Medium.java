@@ -6,5 +6,13 @@ public class Medium extends Neumatico  {
 		super(desgaste, durabilidad, consumo, velocidad, agarre);
 		
 	}
-
+	
+	 @Override
+	    public boolean esAdecuadoPara(String condicionClimatica) {
+	        return condicionClimatica.equalsIgnoreCase("Seco") || condicionClimatica.equalsIgnoreCase("Húmedo");
+	    }
+	 
+	 public double obtenerFactorModificacionTiempo() {
+			return 1;//Ni mas lento ni ams rapido
+		}
 }

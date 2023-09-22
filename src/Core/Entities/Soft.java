@@ -6,5 +6,12 @@ public class Soft extends Neumatico {
 		super(desgaste, durabilidad, consumo, velocidad, agarre);
 		
 	}
-
+	@Override
+    public boolean esAdecuadoPara(String condicionClimatica) {
+        return condicionClimatica.equalsIgnoreCase("Seco");
+    }
+	@Override
+	public double obtenerFactorModificacionTiempo() {
+		return 0.90; //10% mas rapido
+	}
 }

@@ -1,7 +1,7 @@
 package Core.Entities;
 
 public abstract class Neumatico {
-		private int desgaste;
+		private double desgaste;
 		private int durabilidad;
 		private int consumo;
 		private int velocidad;
@@ -16,11 +16,15 @@ public abstract class Neumatico {
 			this.agarre = agarre;
 		}
 
-		public int getDesgaste() {
+		
+		public abstract boolean esAdecuadoPara(String condicionClimatica);
+		public abstract double obtenerFactorModificacionTiempo();
+		
+		public double getDesgaste() {
 			return desgaste;
 		}
 
-		public void setDesgaste(int desgaste) {
+		public void setDesgaste(double desgaste) {
 			this.desgaste = desgaste;
 		}
 
