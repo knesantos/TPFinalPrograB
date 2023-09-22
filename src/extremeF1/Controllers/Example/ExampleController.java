@@ -3,6 +3,7 @@ package extremeF1.Controllers.Example;
 import java.util.List;
 
 import Core.Entities.Auto;
+import Core.Entities.Carrera;
 import Core.Entities.Circuito;
 import Core.Entities.Pais;
 import Core.Entities.Piloto;
@@ -21,8 +22,7 @@ public class ExampleController {
         PaisRepository paisRepository = new PaisRepository();
         PilotoRepository pilotoRepository = new PilotoRepository();
         
-        StartView startView = new StartView();
-        startView.setVisible(true);
+        
 
         // Ruta absoluta al archivo autos.xml
         autoRepository.loadAutosFromXML();
@@ -40,7 +40,11 @@ public class ExampleController {
         List<Circuito> circuitos = circuitoRepository.getCircuitos();
         List<Pais> paises = paisRepository.getPaises();
         List<Piloto> pilotos = pilotoRepository.getPilotos();
-
+        
+        Carrera carrera = new Carrera(null, 0,autos,circuitos.get(1));
+        System.out.println("Se corre la carrer");
+        carrera.simularCarrera();
+        
         // Mostrar las listas por consola
         System.out.println("Lista de Autos:");
         for (Auto auto : autos) {

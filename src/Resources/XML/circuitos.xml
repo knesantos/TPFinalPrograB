@@ -11,7 +11,7 @@
     <nombre>Silverstone Circuit</nombre>
   </circuito>
   <circuito>
-    <cantVueltas>72</cantVueltas>
+    <cantVueltas>5</cantVueltas>
     <infografia>https://example.com/infografia2</infografia>
     <longitud>4200</longitud>
     <cantZonasSobrepaso>4</cantZonasSobrepaso>
