@@ -48,6 +48,7 @@ public class Piloto {
 		this.cantPolePosition = 9;
 		this.cantCampeonatos = 100000;
 		this.cantParticipaciones = 1;
+
 	}
 
 	public long getpresupuesto () {
