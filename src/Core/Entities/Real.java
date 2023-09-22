@@ -2,8 +2,7 @@ package Core.Entities;
 
 
 public class Real extends Jugador {
-	private Piloto Piloto;
-	private Auto Auto;
+	
 
 	public Real(String nombre, int id) {
 		super(nombre, id);

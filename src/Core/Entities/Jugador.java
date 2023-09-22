@@ -3,8 +3,8 @@ package Core.Entities;
 public abstract class Jugador {
 	private String nombre;
 	private int id;
-	Auto auto;
-	Piloto piloto;
+	protected Piloto Piloto;
+	protected Auto Auto;
 	
 	public Jugador() {
 		
@@ -32,18 +32,18 @@ public abstract class Jugador {
 	}
 	
 	public Auto getAuto () {
-		return auto;
+		return Auto;
 	}
 	
 	public Piloto getPiloto () {
-		return piloto;
+		return Piloto;
 	}
 	
 	public void setAuto(Auto auto) {
-        this.auto = auto;
+        this.Auto = auto;
     }
 	
 	public void setPiloto(Piloto piloto) {
-	    this.piloto = piloto;
+	    this.Piloto = piloto;
 	}
 }
