@@ -33,6 +33,15 @@ public class Carrera {
     
     public boolean carreraEnProgreso;
     
+    public Circuito getCircuito() {
+    	return circuito;
+    }
+    
+    public CondicionCarrera getCondicionCarrera() {
+    	return condicion;
+    }
+    
+    
     private void actualizaPosiciones(){
         // Ordenamos los jugadores basándonos en los tiempos totales (el jugador con el menor tiempo estará primero)
         List<Integer> indicesOrdenados = new ArrayList<>();
@@ -87,47 +96,43 @@ public class Carrera {
     }
     
 
-public void simularCarrera() {
-    // Iniciar la carrera
-    System.out.println("La carrera ha comenzado en " + circuito.getNombre());
-    carreraEnProgreso = true;
-    for (int i = 0; i < jugadores.size(); i++) {
-        tiemposJugadores.add(0.0); // Inicializa tiempos
-    }
-
-    // Simular cada vuelta
-    for (int vuelta = 1; vuelta <= circuito.getcantVueltas() && carreraEnProgreso; vuelta++) {
-        System.out.println("Vuelta " + vuelta);
-
-        CountDownLatch latch = new CountDownLatch(jugadores.size()); // Para esperar a que todos los hilos terminen
-
+    public void simularCarrera() {
+        // Iniciar la carrera
+        System.out.println("La carrera ha comenzado en " + circuito.getNombre());
+        carreraEnProgreso = true;
         for (int i = 0; i < jugadores.size(); i++) {
-            final int index = i; // Necesario para usarlo en el lambda
-            new Thread(() -> {
-                Jugador jugador = jugadores.get(index);
-                Auto auto = jugador.getAuto();
-                Piloto piloto = jugador.getPiloto();
-                if (!auto.isEstaRoto()) {
-                    double tiempoVuelta = auto.simularVuelta(circuito, condicion, piloto);
-                    synchronized (tiemposJugadores) { // Sincronización para evitar condiciones de carrera
-                        tiemposJugadores.set(index, tiemposJugadores.get(index) + tiempoVuelta);
+            tiemposJugadores.add(0.0); // Inicializa tiempos
+        }
+
+        // Simular cada vuelta
+        for (int vuelta = 1; vuelta <= circuito.getcantVueltas() && carreraEnProgreso; vuelta++) {
+            System.out.println("Vuelta " + vuelta);
+
+            CountDownLatch latch = new CountDownLatch(jugadores.size()); // Para esperar a que todos los hilos terminen
+
+            for (Jugador jugador : jugadores) {
+                new Thread(() -> {
+                    Auto auto = jugador.getAuto();
+                    if (!auto.isEstaRoto()) {
+                        auto.run(); // Ahora simplemente llamamos al método run del auto
                     }
-                }
-                latch.countDown(); // Decrementar el contador del latch
-            }).start();
+                    latch.countDown(); // Decrementar el contador del latch
+                }).start();
+            }
+
+            try {
+                latch.await(); // Esperar a que todos los hilos terminen
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            actualizaPosiciones();
+            verificaCondiciones();
         }
 
-        try {
-            latch.await(); // Esperar a que todos los hilos terminen
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        actualizaPosiciones();
-        verificaCondiciones();
+        System.out.println("La carrera ha terminado!");
+        mostrarResultados();
     }
 
-    System.out.println("La carrera ha terminado!");
-    mostrarResultados();
-}
+
 }

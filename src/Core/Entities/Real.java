@@ -23,4 +23,6 @@ public class Real extends Jugador {
 	public Auto getAuto() {
 		return Auto;
 	}
+	
+	
 }
