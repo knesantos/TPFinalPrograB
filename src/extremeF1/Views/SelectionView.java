@@ -57,7 +57,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(Color.black);
 
-		// Panel principal//
+		// Panel principal// 
 		panel = new JPanel();
 		this.getContentPane().add(panel);
 		panel.setBackground(Color.gray);

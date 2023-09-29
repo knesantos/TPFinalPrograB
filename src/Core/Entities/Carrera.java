@@ -29,6 +29,9 @@ public class Carrera {
     public int getId() {
         return id;
     }
+    public Circuito getCircuito() {
+    	return circuito;
+    }
     
     public boolean carreraEnProgreso;
     

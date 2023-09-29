@@ -6,9 +6,14 @@ import Core.Entities.Jugador;
 import java.util.List;
 
 public class RaceViewController {
+	private Carrera carrera;
     public void startRace(List<Jugador> jugadores, Circuito circuito) {
-        Carrera carrera = new Carrera(null, 0, jugadores, circuito);
+        carrera = new Carrera(null, 0, jugadores, circuito);
         System.out.println("Se corre la carrera");
         carrera.simularCarrera();
+    }
+    public Carrera getRace(){
+    	return carrera;
+    	
     }
 }
