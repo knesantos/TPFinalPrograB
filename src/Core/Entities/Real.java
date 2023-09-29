@@ -1,26 +1,26 @@
 package Core.Entities;
 
 
-public class Real extends Jugador {
+public class Real extends Player{
 	
 
-	public Real(String nombre, int id) {
-		super(nombre, id);
+	public Real(String name, int id) {
+		super(name, id);
 		
 	}
 
-	public void setPilot(Piloto piloto) {
-		this.Piloto = piloto;
+	public void setDriver(Driver driver) {
+		this.driver = driver;
 	}
 
-	public Piloto getPilot() {
-		return Piloto;
+	public Driver getDriver() {
+		return driver;
 	}
-	public void setAuto(Auto Auto) {
-		this.Auto = Auto;
+	public void setCar(Car Car) {
+		this.car = Car;
 	}
 
-	public Auto getAuto() {
-		return Auto;
+	public Car getCar() {
+		return car;
 	}
 }
