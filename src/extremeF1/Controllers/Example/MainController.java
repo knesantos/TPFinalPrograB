@@ -19,6 +19,7 @@ public class MainController {
     }
 
     public void run() {
+   
         // Crear instancias de los repositorios
         AutoRepository autoRepository = new AutoRepository();
         CircuitoRepository circuitoRepository = new CircuitoRepository();
@@ -34,13 +35,13 @@ public class MainController {
         // Crear jugador Real
         Real player = new Real("Gonzalo", 23);
 
+ 
         // Iniciar pantalla de selección
+       
+        
         SelectionViewController selectionController = new SelectionViewController();
         jugadores = selectionController.initSelectionScreen(player, autoRepository, pilotoRepository);
         System.out.println("Jugadores seleccionados: " + jugadores);
-       
-
-        
         // Registrar un observador para iniciar la carrera cuando se complete la selección
         selectionController.addObserver(new SelectionViewController.SelectionObserver() {
             @Override
@@ -50,12 +51,13 @@ public class MainController {
                 RaceViewController raceController = new RaceViewController();
                 System.out.println("Iniciando la carrera con los siguientes jugadores: " + jugadores);
                 raceController.startRace(jugadores, circuito);
-
+                PitsViewController pitscontroller = new PitsViewController();
+                pitscontroller.PitsViewController(raceController.getRace(),player);
                 // Marcar la carrera como terminada
                 raceFinished = true;
             }
         });
-        
+      
         
     }
 }
