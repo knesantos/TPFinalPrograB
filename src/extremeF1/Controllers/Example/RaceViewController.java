@@ -8,7 +8,12 @@ import java.util.List;
 public class RaceViewController {
 	private Carrera carrera;
     public void startRace(List<Jugador> jugadores, Circuito circuito) {
-        carrera = new Carrera(null, 0, jugadores, circuito);
+
+        Carrera carrera = new Carrera(null, 0, jugadores, circuito);
+        for (Jugador jugador : jugadores) {
+            jugador.setCarreraActiva(carrera);
+        }
+
         System.out.println("Se corre la carrera");
         carrera.simularCarrera();
     }

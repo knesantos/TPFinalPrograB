@@ -6,6 +6,9 @@ public abstract class Jugador {
 	protected Piloto Piloto;
 	protected Auto Auto;
 	
+	protected Carrera carreraActiva;
+	
+	
 	public Jugador() {
 		
 	}
@@ -46,4 +49,12 @@ public abstract class Jugador {
 	public void setPiloto(Piloto piloto) {
 	    this.Piloto = piloto;
 	}
+
+	public void setCarreraActiva(Carrera carrera){
+        this.carreraActiva = carrera;
+    }
+	
+	public Carrera getCarreraActiva(){
+        return carreraActiva;
+    }
 }
