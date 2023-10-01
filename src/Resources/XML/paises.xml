@@ -57,6 +57,14 @@
     <nombreAbreviado>BHR</nombreAbreviado>
   </pais>
   <pais>
+    <nombre>China</nombre>
+    <nombreAbreviado>CHN</nombreAbreviado>
+  </pais>  
+  <pais>
+    <nombre>Nigeria</nombre>
+    <nombreAbreviado>NIG</nombreAbreviado>
+  </pais>
+  <pais>
     <nombre>Bélgica</nombre>
     <nombreAbreviado>BEL</nombreAbreviado>
   </pais>
@@ -80,4 +88,9 @@
     <nombre>Arabia Saudita</nombre>
     <nombreAbreviado>SAU</nombreAbreviado>
   </pais>
+  <pais>
+    <nombre>Alemania</nombre>
+    <nombreAbreviado>GER</nombreAbreviado>
+  </pais>
+
 </paises>
