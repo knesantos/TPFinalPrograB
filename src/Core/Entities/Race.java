@@ -8,19 +8,19 @@ import java.util.List;
 
 public class Race {
     
-    private Date fecha;
-    private Track track;
+    private Date date;
+    private Circuit circuit;
     private RaceCondition condition = new RaceCondition("Sunny", 20, 0);
     private int id;
     
     List<Player> players = new ArrayList<>();
     List<Double> playersTimes = new ArrayList<>();
 
-    public Race(Date date, int id, List<Player> players, Track track) {
+    public Race(Date date, int id, List<Player> players, Circuit circuit) {
         this.date = date;
         this.id = id;
         this.players = players;
-        this.track = track;
+        this.circuit = circuit;
     }
 
     public Date getDate() {
@@ -93,14 +93,14 @@ public class Race {
     }
     
     public void simulateRace() {
-        System.out.println("The race has started at " + track.getName());
+        System.out.println("The race has started at " + circuit.getName());
         raceInProgress = true;
         for (int i = 0; i < players.size(); i++) {
             playersTimes.add(0.0); // Initialize times
         }
 
         // Simular cada vuelta
-        for (int lap = 1; lap <= track.getLapCount() && raceInProgress; lap++) {
+        for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress; lap++) {
             System.out.println("Lap " + lap);
 
             for (int i = 0; i < players.size(); i++) {
@@ -108,7 +108,7 @@ public class Race {
                 Car car = player.getCar();
                 Driver driver = player.getDriver();
                 if (!car.isBroken()) {
-                    double lapTime = car.simulateLap(track, condition, driver);
+                    double lapTime = car.simulateLap(circuit, condition, driver);
                     playersTimes.set(i, playersTimes.get(i) + lapTime);
                 }
             }

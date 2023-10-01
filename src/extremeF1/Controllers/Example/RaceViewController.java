@@ -14,4 +14,6 @@ public class RaceViewController {
         System.out.println("Se corre la carrera");
         carrera.simularCarrera();
     }
+    
+    RaceView v1 = new RaceView();
 }
