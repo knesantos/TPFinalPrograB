@@ -57,12 +57,10 @@ public class MainController {
         // Pasar la instancia de RaceViewController al ChampionshipController
         championshipController.setRaceController(raceController);
         
-        // Registrar un observador para iniciar la carrera cuando se complete la selección
         selectionController.addObserver(new SelectionViewController.SelectionObserver() {
             @Override
             public void onSelectionComplete() {
-                // Aquí puedes disparar la controladora de carrera
-                championshipController.startNextRace();  // Esto iniciará la primera carrera
+                championshipController.onRaceStart();
             }
         });
     }

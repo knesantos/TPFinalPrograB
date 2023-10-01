@@ -46,6 +46,7 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
             System.out.println("Campeonato terminado");
             // Mostrar la vista de resultados finales del campeonato
         } else {
+            currentRaceIndex++;
             startNextRace();
         }
     }
@@ -54,14 +55,8 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
         if (currentRaceIndex < carreras.size()) {
         	System.out.println("startNextRace index: " + currentRaceIndex);
             Carrera nextRace = carreras.get(currentRaceIndex);
-            championship.setActiveCircuit(nextRace.getCircuito());
-
-            // Mostrar la vista PreRace
-            ReportsViewsController.PreRaceViewController preRaceController = 
-                    new ReportsViewsController.PreRaceViewController(nextRace);
-            preRaceController.addObserver(this);
-
-            currentRaceIndex++;
+            championship.setActiveCircuit(nextRace.getCircuito()); 
+            onRaceStart();
         } else {
             System.out.println("No hay más carreras en el campeonato");
         }

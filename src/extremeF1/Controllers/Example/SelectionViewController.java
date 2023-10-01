@@ -19,6 +19,8 @@ import java.util.List;
 public class SelectionViewController {
 	
 	private boolean isButtonAcceptSelectionPressed = false;
+	  private SelectionView v1;
+	
 	
 	public interface SelectionObserver {
         void onSelectionComplete();
@@ -35,7 +37,7 @@ public class SelectionViewController {
         List<Piloto> pilotos = pilotoRepository.getPilotos();
         List<Jugador> jugadores = new ArrayList<>();
 
-        SelectionView v1 = new SelectionView(pilotos, autos);
+        v1 = new SelectionView(pilotos, autos);
         
         v1.setAceptPilotListener(event -> {
             player.setPilot(event.getPiloto());
@@ -50,6 +52,7 @@ public class SelectionViewController {
         
         v1.setButtonAcceptSelectionListener((event) -> {
             setButtonPressed(true);
+            v1.dispose();
         });
         
         v1.setVisible(true);
