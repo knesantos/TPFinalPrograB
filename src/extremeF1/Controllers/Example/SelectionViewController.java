@@ -65,6 +65,7 @@ public class SelectionViewController {
                 jugadorSimulado.setPiloto(pilotos.get(i));
                 if (autoIndex < autos.size()) {
                     jugadorSimulado.setAuto(autos.get(autoIndex));
+                    autos.get(autoIndex).setJugador(jugadorSimulado);
                     autoIndex++;
                 }
                 
@@ -80,8 +81,7 @@ public class SelectionViewController {
 	
 	private void checkSelectionComplete() {
         if (isButtonAcceptSelectionPressed) {
-            if (observer != null) {
-            	
+            if (observer != null) {       	
                 observer.onSelectionComplete();
             }
         }

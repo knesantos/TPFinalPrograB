@@ -38,7 +38,7 @@ public class Auto implements Runnable {
 	}
 	
 	public Auto() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int getPerformanceSobrepaso() {
@@ -233,8 +233,20 @@ public class Auto implements Runnable {
 
 	@Override
 	public void run() {
-		
-		
+	    Jugador jugadorAsociado = getJugador() ;
+	    Circuito circuito = jugadorAsociado.getCarreraActiva().getCircuito();
+	    CondicionCarrera condicion =jugadorAsociado.getCarreraActiva().getCondicionCarrera();
+	    Piloto piloto = jugadorAsociado.getPiloto();
+
+	    if (!this.isEstaRoto()) {
+	        double tiempoVuelta = this.simularVuelta(circuito, condicion, piloto);
+	        
+	        synchronized (jugadorAsociado.getCarreraActiva().tiemposJugadores) {
+	            int index = jugadorAsociado.getCarreraActiva().jugadores.indexOf(jugadorAsociado);
+	            double tiempoActual = jugadorAsociado.getCarreraActiva().tiemposJugadores.get(index);
+	            jugadorAsociado.getCarreraActiva().tiemposJugadores.set(index, tiempoActual + tiempoVuelta);
+	        }
+	    }
 	}
 
 	public boolean isEstaRoto() {
@@ -243,6 +255,14 @@ public class Auto implements Runnable {
 
 	public void setEstaRoto(boolean estaRoto) {
 		this.estaRoto = estaRoto;
+	} 
+	
+	public Jugador getJugador () {
+		return jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
 	} 
 
 }
