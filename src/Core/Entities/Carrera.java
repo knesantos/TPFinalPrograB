@@ -96,18 +96,16 @@ public class Carrera {
         }
     }
     
-    private void mostrarResultados(){
-        // Implementa el código para mostrar los resultados finales aquí
-    }
-    
+  
 
     public void simularCarrera() {
         // Iniciar la carrera
         System.out.println("La carrera ha comenzado en " + circuito.getNombre());
         carreraEnProgreso = true;
         
-        for (Jugador jugador : jugadores) {
-            tiemposJugadores.put(jugador.getId(), 0.0);  // Inicializa tiempos
+        for (Jugador jugador : jugadores) { //Inicializa 
+            tiemposJugadores.put(jugador.getId(), 0.0);  
+            jugador.getAuto().setKilometrosRecorridos(0);
         }
 
         // Simular cada vuelta
@@ -134,10 +132,12 @@ public class Carrera {
             actualizaPosiciones();
             verificaCondiciones();
         }
-
         System.out.println("La carrera ha terminado!");
-        mostrarResultados();
     }
+
+	public void setCircuito(Circuito circuito) {
+		this.circuito =circuito;
+	}
 
 
 }
