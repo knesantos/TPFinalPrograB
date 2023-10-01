@@ -70,6 +70,7 @@ public class SelectionViewController {
                 }
                 
                 jugadorSimulado.setNombre("Jugador Simulado " + (i + 1));
+                jugadorSimulado.setId(i+1);
                 jugadores.add(jugadorSimulado);
             }
         }

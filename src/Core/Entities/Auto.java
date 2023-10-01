@@ -35,6 +35,7 @@ public class Auto implements Runnable {
 		this.neumatico = neumatico;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.vida =100;
 	}
 	
 	public Auto() {
@@ -212,7 +213,7 @@ public class Auto implements Runnable {
 	        peso -= consumo;
 	        	
 
-	        if (Math.random() < 0.6) { 
+	        if (Math.random() < 0.8) { 
 	              paradaEnPits();// ESTO DEBE SER UN EVENTO
 	            }
 	        verificarEstadoAuto();
@@ -263,6 +264,11 @@ public class Auto implements Runnable {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
+	}
+
+	public void setKilometrosRecorridos(int i) {
+		this.kilometrosRecorridos = i;
+		
 	} 
 
 }

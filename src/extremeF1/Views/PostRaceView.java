@@ -6,18 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Core.Entities.Carrera;
+import Core.Entities.Championship;
 import Core.Entities.Jugador;
 import Core.Entities.Piloto;
 
 public class PostRaceView extends JFrame {
     private Carrera carrera;
+    private Championship championship;
     Map<Integer, Double> playersTimes = new HashMap<>();
     private JButton btnContinuar;
     
-    public PostRaceView(Carrera carrera) {
+    public PostRaceView(Carrera carrera,Championship championship) {
         this.carrera = carrera;
         playersTimes = carrera.getTimes();
-        
+        this.championship=championship;
         // Configuración de la ventana
         setTitle("Resultados de la Carrera");
         setSize(800, 600);
@@ -52,6 +54,7 @@ public class PostRaceView extends JFrame {
             sb.append("Piloto: ").append(player.getPiloto().getnombre()).append("\n");
             sb.append("Posición: ").append(++i).append("\n");
             sb.append("Tiempo: ").append(playersTimes.get(player.getId())).append(" segundos\n");
+            sb.append("Recorrido: ").append(player.getAuto().getKilometrosRecorridos()).append(" Km");
             sb.append("------------------------\n");
         }
         txtInfo.setText(sb.toString());

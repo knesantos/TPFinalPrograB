@@ -10,16 +10,16 @@ import Repository.PilotoRepository;
 
 public class MainController {
 
-    // Variable de instancia para saber si la carrera ha terminado
-    private boolean raceFinished = false;
-    private List<Jugador> jugadores = new ArrayList<>();
-
+ 
+    private List<Jugador> players = new ArrayList<>();
+    private List<Carrera> races = new ArrayList<>();
+    
     public static void main(String[] args) {
         new MainController().run();
     }
 
     public void run() {
-   
+    	   
         // Crear instancias de los repositorios
         AutoRepository autoRepository = new AutoRepository();
         CircuitoRepository circuitoRepository = new CircuitoRepository();
@@ -34,30 +34,36 @@ public class MainController {
 
         // Crear jugador Real
         Real player = new Real("Gonzalo", 23);
-
- 
-        // Iniciar pantalla de selección
-       
         
+        // Iniciar pantalla de selección
         SelectionViewController selectionController = new SelectionViewController();
-        jugadores = selectionController.initSelectionScreen(player, autoRepository, pilotoRepository);
-        System.out.println("Jugadores seleccionados: " + jugadores);
+        players = selectionController.initSelectionScreen(player, autoRepository, pilotoRepository);
+        System.out.println("Jugadores seleccionados: " + players);
+
+        // Crear carreras basadas en circuitos disponibles
+        int i=0;
+        for (Circuito circuito : circuitoRepository.getCircuitos()) {
+            Carrera carrera = new Carrera(null,++i,players,circuito); 
+            races.add(carrera);
+        }
+
+     // Iniciar el ChampionshipController
+        ChampionshipController championshipController = new ChampionshipController(races, players);
+
+        // Iniciar el RaceViewController
+        RaceViewController raceController = new RaceViewController();
+        raceController.addRaceEndObserver(() -> championshipController.onRaceEnd());
+
+        // Pasar la instancia de RaceViewController al ChampionshipController
+        championshipController.setRaceController(raceController);
+        
         // Registrar un observador para iniciar la carrera cuando se complete la selección
         selectionController.addObserver(new SelectionViewController.SelectionObserver() {
             @Override
             public void onSelectionComplete() {
                 // Aquí puedes disparar la controladora de carrera
-            	Circuito circuito = circuitoRepository.getCircuitos().get(0);
-                RaceViewController raceController = new RaceViewController();
-                System.out.println("Iniciando la carrera con los siguientes jugadores: " + jugadores);
-                raceController.startRace(jugadores, circuito);
-                PitsViewController pitscontroller = new PitsViewController();
-                pitscontroller.PitsViewController(raceController.getRace(),player);
-                // Marcar la carrera como terminada
-                raceFinished = true;
+                championshipController.startNextRace();  // Esto iniciará la primera carrera
             }
         });
-      
-        
     }
 }
