@@ -1,12 +1,28 @@
 package Core.Entities;
 
+
 public class Real extends Jugador {
+	
 
 	public Real(String nombre, int id) {
 		super(nombre, id);
 		
 	}
 
-	
+	public void setPilot(Piloto piloto) {
+		this.Piloto = piloto;
+	}
 
+	public Piloto getPilot() {
+		return Piloto;
+	}
+	public void setAuto(Auto Auto) {
+		this.Auto = Auto;
+	}
+
+	public Auto getAuto() {
+		return Auto;
+	}
+	
+	
 }

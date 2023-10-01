@@ -2,7 +2,7 @@
 <circuitos>
   <circuito>
     <cantVueltas>52</cantVueltas>
-    <infografia>https://example.com/infografia1</infografia>
+    <infografia>silverstone.jpg</infografia>
     <longitud>5800</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>18</cantCurvas>
@@ -12,7 +12,7 @@
   </circuito>
   <circuito>
     <cantVueltas>72</cantVueltas>
-    <infografia>https://example.com/infografia2</infografia>
+    <infografia>zandvoort.jpg</infografia>
     <longitud>4200</longitud>
     <cantZonasSobrepaso>4</cantZonasSobrepaso>
     <cantCurvas>14</cantCurvas>
@@ -22,7 +22,7 @@
   </circuito>
   <circuito>
     <cantVueltas>53</cantVueltas>
-    <infografia>https://example.com/infografia3</infografia>
+    <infografia>monza.jpg</infografia>
     <longitud>5300</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>17</cantCurvas>
@@ -32,7 +32,7 @@
   </circuito>
   <circuito>
     <cantVueltas>60</cantVueltas>
-    <infografia>https://example.com/infografia4</infografia>
+    <infografia>monaco.png</infografia>
     <longitud>4400</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>15</cantCurvas>
@@ -42,7 +42,7 @@
   </circuito>
   <circuito>
     <cantVueltas>71</cantVueltas>
-    <infografia>https://example.com/infografia5</infografia>
+    <infografia>marinabay.jpg</infografia>
     <longitud>5300</longitud>
     <cantZonasSobrepaso>4</cantZonasSobrepaso>
     <cantCurvas>15</cantCurvas>
@@ -52,7 +52,7 @@
   </circuito>
   <circuito>
     <cantVueltas>71</cantVueltas>
-    <infografia>https://example.com/infografia6</infografia>
+    <infografia>sochi.png</infografia>
     <longitud>4200</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>16</cantCurvas>
@@ -62,7 +62,7 @@
   </circuito>
   <circuito>
     <cantVueltas>56</cantVueltas>
-    <infografia>https://example.com/infografia7</infografia>
+    <infografia>redbullring.png</infografia>
     <longitud>4900</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>13</cantCurvas>
@@ -71,18 +71,8 @@
     <nombre>Red Bull Ring</nombre>
   </circuito>
   <circuito>
-    <cantVueltas>61</cantVueltas>
-    <infografia>https://example.com/infografia8</infografia>
-    <longitud>5300</longitud>
-    <cantZonasSobrepaso>4</cantZonasSobrepaso>
-    <cantCurvas>18</cantCurvas>
-    <recordVueltaRapida>96000</recordVueltaRapida>
-    <pais>SIN</pais>
-    <nombre>Marina Bay Street Circuit</nombre>
-  </circuito>
-  <circuito>
     <cantVueltas>67</cantVueltas>
-    <infografia>https://example.com/infografia9</infografia>
+    <infografia>hermanosrodriguez.png</infografia>
     <longitud>5900</longitud>
     <cantZonasSobrepaso>3</cantZonasSobrepaso>
     <cantCurvas>19</cantCurvas>
@@ -92,7 +82,7 @@
   </circuito>
   <circuito>
     <cantVueltas>54</cantVueltas>
-    <infografia>https://example.com/infografia10</infografia>
+    <infografia>americas.png</infografia>
     <longitud>4600</longitud>
     <cantZonasSobrepaso>2</cantZonasSobrepaso>
     <cantCurvas>14</cantCurvas>

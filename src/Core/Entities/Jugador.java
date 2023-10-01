@@ -3,25 +3,58 @@ package Core.Entities;
 public abstract class Jugador {
 	private String nombre;
 	private int id;
+	protected Piloto Piloto;
+	protected Auto Auto;
+	
+	protected Carrera carreraActiva;
+	
+	
+	public Jugador() {
+		
+	}
 	
 	public Jugador(String nombre, int id) {
 		this.nombre = nombre;
 		this.id = id;
 	}
 
-	public String getnombre () {
+	public String getNombre () {
 		return nombre;
 	}
 	
-	public int getid () {
+	public int getId () {
 		return id;
 	}
 	
-	public void setnombre(String nombre) {
+	public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 	
-	public void setid(int id) {
+	public void setId(int id) {
 	    this.id = id;
 	}
+	
+	public Auto getAuto () {
+		return Auto;
+	}
+	
+	public Piloto getPiloto () {
+		return Piloto;
+	}
+	
+	public void setAuto(Auto auto) {
+        this.Auto = auto;
+    }
+	
+	public void setPiloto(Piloto piloto) {
+	    this.Piloto = piloto;
+	}
+
+	public void setCarreraActiva(Carrera carrera){
+        this.carreraActiva = carrera;
+    }
+	
+	public Carrera getCarreraActiva(){
+        return carreraActiva;
+    }
 }

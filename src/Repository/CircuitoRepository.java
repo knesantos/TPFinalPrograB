@@ -21,7 +21,7 @@ public class CircuitoRepository {
     }
 
     public void loadCircuitosFromXML() {
-    	String circuitosXMLPath = "C:\\Users\\santi\\OneDrive\\Documentos\\Santi\\Progra B\\TrabajoPrograB\\TPFinalPrograB\\src\\Resources\\XML\\circuitos.xml";
+    	String circuitosXMLPath = "src\\Resources\\XML\\circuitos.xml";
         
         try {
             File file = new File(circuitosXMLPath);
