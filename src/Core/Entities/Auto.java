@@ -235,16 +235,16 @@ public class Auto implements Runnable {
 	public void run() {
 	    Jugador jugadorAsociado = getJugador() ;
 	    Circuito circuito = jugadorAsociado.getCarreraActiva().getCircuito();
-	    CondicionCarrera condicion =jugadorAsociado.getCarreraActiva().getCondicionCarrera();
+	    CondicionCarrera condicion =jugadorAsociado.getCarreraActiva().getRaceCondition();
 	    Piloto piloto = jugadorAsociado.getPiloto();
 
 	    if (!this.isEstaRoto()) {
 	        double tiempoVuelta = this.simularVuelta(circuito, condicion, piloto);
 	        
 	        synchronized (jugadorAsociado.getCarreraActiva().tiemposJugadores) {
-	            int index = jugadorAsociado.getCarreraActiva().jugadores.indexOf(jugadorAsociado);
-	            double tiempoActual = jugadorAsociado.getCarreraActiva().tiemposJugadores.get(index);
-	            jugadorAsociado.getCarreraActiva().tiemposJugadores.set(index, tiempoActual + tiempoVuelta);
+	            int jugadorId = jugadorAsociado.getId(); 
+	            double tiempoActual = jugadorAsociado.getCarreraActiva().tiemposJugadores.getOrDefault(jugadorId, 0.0);
+	            jugadorAsociado.getCarreraActiva().tiemposJugadores.put(jugadorId, tiempoActual + tiempoVuelta);
 	        }
 	    }
 	}

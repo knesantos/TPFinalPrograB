@@ -46,6 +46,10 @@ public class Carrera {
     	return tiemposJugadores;
     }
     
+    public CondicionCarrera getRaceCondition() {
+    	return condicion;
+    }
+    
     
     public boolean carreraEnProgreso;
     

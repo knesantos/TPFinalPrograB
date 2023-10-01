@@ -3,6 +3,7 @@ package extremeF1.Controllers.Example;
 
 import Core.Entities.Carrera;
 import Core.Entities.Jugador;
+import extremeF1.Views.PostRaceView;
 import extremeF1.Views.PreRaceView;
 
 import java.awt.event.ActionEvent;
@@ -57,4 +58,47 @@ public class ReportsViewsController {
 	    }
 	}
 	
+	
+	public class PostRaceViewController {
+
+        private Carrera carrera;
+        private PostRaceView postRaceView;
+
+        public interface PostRaceObserver {
+            void onRaceEnd();
+        }
+
+        private PostRaceObserver observer;
+
+        public void addObserver(PostRaceObserver observer) {
+            this.observer = observer;
+        }
+
+        public PostRaceViewController(Carrera carrera) {
+            this.carrera = carrera;
+            initPostRaceView();
+        }
+
+        private void initPostRaceView() {
+            postRaceView = new PostRaceView(carrera);
+
+            // Manejar el evento del botón "Continuar"
+            postRaceView.getBtnContinuar().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    handleContinueButton();
+                }
+            });
+
+            postRaceView.setVisible(true);
+        }
+        private void handleContinueButton() {
+            // Aquí puedes poner el código para continuar después de la carrera
+            if (observer != null) {
+                observer.onRaceEnd();
+            }
+            postRaceView.dispose();
+        }
+    }
 }
+	

@@ -17,30 +17,37 @@ public class PostRaceView extends JFrame {
     public PostRaceView(Carrera carrera) {
         this.carrera = carrera;
         playersTimes = carrera.getTimes();
+        
         // Configuración de la ventana
         setTitle("Resultados de la Carrera");
-        setSize(600, 400);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(new Color(44, 62, 80)); // Fondo oscuro
 
         // Panel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        panel.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         add(panel);
 
         // Título de la carrera
         JLabel lblCarrera = new JLabel("Carrera: " + carrera.getCircuito().getNombre());
-        lblCarrera.setFont(new Font("Arial", Font.BOLD, 24));
+        lblCarrera.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+        lblCarrera.setForeground(new Color(236, 240, 241)); // Texto claro
         lblCarrera.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblCarrera, BorderLayout.NORTH);
 
         // Lista de pilotos, posiciones y tiempos
         JTextArea txtInfo = new JTextArea();
         txtInfo.setEditable(false);
+        txtInfo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+        txtInfo.setForeground(new Color(236, 240, 241)); // Texto claro
+        txtInfo.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         StringBuilder sb = new StringBuilder();
         sb.append("Resultados de la Carrera:\n");
         sb.append("=========================\n");
-        int i =0;
+        int i = 0;
         for (Jugador player : carrera.getPlayers()) {
             sb.append("Piloto: ").append(player.getPiloto().getnombre()).append("\n");
             sb.append("Posición: ").append(++i).append("\n");
@@ -52,6 +59,9 @@ public class PostRaceView extends JFrame {
 
         // Botón para continuar
         btnContinuar = new JButton("Continuar");
+        btnContinuar.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
+        btnContinuar.setBackground(new Color(39, 174, 96)); // Botón verde
+        btnContinuar.setForeground(new Color(236, 240, 241)); // Texto claro
         btnContinuar.addActionListener(e -> {
             // Este código se manejará en el controlador
         });
