@@ -1,9 +1,9 @@
 package Core.Interfaces;
 
-import Core.Entities.Auto;
-import Core.Entities.Piloto;
+import Core.Entities.Car;
+import Core.Entities.Driver;
 
 public interface SelectionObserver {
-    void onSelectionComplete(Piloto selectedPilot, Auto selectedCar);
+    void onSelectionComplete(Driver selectedPilot, Car selectedCar);
     void onButtonPress(boolean isPressed);
 }

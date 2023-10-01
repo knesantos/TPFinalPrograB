@@ -1,18 +1,18 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Carrera;
-import Core.Entities.Circuito;
-import Core.Entities.Neumatico;
+import Core.Entities.Race;
+import Core.Entities.Circuit;
+import Core.Entities.Tire;
 import Core.Entities.Real;
 import extremeF1.Views.PitsView;
 
 public class PitsViewController {
-	private Carrera career;
+	private Race race;
 	private Real player;
-	public void PitsViewController (Carrera Career,Real Player) {
-		 career = Career;
+	public void PitsViewController (Race race,Real Player) {
+		 race = race;
 		 player = Player;
-		PitsView v1 = new PitsView(career, player);
+		PitsView v1 = new PitsView(race, player);
 		v1.setVisible(true);
 		
 	}

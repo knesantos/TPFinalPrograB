@@ -1,9 +1,9 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Championship;
-import Core.Entities.Circuito;
-import Core.Entities.Jugador;
+import Core.Entities.Circuit;
+import Core.Entities.Player;
 import extremeF1.Controllers.Example.ReportsViewsController.PostRaceViewController;
 import extremeF1.Controllers.Example.ReportsViewsController.PreRaceViewController;
 import extremeF1.Views.PostRaceView;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RaceViewController {
-    private Carrera carrera;
+    private Race Race;
     private Championship championship;
     private PreRaceViewController preRaceController;
     private PostRaceViewController postRaceController;
@@ -24,33 +24,30 @@ public class RaceViewController {
         raceEndObservers.add(observer);
     }
     
-    public  RaceViewController(Carrera race,Championship championship){
-    	this.carrera=race;
+    public  RaceViewController(Race race,Championship championship){
+    	this.Race=race;
     	this.championship=championship;
     }
     public  RaceViewController(){
     }
     
-    public void startRace(List<Jugador> jugadores, Circuito circuito) {
-        carrera = new Carrera(null, 0, jugadores, circuito);
+    public void startRace(List<Player> Players, Circuit Circuit) {
+        Race = new Race(null, 0, Players, Circuit);
         
         
         
-        for(Jugador player:jugadores )
-        	player.setCarreraActiva(carrera);
-        preRaceController = new PreRaceViewController(carrera);
+        for(Player player:Players )
+        	player.setActiveRace(Race);
+        preRaceController = new PreRaceViewController(Race);
         preRaceController.addObserver(() -> {
             runRace();
         });
     }
 
     public void runRace() {
-        System.out.println("Se corre la carrera");
-        carrera.simularCarrera();
-        
-        
-        
-        postRaceController = new PostRaceViewController(carrera,championship);
+        System.out.println("Se corre la Race");
+        Race.simulateRace();
+        postRaceController = new PostRaceViewController(Race,championship);
         postRaceController.addObserver(() -> {
             for (Runnable observer : raceEndObservers) {
                 observer.run();
@@ -58,8 +55,8 @@ public class RaceViewController {
         });
     }
 
-    public Carrera getRace() {
-        return carrera;
+    public Race getRace() {
+        return Race;
     }
 
 

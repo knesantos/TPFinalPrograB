@@ -1,15 +1,15 @@
 package Core.Entities.Events;
 
-import Core.Entities.Auto;
+import Core.Entities.Car;
 
 public class AceptCarEvent {
-	private Auto Auto;
+	private Car car;
 	
-	public AceptCarEvent(Auto auto) {
-		this.Auto = auto;
+	public AceptCarEvent(Car auto) {
+		this.car = auto;
 	}
 	
-	public Auto getAuto() {
-		return  Auto;
+	public Car getCar() {
+		return  car;
 	}
 }

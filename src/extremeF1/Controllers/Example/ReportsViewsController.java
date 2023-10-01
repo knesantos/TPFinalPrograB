@@ -1,8 +1,8 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Championship;
-import Core.Entities.Jugador;
+import Core.Entities.Player;
 import extremeF1.Views.PostRaceView;
 import extremeF1.Views.PreRaceView;
 
@@ -22,7 +22,7 @@ public class ReportsViewsController {
 
     public static class PreRaceViewController {
 
-        private Carrera carrera;
+        private Race Race;
         private PreRaceView preRaceView;
         private PreRaceObserver observer;
 
@@ -30,13 +30,13 @@ public class ReportsViewsController {
             this.observer = observer;
         }
 
-        public PreRaceViewController(Carrera carrera) {
-            this.carrera = carrera;
+        public PreRaceViewController(Race Race) {
+            this.Race = Race;
             initPreRaceView();
         }
 
         private void initPreRaceView() {
-            preRaceView = new PreRaceView(carrera);
+            preRaceView = new PreRaceView(Race);
             preRaceView.getBtnContinuar().addActionListener(e -> handleContinueButton());
             preRaceView.setVisible(true);
         }
@@ -51,7 +51,7 @@ public class ReportsViewsController {
 
     public static class PostRaceViewController {
 
-        private Carrera carrera;
+        private Race Race;
         private Championship championship;
         private PostRaceView postRaceView;
         private PostRaceObserver observer;
@@ -60,13 +60,13 @@ public class ReportsViewsController {
             this.observer = observer;
         }
 
-        public PostRaceViewController(Carrera carrera,Championship championship) {
-            this.carrera = carrera;
+        public PostRaceViewController(Race Race,Championship championship) {
+            this.Race = Race;
             initPostRaceView();
         }
 
         private void initPostRaceView() {
-            postRaceView = new PostRaceView(carrera,championship);
+            postRaceView = new PostRaceView(Race,championship);
             postRaceView.getBtnContinuar().addActionListener(e -> handleContinueButton());
             postRaceView.setVisible(true);
         }

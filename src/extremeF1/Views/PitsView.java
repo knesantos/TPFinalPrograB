@@ -1,7 +1,7 @@
 package extremeF1.Views;
 
 import java.awt.Color;
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Real;
 
 import java.awt.Font;
@@ -16,11 +16,11 @@ public class PitsView extends JFrame{
 	private JButton BtmChangeTires,BtmLoadFuel,BtmRepairEngine;
 	private JLabel namerace,nameplayer,tirewear,carcondition,fuel,positionts;
 	private Font font;
-	private Carrera Career;
+	private Race Race;
 	private Real Player;
 
-	public PitsView (Carrera career, Real player) {
-		Career = career;
+	public PitsView (Race Race, Real player) {
+		Race = Race;
 		Player = player;
 		setSize(1500, 500);
 		setTitle("ExtremeF1");
@@ -37,7 +37,7 @@ public class PitsView extends JFrame{
 		
 		namerace = new JLabel();
 		namerace.setBounds(0, 50, 600,100);
-		namerace.setText(Career.getCircuito().getNombre());
+		namerace.setText(Race.getCircuit().getName());
 		namerace.setBackground(Color.white);
 		namerace.setOpaque(true);
 		namerace.setFont(font);
@@ -47,7 +47,7 @@ public class PitsView extends JFrame{
 		
 		nameplayer = new JLabel();
 		nameplayer.setBounds(0, 150, 600,100);
-		nameplayer.setText("Jugador: "+ Player.getNombre());
+		nameplayer.setText("Jugador: "+ Player.getName());
 		nameplayer.setBackground(Color.white);
 		nameplayer.setOpaque(true);
 		nameplayer.setFont(new Font("Arial",Font.BOLD,30));
@@ -59,7 +59,7 @@ public class PitsView extends JFrame{
 		
 		tirewear = new JLabel();
 		tirewear.setBounds(0, 300, 400,100);
-		tirewear.setText("Desgaste de Neumaticos: "+ player.getAuto().getNeumatico().getDesgaste());
+		tirewear.setText("Desgaste de Tires: "+ player.getCar().getTire().getWear());
 		tirewear.setBackground(Color.white);
 		tirewear.setOpaque(true);
 		tirewear.setFont(new Font("Arial",Font.BOLD,25));
@@ -69,7 +69,7 @@ public class PitsView extends JFrame{
 		
 		carcondition = new JLabel();
 		carcondition.setBounds(0, 400, 400,100);
-		carcondition.setText("Condicion motor: "+ player.getAuto().getVida());
+		carcondition.setText("Condicion motor: "+ player.getCar().gethealth());
 		carcondition.setBackground(Color.white);
 		carcondition.setOpaque(true);
 		carcondition.setFont(new Font("Arial",Font.BOLD,25));
@@ -80,7 +80,7 @@ public class PitsView extends JFrame{
 		
 		fuel = new JLabel();
 		fuel.setBounds(0, 500, 400,100);
-		fuel.setText("Combustible: "+ player.getAuto().getCombustible());
+		fuel.setText("Fuel: "+ player.getCar().getFuel());
 		fuel.setBackground(Color.white);
 		fuel.setOpaque(true);
 		fuel.setFont(new Font("Arial",Font.BOLD,25));
@@ -101,7 +101,7 @@ public class PitsView extends JFrame{
 		
 		BtmChangeTires = new JButton();
 		BtmChangeTires.setBounds(500, 300, 400, 100);
-		BtmChangeTires.setText("Cambiar Neumaticos");
+		BtmChangeTires.setText("Cambiar Tires");
 		BtmChangeTires.setFont(new Font("Arial",Font.BOLD,20));
 		BtmChangeTires.setHorizontalAlignment(JLabel.CENTER);
 		BtmChangeTires.setVerticalAlignment(JLabel.CENTER);
@@ -117,7 +117,7 @@ public class PitsView extends JFrame{
 		
 		BtmLoadFuel = new JButton();
 		BtmLoadFuel.setBounds(500, 500, 400, 100);
-		BtmLoadFuel.setText("Cargar combustible");
+		BtmLoadFuel.setText("Cargar Fuel");
 		BtmLoadFuel.setFont(new Font("Arial",Font.BOLD,20));
 		BtmLoadFuel.setHorizontalAlignment(JLabel.CENTER);
 		BtmLoadFuel.setVerticalAlignment(JLabel.CENTER);

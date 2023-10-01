@@ -8,44 +8,44 @@ import java.util.Map;
 public class Championship {
 
     private int remainingRaces;
-    private Map<Integer, Integer> playerPoints; 
-    private List<Circuito> circuits = new ArrayList<>();
-    private List<Jugador> players = new ArrayList<>();
-    private Circuito ActiveCircuit;
-    public Championship(int totalRaces, List<Jugador> players) {
+    private Map<Integer, Integer> playerPoints;
+    private List<Circuit> circuits = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+    private Circuit activeCircuit;
+
+    public Championship(int totalRaces, List<Player> players) {
         this.remainingRaces = totalRaces;
         this.playerPoints = new HashMap<>();
-        this.players=players;
-        for (Jugador player : players) {
+        this.players = players;
+        for (Player player : players) {
             playerPoints.put(player.getId(), 0);
         }
     }
-    
-    public List<Circuito> getCircuits() {
-		return circuits;
-	}
 
-	public void setCircuits(List<Circuito> circuits) {
-		this.circuits = circuits;
-	}
+    public List<Circuit> getCircuits() {
+        return circuits;
+    }
 
-	public List<Jugador> getPlayers() {
-		return players;
-	}
+    public void setCircuits(List<Circuit> circuits) {
+        this.circuits = circuits;
+    }
 
-	public void setPlayers(List<Jugador> players) {
-		this.players = players;
-	}
+    public List<Player> getPlayers() {
+        return players;
+    }
 
-	public Circuito getActiveCircuit() {
-		return ActiveCircuit;
-	}
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 
-	public void setActiveCircuit(Circuito activeCircuit) {
-		ActiveCircuit = activeCircuit;
-	}
-    
-	
+    public Circuit getActiveCircuit() {
+        return activeCircuit;
+    }
+
+    public void setActiveCircuit(Circuit activeCircuit) {
+        this.activeCircuit = activeCircuit;
+    }
+
     public int getRemainingRaces() {
         return remainingRaces;
     }
@@ -77,27 +77,22 @@ public class Championship {
         return playerPoints.getOrDefault(playerId, 0);
     }
 
-    public void resetChampionship(List<Jugador> players) {
+    public void resetChampionship(List<Player> players) {
         remainingRaces = 0;
         playerPoints.clear();
 
-        for (Jugador player : players) {
+        for (Player player : players) {
             playerPoints.put(player.getId(), 0);
         }
     }
-    
-    public void updatePointsBasedOnPosition(List<Jugador> jugadores) {
-        int totalPlayers = jugadores.size();
+
+    public void updatePointsBasedOnPosition(List<Player> players) {
+        int totalPlayers = players.size();
         for (int i = 0; i < totalPlayers; i++) {
-            Jugador jugador = jugadores.get(i);
-            int position = i + 1;  // La posición comienza desde 1
-            int points = totalPlayers - position + 1;  // Calcula los puntos basados en la posición
-            addPoints(jugador.getId(), points);
+            Player player = players.get(i);
+            int position = i + 1;  // Position starts from 1
+            int points = totalPlayers - position + 1;  // Calculate points based on position
+            addPoints(player.getId(), points);
         }
     }
-
-	
-
-	
-    
 }

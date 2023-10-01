@@ -11,19 +11,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import Core.Entities.Auto;
+import Core.Entities.Car;
 import Core.Entities.Medium;
-import Core.Entities.Neumatico;
+import Core.Entities.Tire;
 
-public class AutoRepository {
-    private List<Auto> autos;
+public class CarRepository {
+    private List<Car> Cars;
 
-    public AutoRepository() {
-        this.autos = new ArrayList<>();
-        loadAutosFromXML();
+    public CarRepository() {
+        this.Cars = new ArrayList<>();
+        loadCarsFromXML();
     }
 
-    public void loadAutosFromXML() {
+    public void loadCarsFromXML() {
         String filePath = "src\\Resources\\XML\\autos.xml";
 
         try {
@@ -50,17 +50,17 @@ public class AutoRepository {
                 String marca = element.getElementsByTagName("marca").item(0).getTextContent();
                 String modelo = element.getElementsByTagName("modelo").item(0).getTextContent();
 
-                Neumatico neumatico = new Medium(0, 0, 0, 0, 0);
+                Tire Tire = new Medium(0, 0, 0, 0, 0);
 
-                Auto auto = new Auto(performanceSobrepaso, performanceCurvas, peso, fiabilidad, velocidadMax, aceleracion, potencia, consumo, neumatico, marca, modelo);
-                autos.add(auto);
+                Car Car = new Car(performanceSobrepaso, performanceCurvas, peso, fiabilidad, velocidadMax, aceleracion, potencia, consumo, Tire, marca, modelo);
+                Cars.add(Car);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<Auto> getAutos() {
-        return autos;
+    public List<Car> getCars() {
+        return Cars;
     }
 }

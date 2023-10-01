@@ -3,16 +3,16 @@ package extremeF1.Controllers.Example;
 import java.util.ArrayList;
 import java.util.List;
 import Core.Entities.*;
-import Repository.AutoRepository;
-import Repository.CircuitoRepository;
-import Repository.PaisRepository;
-import Repository.PilotoRepository;
+import Repository.CarRepository;
+import Repository.CircuitRepository;
+import Repository.CountryRepository;
+import Repository.DriverRepository;
 
 public class MainController {
 
  
-    private List<Jugador> players = new ArrayList<>();
-    private List<Carrera> races = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+    private List<Race> races = new ArrayList<>();
     
     public static void main(String[] args) {
         new MainController().run();
@@ -21,30 +21,30 @@ public class MainController {
     public void run() {
     	   
         // Crear instancias de los repositorios
-        AutoRepository autoRepository = new AutoRepository();
-        CircuitoRepository circuitoRepository = new CircuitoRepository();
-        PaisRepository paisRepository = new PaisRepository();
-        PilotoRepository pilotoRepository = new PilotoRepository();
+        CarRepository CarRepository = new CarRepository();
+        CircuitRepository CircuitRepository = new CircuitRepository();
+        CountryRepository CountryRepository = new CountryRepository();
+        DriverRepository DriverRepository = new DriverRepository();
 
         // Cargar datos desde XML
-        autoRepository.loadAutosFromXML();
-        circuitoRepository.loadCircuitosFromXML();
-        paisRepository.loadPaisesFromXML();
-        pilotoRepository.loadPilotosFromXML();
+        CarRepository.loadCarsFromXML();
+        CircuitRepository.loadCircuitsFromXML();
+        CountryRepository.loadContriesFromXML();
+        DriverRepository.loadDriversFromXML();
 
-        // Crear jugador Real
+        // Crear Player Real
         Real player = new Real("Gonzalo", 23);
         
         // Iniciar pantalla de selección
         SelectionViewController selectionController = new SelectionViewController();
-        players = selectionController.initSelectionScreen(player, autoRepository, pilotoRepository);
-        System.out.println("Jugadores seleccionados: " + players);
+        players = selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
+        System.out.println("Playeres seleccionados: " + players);
 
-        // Crear carreras basadas en circuitos disponibles
+        // Crear Races basadas en Circuits disponibles
         int i=0;
-        for (Circuito circuito : circuitoRepository.getCircuitos()) {
-            Carrera carrera = new Carrera(null,++i,players,circuito); 
-            races.add(carrera);
+        for (Circuit Circuit : CircuitRepository.getCircuits()) {
+            Race Race = new Race(null,++i,players,Circuit); 
+            races.add(Race);
         }
 
      // Iniciar el ChampionshipController

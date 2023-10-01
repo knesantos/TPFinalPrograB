@@ -5,23 +5,23 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Championship;
-import Core.Entities.Jugador;
-import Core.Entities.Piloto;
+import Core.Entities.Player;
+import Core.Entities.Driver;
 
 public class PostRaceView extends JFrame {
-    private Carrera carrera;
+    private Race Race;
     private Championship championship;
     Map<Integer, Double> playersTimes = new HashMap<>();
     private JButton btnContinuar;
     
-    public PostRaceView(Carrera carrera,Championship championship) {
-        this.carrera = carrera;
-        playersTimes = carrera.getTimes();
+    public PostRaceView(Race Race,Championship championship) {
+        this.Race = Race;
+        playersTimes = Race.getTimes();
         this.championship=championship;
         // Configuración de la ventana
-        setTitle("Resultados de la Carrera");
+        setTitle("Resultados de la Race");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,28 +33,28 @@ public class PostRaceView extends JFrame {
         panel.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         add(panel);
 
-        // Título de la carrera
-        JLabel lblCarrera = new JLabel("Carrera: " + carrera.getCircuito().getNombre());
-        lblCarrera.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
-        lblCarrera.setForeground(new Color(236, 240, 241)); // Texto claro
-        lblCarrera.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(lblCarrera, BorderLayout.NORTH);
+        // Título de la Race
+        JLabel lblRace = new JLabel("Race: " + Race.getCircuit().getName());
+        lblRace.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+        lblRace.setForeground(new Color(236, 240, 241)); // Texto claro
+        lblRace.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(lblRace, BorderLayout.NORTH);
 
-        // Lista de pilotos, posiciones y tiempos
+        // Lista de Drivers, posiciones y tiempos
         JTextArea txtInfo = new JTextArea();
         txtInfo.setEditable(false);
         txtInfo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
         txtInfo.setForeground(new Color(236, 240, 241)); // Texto claro
         txtInfo.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         StringBuilder sb = new StringBuilder();
-        sb.append("Resultados de la Carrera:\n");
+        sb.append("Resultados de la Race:\n");
         sb.append("=========================\n");
         int i = 0;
-        for (Jugador player : carrera.getPlayers()) {
-            sb.append("Piloto: ").append(player.getPiloto().getnombre()).append("\n");
+        for (Player player : Race.getPlayers()) {
+            sb.append("Driver: ").append(player.getDriver().getName()).append("\n");
             sb.append("Posición: ").append(++i).append("\n");
             sb.append("Tiempo: ").append(playersTimes.get(player.getId())).append(" segundos\n");
-            sb.append("Recorrido: ").append(player.getAuto().getKilometrosRecorridos()).append(" Km");
+            sb.append("Recorrido: ").append(player.getCar().getKilometersDriven()).append(" Km");
             sb.append("------------------------\n");
         }
         txtInfo.setText(sb.toString());

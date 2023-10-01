@@ -2,20 +2,20 @@ package extremeF1.Views;
 
 import javax.swing.*;
 import java.awt.*;
-import Core.Entities.Carrera;
-import Core.Entities.Jugador;
-import Core.Entities.Piloto;
+import Core.Entities.Race;
+import Core.Entities.Player;
+import Core.Entities.Driver;
 
 public class PreRaceView extends JFrame {
-    private Carrera carrera;
+    private Race Race;
     
     private JButton btnContinuar;
     
-    public PreRaceView(Carrera carrera) {
-        this.carrera = carrera;
+    public PreRaceView(Race Race) {
+        this.Race = Race;
 
         // Configuración de la ventana
-        setTitle("Previa a la Carrera");
+        setTitle("Previa a la Race");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,26 +27,26 @@ public class PreRaceView extends JFrame {
         panel.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         add(panel);
 
-        // Título de la carrera
-        JLabel lblCarrera = new JLabel("Carrera: " + carrera.getCircuito().getNombre());
-        lblCarrera.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
-        lblCarrera.setForeground(new Color(236, 240, 241)); // Texto claro
-        lblCarrera.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(lblCarrera, BorderLayout.NORTH);
+        // Título de la Race
+        JLabel lblRace = new JLabel("Race: " + Race.getCircuit().getName());
+        lblRace.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+        lblRace.setForeground(new Color(236, 240, 241)); // Texto claro
+        lblRace.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(lblRace, BorderLayout.NORTH);
 
-        // Lista de pilotos y autos
+        // Lista de Drivers y Cars
         JTextArea txtInfo = new JTextArea();
         txtInfo.setEditable(false);
         txtInfo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
         txtInfo.setForeground(new Color(236, 240, 241)); // Texto claro
         txtInfo.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         StringBuilder sb = new StringBuilder();
-        sb.append("Pilotos y sus Autos:\n");
+        sb.append("Drivers y sus Cars:\n");
         sb.append("====================\n");
-        for (Jugador player : carrera.getPlayers()) {
-        	 sb.append("Jugador: ").append(player.getNombre()).append("\n");
-            sb.append("Piloto: ").append(player.getPiloto().getnombre()).append("\n");
-            sb.append("Auto: ").append(player.getAuto().getModelo()).append("\n");
+        for (Player player : Race.getPlayers()) {
+        	 sb.append("Player: ").append(player.getName()).append("\n");
+            sb.append("Driver: ").append(player.getDriver().getName()).append("\n");
+            sb.append("Car: ").append(player.getCar().getModel()).append("\n");
             sb.append("--------------------\n");
         }
         txtInfo.setText(sb.toString());

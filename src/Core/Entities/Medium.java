@@ -1,18 +1,17 @@
 package Core.Entities;
 
-public class Medium extends Neumatico  {
+public class Medium extends Tire  {
 
-	public Medium(int desgaste, int durabilidad, int consumo, int velocidad, int agarre) {
-		super(desgaste, durabilidad, consumo, velocidad, agarre);
+	public Medium(int wear, int durability, int consumption, int speed, int grip) {
+		super(wear,durability,consumption,speed,grip);
 		
 	}
 	
-	 @Override
-	    public boolean esAdecuadoPara(String condicionClimatica) {
-	        return condicionClimatica.equalsIgnoreCase("Seco") || condicionClimatica.equalsIgnoreCase("Húmedo");
+	    public boolean isSuitableFor(String weatherCondition) {
+	        return weatherCondition.equalsIgnoreCase("Dry") || weatherCondition.equalsIgnoreCase("humid");
 	    }
 	 
-	 public double obtenerFactorModificacionTiempo() {
+	 public double getModificationFactorTime() {
 			return 1;//Ni mas lento ni ams rapido
 		}
 }
