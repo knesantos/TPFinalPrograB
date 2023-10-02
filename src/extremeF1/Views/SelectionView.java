@@ -305,7 +305,6 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		ButtomSelect2.setText("Aceptar");
 		panel.add(ButtomSelect2);
 		setAceptCarListener(aceptcarlistener);
-		
 		ButtomSelect2.addActionListener(new ActionListener() {
 
 			@Override

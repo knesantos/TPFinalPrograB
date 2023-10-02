@@ -39,13 +39,14 @@ public class MainController {
         SelectionViewController selectionController = new SelectionViewController();
         players = selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
         System.out.println("Playeres seleccionados: " + players);
-
+        
         // Crear Races basadas en Circuits disponibles
         int i=0;
         for (Circuit Circuit : CircuitRepository.getCircuits()) {
             Race Race = new Race(null,++i,players,Circuit); 
             races.add(Race);
         }
+  
 
      // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players);
@@ -60,7 +61,8 @@ public class MainController {
         selectionController.addObserver(new SelectionViewController.SelectionObserver() {
             @Override
             public void onSelectionComplete() {
-                championshipController.onRaceStart();
+            	  PitsViewController pitsview = new PitsViewController();
+                  pitsview.PitsViewController(races.get(1), player);
             }
         });
     }

@@ -5,8 +5,8 @@ import Core.Entities.Car;
 public class AceptCarEvent {
 	private Car car;
 	
-	public AceptCarEvent(Car auto) {
-		this.car = auto;
+	public AceptCarEvent(Car car) {
+		this.car = car;
 	}
 	
 	public Car getCar() {

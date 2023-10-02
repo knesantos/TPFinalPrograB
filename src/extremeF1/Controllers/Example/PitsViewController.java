@@ -9,11 +9,14 @@ import extremeF1.Views.PitsView;
 public class PitsViewController {
 	private Race race;
 	private Real player;
-	public void PitsViewController (Race race,Real Player) {
-		 race = race;
+	public void PitsViewController (Race Race,Real Player) {
+		 race = Race;
 		 player = Player;
 		PitsView v1 = new PitsView(race, player);
 		v1.setVisible(true);
+		v1.setLoadFuelListener(event -> {
+			player.getCar().setFuel(event.LoadFuel());
+		});
 		
 	}
 

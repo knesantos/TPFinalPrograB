@@ -1,9 +1,6 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Events.AceptCarEvent;
-import Core.Entities.Events.AceptCarListener;
-import Core.Entities.Events.AceptPilotEvent;
-import Core.Entities.Events.AceptPilotListener;
+
 import Core.Entities.Car;
 import Core.Entities.Player;
 import Core.Entities.Driver;
@@ -46,7 +43,6 @@ public class SelectionViewController {
 
         v1.setAceptCarListener(event -> {
             player.setCar(event.getCar());
-            System.out.println(player.getCar().getBrand());
             System.out.println(player.getCar().getBrand());
         });
         

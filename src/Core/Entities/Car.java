@@ -145,10 +145,6 @@ public class Car implements Runnable {
         return fuel;
     }
 
-    public void setFuel(double fuel) {
-        this.fuel = fuel;
-        this.weight += fuel; // Asumiendo que cada litro de combustible aumenta el peso en 1kg
-    }
 
     public DrivingMode getDrivingMode() {
         return drivingMode;
@@ -265,6 +261,14 @@ public class Car implements Runnable {
 	public void setKilometersDriven(int i) {
 		this.kilometersDriven = i;
 		
-	} 
+	}
+
+	public void setFuel(double fuel) {
+		// TODO Auto-generated method stub
+		 this.fuel = fuel;
+	        this.weight += fuel; // Asumiendo que cada litro de combustible aumenta el peso en 1kg
+	}
+
+
 
 }
