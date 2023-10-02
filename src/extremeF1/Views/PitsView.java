@@ -1,8 +1,13 @@
 package extremeF1.Views;
 
 import java.awt.Color;
+
+import Core.Entities.Medium;
 import Core.Entities.Race;
 import Core.Entities.Real;
+import Core.Entities.Wet;
+import Core.Entities.Events.ChangeTireEvent;
+import Core.Entities.Events.ChangeTireListener;
 import Core.Entities.Events.LoadFuelEvent;
 import Core.Entities.Events.LoadFuelListener;
 
@@ -23,6 +28,7 @@ public class PitsView extends JFrame implements PitsViewInterface{
 	private Race Race;
 	private Real Player;
 	private LoadFuelListener loadfuellistener;
+	private ChangeTireListener changetirelistener;
 	public PitsView (Race race, Real player) {
 		Race = race;
 		Player = player;
@@ -110,7 +116,74 @@ public class PitsView extends JFrame implements PitsViewInterface{
 		BtmChangeTires.setHorizontalAlignment(JLabel.CENTER);
 		BtmChangeTires.setVerticalAlignment(JLabel.CENTER);
 		panel.add(BtmChangeTires);
+		setChangeTireListener(changetirelistener);
+		BtmChangeTires.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BtmRepairEngine.setEnabled(false);
+				BtmChangeTires.setEnabled(false);
+				BtmLoadFuel.setEnabled(false);
+				JLabel text = new JLabel();
+				text.setBounds(700, 700, 400, 100);
+				text.setText("Eliga el tipo");
+				text.setFont(new Font("Arial",Font.BOLD,20));
+				text.setHorizontalAlignment(JLabel.CENTER);
+				text.setVerticalAlignment(JLabel.CENTER);
+				text.setBackground(Color.white);
+				text.setOpaque(true);
+				panel.add(text);
+				JButton BtmTiresMedium = new JButton();
+				BtmTiresMedium.setBounds(700, 800, 200, 70);
+				BtmTiresMedium.setText("Regulares");
+				BtmTiresMedium.setFont(new Font("Arial",Font.BOLD,20));
+				BtmTiresMedium.setHorizontalAlignment(JLabel.CENTER);
+				BtmTiresMedium.setVerticalAlignment(JLabel.CENTER);
+				panel.add(BtmTiresMedium);
+				JButton BtmTiresWet = new JButton();
+				BtmTiresWet.setBounds(900, 800, 200, 70);
+				BtmTiresWet.setText("Lluvia");
+				BtmTiresWet.setFont(new Font("Arial",Font.BOLD,20));
+				BtmTiresWet.setHorizontalAlignment(JLabel.CENTER);
+				BtmTiresWet.setVerticalAlignment(JLabel.CENTER);
+				panel.add(BtmTiresWet);
+				repaint();
+				
+				BtmTiresMedium.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
+						panel.remove(BtmTiresMedium);
+						panel.remove(BtmTiresWet);
+						panel.remove(text);
+						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Medium(50,50,50,50,50)));  
+						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						repaint();
+					}
+					
+				});
+				BtmTiresWet.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
+						panel.remove(BtmTiresMedium);
+						panel.remove(BtmTiresWet);
+						panel.remove(text);
+						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Wet(50,50,50,50,50))); 
+						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						repaint();
+					}
+					
+				});
+			}
+			                     
+		});
 		BtmRepairEngine = new JButton();
 		BtmRepairEngine.setBounds(500, 400, 400, 100);
 		BtmRepairEngine.setText("Reparar motor");
@@ -131,6 +204,9 @@ public class PitsView extends JFrame implements PitsViewInterface{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				BtmRepairEngine.setEnabled(false);
+				BtmChangeTires.setEnabled(false);
+				BtmLoadFuel.setEnabled(false);
 				JLabel text = new JLabel();
 				text.setBounds(700, 700, 400, 100);
 				text.setText("Eliga la cantidad");
@@ -182,6 +258,9 @@ public class PitsView extends JFrame implements PitsViewInterface{
 						panel.remove(BtmFuel3);
 						panel.remove(BtmFuel4);
 						panel.remove(text);
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
 						repaint();
 					}
 					
@@ -197,6 +276,9 @@ public class PitsView extends JFrame implements PitsViewInterface{
 						panel.remove(BtmFuel3);
 						panel.remove(BtmFuel4);
 						panel.remove(text);
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
 						repaint();
 					}
 					
@@ -212,6 +294,9 @@ public class PitsView extends JFrame implements PitsViewInterface{
 						panel.remove(BtmFuel3);
 						panel.remove(BtmFuel4);
 						panel.remove(text);
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
 						repaint();
 					}
 					
@@ -227,6 +312,9 @@ public class PitsView extends JFrame implements PitsViewInterface{
 						panel.remove(BtmFuel3);
 						panel.remove(BtmFuel4);
 						panel.remove(text);
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
 						repaint();
 					}
 					
@@ -236,12 +324,15 @@ public class PitsView extends JFrame implements PitsViewInterface{
 			
 		});
 		
-		repaint();
 	
 	}
 	@Override
 	public void setLoadFuelListener(LoadFuelListener listener) {
 		// TODO Auto-generated method stub
 		loadfuellistener = listener;
+	}
+	public void setChangeTireListener(ChangeTireListener listener) {
+		// TODO Auto-generated method stub
+		changetirelistener = listener;
 	}
 }

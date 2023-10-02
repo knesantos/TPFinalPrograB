@@ -17,7 +17,9 @@ public class PitsViewController {
 		v1.setLoadFuelListener(event -> {
 			player.getCar().setFuel(event.LoadFuel());
 		});
-		
+		v1.setChangeTireListener(event ->{
+			player.getCar().setTire(event.ChangeTire());
+		});
 	}
 
 }
