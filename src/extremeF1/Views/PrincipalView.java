@@ -17,10 +17,12 @@ public class PrincipalView extends JFrame implements PrincipalViewInterface{
 	}
 	public void setPanel(JPanel panel) {
 		this.getContentPane().add(panel);
+		this.revalidate();
 		this.repaint();
 	}
-	public void removePanel(JPanel panel) {
-		this.getContentPane().remove(panel);
+	public void removePanel() {
+		this.getContentPane().removeAll();
+		this.revalidate();
 		this.repaint();
 	}
 	

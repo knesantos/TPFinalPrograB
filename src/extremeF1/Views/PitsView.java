@@ -32,7 +32,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 		Race = race;
 		Player = player;
 		setSize(1500, 1500);
-
+		this.setLayout(null);
 		
 		font = new Font("Arial",Font.BOLD,50);
 		
