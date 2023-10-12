@@ -10,7 +10,7 @@ public interface SelectionViewInterface {
 	
  public void setAceptCarListener(AceptCarListener listener);
  
-void setButtonAcceptSelectionListener(AceptSelectionListener listener);
+  void setButtonAcceptSelectionListener(AceptSelectionListener listener);
 
 
 

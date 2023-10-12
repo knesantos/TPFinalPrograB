@@ -10,6 +10,9 @@ import javax.swing.SwingConstants;
 import Core.Entities.Car;
 import Core.Entities.Driver;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +25,8 @@ import Core.Entities.Events.AceptSelectionEvent;
 import Core.Entities.Events.AceptSelectionListener;
 import Core.Interfaces.SelectionObserver;
 
-public class SelectionView extends JFrame implements SelectionViewInterface {
+public class SelectionView extends JPanel implements SelectionViewInterface {
 
-	private JPanel panel;
 	private JButton boton1, boton2,boton3,boton4, ButtomSelect1, ButtomCancel1,ButtomSelect2,ButtomCancel2 ,btnAceptarSeleccion;
 	private JLabel titulo, Name, nomabv, imagen, Budget, Defense, sobrepaso, clasificacion, cantCarrerasGanadas,
 			cantPolePosition, cantCampeonatos, cantParticipaciones, cuidadoNeumaticos, largada,marca,modelo,peso,aceleracion,
@@ -50,19 +52,8 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 	public SelectionView(List<Driver> listDrivers,List<Car> listaCars) {
 		Drivers = listDrivers;
 		Cars = listaCars;
-		
-		// ventana//
-		setSize(1500, 500);
-		setTitle("ExtremeF1");
-		setLocationRelativeTo(null);
-		getContentPane().setBackground(Color.black);
-
-		// Panel principal// 
-		panel = new JPanel();
-		this.getContentPane().add(panel);
-		panel.setBackground(Color.gray);
-		panel.setLayout(null);
-		
+		this.setSize(1500,1500);
+		this.setLayout(null);
 		SeleccionDriver();
 		SeleccionCar();
 	}
@@ -72,15 +63,15 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		btnAceptarSeleccion = new JButton("Aceptar Selección");
 		btnAceptarSeleccion.setEnabled(false);
 	    btnAceptarSeleccion.setBounds(600, 400, 150, 50);  // Ajusta la posición y tamaño según necesites
-	    panel.add(btnAceptarSeleccion);	
+	    this.add(btnAceptarSeleccion);	
 		
 		boton1 = new JButton();
 		boton2 = new JButton();
-		panel.add(boton2);
-		panel.add(boton1);
+		this.add(boton2);
+		this.add(boton1);
 		boton1.setBounds(50, 50, 50, 50);
 		boton2.setBounds(100, 50, 50, 50);
-		boton1.setText("<");
+		boton1.setText("<"); 
 		boton2.setText(">");
 		boton2.addActionListener(new ActionListener() {
 
@@ -93,6 +84,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 					boton1.setEnabled(true);
 					Name.setText("Name: " + Drivers.get(i).getName());
 					nomabv.setText(Drivers.get(i).getShortName());
+					nomabv.setBounds(220, 100, 100, 15);
 					Budget.setText("Budget: " + Drivers.get(i).getBudget());
 					Defense.setText("Defense: " + Drivers.get(i).getDefense());
 					sobrepaso.setText("Sobrepaso: " + Drivers.get(i).getOvertaking());
@@ -116,6 +108,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 					boton2.setEnabled(true);
 					Name.setText("Name: " + Drivers.get(i).getName());
 					nomabv.setText(Drivers.get(i).getShortName());
+					nomabv.setBounds(220, 100, 100, 15);
 					Budget.setText("Budget: " + Drivers.get(i).getBudget());
 					Defense.setText("Defense: " + Drivers.get(i).getDefense());
 					sobrepaso.setText("Sobrepaso: " + Drivers.get(i).getOvertaking());
@@ -132,7 +125,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		ButtomSelect1 = new JButton();
 		ButtomSelect1.setBounds(75, 270, 100, 50);
 		ButtomSelect1.setText("Aceptar");
-		panel.add(ButtomSelect1);
+		this.add(ButtomSelect1);
 		setAceptPilotListener(aceptpilotlistener);
 		ButtomSelect1.addActionListener(new ActionListener() {
 
@@ -155,7 +148,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		ButtomCancel1.setBounds(175, 270, 100, 50);
 		ButtomCancel1.setText("Cancelar");
 		ButtomCancel1.setEnabled(false);
-		panel.add(ButtomCancel1);
+		this.add(ButtomCancel1);
 		ButtomCancel1.addActionListener(new ActionListener() {
 
 			@Override
@@ -164,7 +157,8 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 				boton1.setEnabled(true);
 				boton2.setEnabled(true);
 				ButtomCancel1.setEnabled(false);
-
+				isPilotSelected = false;
+				checkBothSelected();
 			}
 
 		});
@@ -173,82 +167,83 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		titulo = new JLabel();
 		titulo.setBounds(425, 0, 300, 20);
 		titulo.setText("Seleccione su Driver");
-		panel.add(titulo);
+		this.add(titulo);
 
 		Name = new JLabel();
 		Name.setBounds(75, 100, 200, 15);
+		Name.setPreferredSize(new Dimension(200, 15));
 		Name.setText("Name: " + Drivers.get(i).getName());
-		panel.add(Name);
+		this.add(Name);
 
 		nomabv = new JLabel();
 		nomabv.setBounds(220, 100, 100, 15);
 		nomabv.setText(Drivers.get(i).getShortName());
 		nomabv.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(nomabv);
+		this.add(nomabv);
 
 		Budget = new JLabel();
 		Budget.setBounds(75, 115, 200, 15);
 		Budget.setText("Budget: " + Drivers.get(i).getBudget());
-		panel.add(Budget);
+		this.add(Budget);
 
 		Defense = new JLabel();
 		Defense.setBounds(75, 130, 200, 15);
 		Defense.setText("Defense: " + Drivers.get(i).getDefense());
-		panel.add(Defense);
+		this.add(Defense);
 
 		sobrepaso = new JLabel();
 		sobrepaso.setBounds(75, 145, 200, 15);
 		sobrepaso.setText("Sobrepaso: " + Drivers.get(i).getOvertaking());
-		panel.add(sobrepaso);
+		this.add(sobrepaso);
 
 		clasificacion = new JLabel();
 		clasificacion.setBounds(75, 160, 200, 15);
 		clasificacion.setText("Clasificacion: " + Drivers.get(i).getRanking());
-		panel.add(clasificacion);
+		this.add(clasificacion);
 
 		cantCarrerasGanadas = new JLabel();
 		cantCarrerasGanadas.setBounds(75, 175, 220, 15);
 		cantCarrerasGanadas.setText("Cantiddad de carreras ganadas: " + Drivers.get(i).getRacesWon());
-		panel.add(cantCarrerasGanadas);
+		this.add(cantCarrerasGanadas);
 
 		cantPolePosition = new JLabel();
 		cantPolePosition.setBounds(75, 190, 200, 15);
 		cantPolePosition.setText("Cantiddad de pole: " + Drivers.get(i).getPolePositions());
-		panel.add(cantPolePosition);
+		this.add(cantPolePosition);
 
 		cantCampeonatos = new JLabel();
 		cantCampeonatos.setBounds(75, 205, 250, 15);
 		cantCampeonatos.setText("Cantiddad de camponeatos ganados: " + Drivers.get(i).getChampionships());
-		panel.add(cantCampeonatos);
+		this.add(cantCampeonatos);
 
 		cantParticipaciones = new JLabel();
 		cantParticipaciones.setBounds(75, 220, 200, 15);
 		cantParticipaciones.setText("Cantiddad de parcitipaciones: " + Drivers.get(i).getParticipations());
-		panel.add(cantParticipaciones);
+		this.add(cantParticipaciones);
 
 		cuidadoNeumaticos = new JLabel();
 		cuidadoNeumaticos.setBounds(75, 235, 200, 15);
 		cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Drivers.get(i).getTireCare());
-		panel.add(cuidadoNeumaticos);
+		this.add(cuidadoNeumaticos);
 
 		largada = new JLabel();
 		largada.setBounds(75, 250, 200, 15);
 		largada.setText("Largada: " + Drivers.get(i).getStart());
-		panel.add(largada);
+		this.add(largada);
 
 		imagen = new JLabel();
 		imagen.setBounds(400, 100, 300, 300);
 		imagen.setOpaque(true);
 		imagen.setBackground(Color.black);
-		panel.add(imagen);
+		this.add(imagen);
 
 	}
 	
 	public void SeleccionCar(){
 		boton3 = new JButton();
 		boton4 = new JButton();
-		panel.add(boton3);
-		panel.add(boton4);
+		this.add(boton3);
+		this.add(boton4);
 		boton3.setBounds(800, 50, 50, 50);
 		boton4.setBounds(850, 50, 50, 50);
 		boton3.setText("<");
@@ -303,7 +298,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		ButtomSelect2 = new JButton();
 		ButtomSelect2.setBounds(825, 270, 100, 50);
 		ButtomSelect2.setText("Aceptar");
-		panel.add(ButtomSelect2);
+		this.add(ButtomSelect2);
 		setAceptCarListener(aceptcarlistener);
 		ButtomSelect2.addActionListener(new ActionListener() {
 
@@ -326,7 +321,7 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		ButtomCancel2.setBounds(925, 270, 100, 50);
 		ButtomCancel2.setText("Cancelar");
 		ButtomCancel2.setEnabled(false);
-		panel.add(ButtomCancel2);
+		this.add(ButtomCancel2);
 		ButtomCancel2.addActionListener(new ActionListener() {
 
 			@Override
@@ -335,7 +330,8 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 				boton3.setEnabled(true);
 				boton4.setEnabled(true);
 				ButtomCancel2.setEnabled(false);
-
+				isCarSelected = false;
+				checkBothSelected();
 			}
 
 		});
@@ -344,64 +340,64 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 		titulo = new JLabel();
 		titulo.setBounds(1000, 0, 300, 20);
 		titulo.setText("Seleccione su Car");
-		panel.add(titulo);
+		this.add(titulo);
 
 		marca = new JLabel();
 		marca.setBounds(825, 100, 200, 15);
 		marca.setText("Marca: " + Cars.get(j).getBrand());
-		panel.add(marca);
+		this.add(marca);
 
 		modelo = new JLabel();
 		modelo.setBounds(950, 100, 100, 15);
 		modelo.setText("Modelo: "+Cars.get(i).getModel());
 		modelo.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(modelo);
+		this.add(modelo);
 
 		peso = new JLabel();
 		peso.setBounds(825, 115, 200, 15);
 		peso.setText("Peso: " + Cars.get(i).getWeight()+" Kg");
-		panel.add(peso);
+		this.add(peso);
 
 		aceleracion = new JLabel();
 		aceleracion.setBounds(825, 130, 200, 15);
 		aceleracion.setText("Aceleracion: " + Cars.get(i).getAcceleration()+" m/s");
-		panel.add(aceleracion);
+		this.add(aceleracion);
 
 		velocidadmax = new JLabel();
 		velocidadmax.setBounds(825, 145, 200, 15);
 		velocidadmax.setText("Velocidad Maxima: " + Cars.get(i).getMaxSpeed()+" Km/h");
-		panel.add(velocidadmax);
+		this.add(velocidadmax);
 
 		potencia = new JLabel();
 		potencia.setBounds(825, 160, 200, 15);
 		potencia.setText("Potencia: " + Cars.get(i).getPower());
-		panel.add(potencia);
+		this.add(potencia);
 
 		consumo = new JLabel();
 		consumo.setBounds(825, 175, 220, 15);
 		consumo.setText("Consumo: " + Cars.get(i).getConsumption());
-		panel.add(consumo);
+		this.add(consumo);
 
 		fiabilidad = new JLabel();
 		fiabilidad.setBounds(825, 190, 200, 15);
 		fiabilidad.setText("Fiabilidad: " + Cars.get(i).getReliability());
-		panel.add(fiabilidad);
+		this.add(fiabilidad);
 
 		performancecurvas = new JLabel();
 		performancecurvas.setBounds(825, 205, 250, 15);
 		performancecurvas.setText("Performancecurvas: " + Cars.get(i).getCurvesPerformance());
-		panel.add(performancecurvas);
+		this.add(performancecurvas);
 
 		performancesobrepaso = new JLabel();
 		performancesobrepaso.setBounds(825, 220, 200, 15);
 		performancesobrepaso.setText("Performancesobrepaso: " + Cars.get(i).getOvertakingPerformance());
-		panel.add(performancesobrepaso);
+		this.add(performancesobrepaso);
 
 		imagen = new JLabel();
 		imagen.setBounds(1150, 100, 300, 300);
 		imagen.setOpaque(true);
 		imagen.setBackground(Color.black);
-		panel.add(imagen);
+		this.add(imagen);
 		
 	
 		
@@ -427,6 +423,8 @@ public class SelectionView extends JFrame implements SelectionViewInterface {
 	private void checkBothSelected() {
 	    if (isPilotSelected && isCarSelected) {
 	        btnAceptarSeleccion.setEnabled(true);
+	    }else {
+	    	 btnAceptarSeleccion.setEnabled(false);
 	    }
 	}
 
