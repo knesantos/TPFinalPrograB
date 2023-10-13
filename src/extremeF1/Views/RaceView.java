@@ -2,70 +2,111 @@ package extremeF1.Views;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import javax.swing.border.EmptyBorder;
+import Core.Entities.Car;
+import Core.Entities.Driver;
+import Core.Entities.Player;
+import Core.Entities.Race;
+import java.util.ArrayList;
 
+public class RaceView extends JPanel {
+    private static final long serialVersionUID = 1L;
+    private JPanel leftPanel, rightPanel, centerPanel;
+    private JLabel lblRaceName, lblPlayerName, lblFuel, lblTireStatus, lblCarStatus;
+    private JLabel lblLapNumber, lblDrivingStyle, lblWeather;
+    private JList<String> rankingList;
+    private DefaultListModel<String> rankingModel;
+    private Race race;
 
-public class RaceView extends JFrame {
-	
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JLabel lblNewLabel,nameplayer,namerace;
-	private List<Piloto> Pilotos = new ArrayList<>();
-	private List<Auto> Autos = new ArrayList<>();
-	private ImageIcon imagen;
-	private Icon icono;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExampleView frame = new ExampleView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	private void ajustarImagen(JLabel jlabel, String ruta) {
-		this.imagen= new ImageIcon(ruta);
-		this.icono= new ImageIcon(
-				this.imagen.getImage().getScaledInstance(
-						jlabel.getWidth(),
-						jlabel.getHeight(),
-						Image.SCALE_DEFAULT
-						)
-				);
-		jlabel.setIcon(this.icono);
-		this.repaint();
-	}
+    public RaceView(Race race) {
+        this.race = race;
+        setLayout(new BorderLayout());
 
-	public RaceView(List<Piloto> listpilotos,List<Auto> listaautos) {
-		Pilotos = listpilotos;
-		Autos = listaautos;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBounds(0, 0, getWidth(),getHeight());
+        // Estilos
+        Font titleFont = new Font("Arial", Font.BOLD, 16);
+        Font infoFont = new Font("Arial", Font.PLAIN, 14);
 
-		setContentPane(contentPane);
-		
-		setTitle("ExtremeF1");
-		setSize(500, 500);
-		getContentPane().setBackground(Color.green);
-		getContentPane().setLayout(null);
-		
-		lblNewLabel = new JLabel();
-		lblNewLabel.setBounds(0, 0, getWidth(), getHeight());
-		this.ajustarImagen(this.lblNewLabel, "C:\\Users\\NACHO ARCIDIÁCONO\\ExtremeF1\\TPFinalPrograB\\src\\Resources\\Images\\imagencarrera.jpeg");
-	
-		this.setLocationRelativeTo(this);
-		contentPane.add(lblNewLabel);
-        
-	}
-	
+        // Panel izquierdo
+        leftPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(5, 1));
+        leftPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        lblRaceName = new JLabel("Nombre de la Carrera: " + race.getCircuit().getName());
+        lblPlayerName = new JLabel("Nombre del Jugador: " + race.getRealPlayer().getName());
+        lblFuel = new JLabel("Combustible: " + race.getRealPlayer().getCar().getFuel());
+        lblTireStatus = new JLabel("Estado de las Gomas: " + race.getRealPlayer().getCar().getTire().getWear());
+        lblCarStatus = new JLabel("Estado del Auto: " + race.getRealPlayer().getCar().getHealth());
+
+        lblRaceName.setFont(titleFont);
+        lblPlayerName.setFont(infoFont);
+        lblFuel.setFont(infoFont);
+        lblTireStatus.setFont(infoFont);
+        lblCarStatus.setFont(infoFont);
+
+        leftPanel.add(lblRaceName);
+        leftPanel.add(lblPlayerName);
+        leftPanel.add(lblFuel);
+        leftPanel.add(lblTireStatus);
+        leftPanel.add(lblCarStatus);
+
+        // Panel derecho
+        rightPanel = new JPanel();
+        rightPanel.setLayout(new GridLayout(3, 1));
+        rightPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        lblLapNumber = new JLabel("Vuelta " + race.getActualLap() + "/" + race.getCircuit().getLapCount());
+        lblDrivingStyle = new JLabel("Forma de Manejo: ");
+        lblWeather = new JLabel("Estado del Clima: " + race.getRaceCondition().getCondition());
+
+        lblLapNumber.setFont(titleFont);
+        lblDrivingStyle.setFont(infoFont);
+        lblWeather.setFont(infoFont);
+
+        rightPanel.add(lblLapNumber);
+        rightPanel.add(lblDrivingStyle);
+        rightPanel.add(lblWeather);
+
+        // Panel central (Ranking)
+        centerPanel = new JPanel();
+        centerPanel.setLayout(new BorderLayout());
+        centerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JLabel lblRanking = new JLabel("Ranking");
+        lblRanking.setFont(titleFont);
+        centerPanel.add(lblRanking, BorderLayout.NORTH);
+
+        rankingModel = new DefaultListModel<>();
+        rankingList = new JList<>(rankingModel);
+        rankingList.setFont(infoFont);
+        centerPanel.add(new JScrollPane(rankingList), BorderLayout.CENTER);
+
+        // Añadir paneles al panel principal
+        add(leftPanel, BorderLayout.WEST);
+        add(rightPanel, BorderLayout.EAST);
+        add(centerPanel, BorderLayout.CENTER);
+    }
+
+    public void updateInfo(Race updatedRace) {
+        // Actualiza la información de la carrera
+        this.race = updatedRace;
+
+        // Actualiza los JLabels con la nueva información
+        lblRaceName.setText("Nombre de la Carrera: " + race.getCircuit().getName());
+        lblPlayerName.setText("Nombre del Jugador: " + race.getRealPlayer().getName());
+        lblFuel.setText("Combustible: " + race.getRealPlayer().getCar().getFuel());
+        lblTireStatus.setText("Estado de las Gomas: " + race.getRealPlayer().getCar().getTire().getWear());
+        lblCarStatus.setText("Estado del Auto: " + race.getRealPlayer().getCar().getHealth());
+        lblLapNumber.setText("Vuelta " + race.getActualLap() + "/" + race.getCircuit().getLapCount());
+        lblWeather.setText("Estado del Clima: " + race.getRaceCondition().getCondition());
+
+        // Actualiza el ranking
+        rankingModel.clear();
+        for (Player player : race.getPlayers()) {  
+            rankingModel.addElement(player.getName());
+        }
+
+        // Refresca el panel para mostrar las actualizaciones
+        this.revalidate();
+        this.repaint();
+    }
 }

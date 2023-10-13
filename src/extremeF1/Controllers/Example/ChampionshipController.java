@@ -4,6 +4,8 @@ import Core.Entities.Race;
 import Core.Entities.Championship;
 import Core.Entities.Player;
 import extremeF1.Controllers.Example.ReportsViewsController.PreRaceViewController;
+import extremeF1.Views.PreRaceView;
+import extremeF1.Views.PrincipalView;
 import extremeF1.Controllers.Example.ReportsViewsController.PostRaceViewController;
 
 import java.util.List;
@@ -14,12 +16,14 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
     private int currentRaceIndex = 0;
     private Championship championship;
     private RaceViewController raceController;
+    private PrincipalView gameWindow;
 
-    public ChampionshipController(List<Race> Races, List<Player> players) {
+    public ChampionshipController(List<Race> Races, List<Player> players,PrincipalView gameWindow) {
         this.Races = Races;
         this.players = players;
         this.championship = new Championship(Races.size(), players);
         this.raceController = new RaceViewController();
+        this.gameWindow =gameWindow;
         raceController.addRaceEndObserver(() -> onRaceEnd());
     }
     
@@ -28,8 +32,8 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
     }
     
     public void onRaceStart() {
-        // Iniciar la Race
-    	System.out.println("onRaceStart index: " + currentRaceIndex);
+        // iniciar Carrera
+        System.out.println("onRaceStart index: " + currentRaceIndex);
         Race currentRace = Races.get(currentRaceIndex);
         championship.setActiveCircuit(currentRace.getCircuit());
         raceController.startRace(championship.getPlayers(), currentRace.getCircuit());

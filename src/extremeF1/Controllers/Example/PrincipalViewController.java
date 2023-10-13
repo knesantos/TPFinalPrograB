@@ -17,15 +17,15 @@ public class PrincipalViewController {
 	public PrincipalViewController(Race race, Real player, CarRepository carRepository, DriverRepository driverRepository) {
 		v1 = new PrincipalView();
 		v1.setVisible(true); 
-		selectionview = new SelectionViewController();
-		v1.setPanel(selectionview.initSelectionScreen(player, carRepository, driverRepository));
+		//selectionview = new SelectionViewController();
+		v1.addPanel(selectionview.initSelectionScreen(player, carRepository, driverRepository),"SelectionView");
 		
 		 selectionview.addObserver(new SelectionViewController.SelectionObserver() {
 	            @Override
 	            public void onSelectionComplete() {
-	            	pitsview = new PitsViewController(race, player);
-	            	v1.removePanel();
-	            	v1.setPanel(pitsview.getPanel());
+	            	//pitsview = new PitsViewController(race, player);
+	            	v1.addPanel(pitsview.getPanel(),"PitsView");
+	            	
 	            	
 	            }
 	        });
@@ -37,4 +37,5 @@ public class PrincipalViewController {
 		return selectionview.getListPlayer();
 	}
 
-}
+ } 
+ 

@@ -28,6 +28,9 @@ public class PitsView extends JPanel implements PitsViewInterface{
 	private Real Player;
 	private LoadFuelListener loadfuellistener;
 	private ChangeTireListener changetirelistener;
+	
+	
+	
 	public PitsView (Race race, Real player) {
 		Race = race;
 		Player = player;
@@ -71,7 +74,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 		
 		carcondition = new JLabel();
 		carcondition.setBounds(0, 400, 400,100);
-		carcondition.setText("Condicion motor: "+ player.getCar().gethealth());
+		carcondition.setText("Condicion motor: "+ player.getCar().getHealth());
 		carcondition.setBackground(Color.white);
 		carcondition.setOpaque(true);
 		carcondition.setFont(new Font("Arial",Font.BOLD,25));
