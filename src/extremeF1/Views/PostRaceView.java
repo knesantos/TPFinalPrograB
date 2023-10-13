@@ -11,42 +11,48 @@ import Core.Entities.Player;
 import Core.Entities.Driver;
 
 public class PostRaceView extends JPanel {
-    private Race Race;
+    private Race race;
     private Championship championship;
     private Map<Integer, Double> playersTimes = new HashMap<>();
     private JButton btnContinuar;
 
-    public PostRaceView(Race Race, Championship championship) {
-        this.Race = Race;
-        this.playersTimes = Race.getTimes();
+    public PostRaceView(Race race, Championship championship) {
+        this.race = race;
+        this.playersTimes = race.getTimes();
         this.championship = championship;
 
         // Panel principal
         setLayout(new BorderLayout());
         setBackground(new Color(44, 62, 80)); // Fondo oscuro
 
-        // Título de la Race
-        JLabel lblRace = new JLabel("Race: " + Race.getCircuit().getName());
+        // Título de la carrera
+        JLabel lblRace = new JLabel("Carrera: " + race.getCircuit().getName());
         lblRace.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         lblRace.setForeground(new Color(236, 240, 241)); // Texto claro
         lblRace.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblRace, BorderLayout.NORTH);
 
-        // Lista de Drivers, posiciones y tiempos
+        // Lista de pilotos, posiciones y tiempos
         JTextArea txtInfo = new JTextArea();
         txtInfo.setEditable(false);
         txtInfo.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
         txtInfo.setForeground(new Color(236, 240, 241)); // Texto claro
         txtInfo.setBackground(new Color(44, 62, 80)); // Fondo oscuro
         StringBuilder sb = new StringBuilder();
-        sb.append("Resultados de la Race:\n");
+        sb.append("Resultados de la Carrera:\n");
         sb.append("=========================\n");
-        int i = 0;
-        for (Player player : Race.getPlayers()) {
-            sb.append("Driver: ").append(player.getDriver().getName()).append("\n");
-            sb.append("Posición: ").append(++i).append("\n");
-            sb.append("Tiempo: ").append(playersTimes.get(player.getId())).append(" segundos\n");
-            sb.append("Recorrido: ").append(player.getCar().getKilometersDriven()).append(" Km");
+        int i = 1;
+        for (Player player : race.getPlayers()) {
+            sb.append("Piloto: ").append(player.getDriver().getName()).append("\n");
+            sb.append("Posición: ").append(i++).append("\n");
+
+            double timeInSeconds = playersTimes.get(player.getId());
+            int minutes = (int) (timeInSeconds / 60);
+            int seconds = (int) (timeInSeconds % 60);
+            int millis = (int) ((timeInSeconds * 1000) % 1000);
+
+            sb.append("Tiempo: ").append(minutes).append("m ").append(seconds).append("s ").append(millis).append("ms\n");
+            sb.append("Recorrido: ").append(player.getCar().getKilometersDriven()).append(" Km\n");
             sb.append("------------------------\n");
         }
         txtInfo.setText(sb.toString());

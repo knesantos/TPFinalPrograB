@@ -68,12 +68,22 @@ public class Race {
     public boolean raceInProgress;
     
     private void updatePositions() {
-        // Sort players based on total times (the player with the lowest time will be first)
+        // Sort players based on kilometers driven and total times
         List<Player> sortedPlayers = players.stream()
             .sorted((p1, p2) -> {
+                Double km1 = p1.getCar().getKilometersDriven();
+                Double km2 = p2.getCar().getKilometersDriven();
                 Double time1 = playerTimes.getOrDefault(p1.getId(), Double.MAX_VALUE);
                 Double time2 = playerTimes.getOrDefault(p2.getId(), Double.MAX_VALUE);
-                return time1.compareTo(time2);
+
+                int kmComparison = km2.compareTo(km1);  // Nota: km2 vs km1 para ordenar de mayor a menor
+                int timeComparison = time1.compareTo(time2);
+
+                if (kmComparison == 0) {
+                    return timeComparison;
+                } else {
+                    return kmComparison;
+                }
             })
             .collect(Collectors.toList());
 
@@ -81,7 +91,6 @@ public class Race {
         players = sortedPlayers;
 
         // Display current positions
-
         for (int i = 0; i < players.size(); i++) {
             System.out.println("Position " + (i + 1) + ": " + players.get(i).getName());
         }
@@ -94,11 +103,11 @@ public class Race {
             return;
         }
         
-        boolean allCarsBroken = true;
+        boolean allCarsBroken = true;  // Iniciar como true
         int i = 0;
         while (allCarsBroken && i < players.size()) {
             if (!players.get(i).getCar().isBroken()) {
-                allCarsBroken = false;
+                allCarsBroken = false;  // Establecer como false si un auto que no está roto
             }
             i++;
         }
@@ -118,7 +127,7 @@ public class Race {
         
         for (Player player : players) {
             playerTimes.put(player.getId(), 0.0);
-            player.getCar().setKilometersDriven(0);
+            player.getCar().initializeCarForRace();
         }
 
         // Simulate each lap
@@ -131,18 +140,23 @@ public class Race {
                     Car car = player.getCar();
                     if (!car.isBroken()) {
                         car.run();
+                        double lapTime = car.getLapTime();  
+                        synchronized (playerTimes) {
+                            int playerId = player.getId();
+                            double currentTime = playerTimes.getOrDefault(playerId, 0.0);
+                            playerTimes.put(playerId, currentTime + lapTime);
+                        }
                     }
-                    latch.countDown();
+                    latch.countDown(); 
                 }).start();
             }
-
             try {
                 latch.await();
-                Thread.sleep(900);  // Sleep for 2 seconds to slow down the simulation
+                Thread.sleep(100);  // Sleep for 2 seconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            
             updatePositions();
             checkConditions();
         }
