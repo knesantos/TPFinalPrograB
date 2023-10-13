@@ -1,9 +1,6 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Events.AceptCarEvent;
-import Core.Entities.Events.AceptCarListener;
-import Core.Entities.Events.AceptPilotEvent;
-import Core.Entities.Events.AceptPilotListener;
+
 import Core.Entities.Car;
 import Core.Entities.Player;
 import Core.Entities.Driver;
@@ -16,11 +13,13 @@ import extremeF1.Views.SelectionView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 public class SelectionViewController {
 	
 	private boolean isButtonAcceptSelectionPressed = false;
 	  private SelectionView v1;
-	
+	  private List<Player> Playeres = new ArrayList<>();
 	
 	public interface SelectionObserver {
         void onSelectionComplete();
@@ -32,11 +31,10 @@ public class SelectionViewController {
         this.observer = observer;
     }
 	
-	public List<Player> initSelectionScreen(Real player, CarRepository CarRepository, DriverRepository DriverRepository) {
+	public JPanel initSelectionScreen(Real player, CarRepository CarRepository, DriverRepository DriverRepository) {
         List<Car> Cars = CarRepository.getCars();
         List<Driver> Drivers = DriverRepository.getDrivers();
-        List<Player> Playeres = new ArrayList<>();
-
+        
         v1 = new SelectionView(Drivers, Cars);
         
         v1.setAceptPilotListener(event -> {
@@ -47,12 +45,10 @@ public class SelectionViewController {
         v1.setAceptCarListener(event -> {
             player.setCar(event.getCar());
             System.out.println(player.getCar().getBrand());
-            System.out.println(player.getCar().getBrand());
         });
         
         v1.setButtonAcceptSelectionListener((event) -> {
             setButtonPressed(true);
-            v1.dispose();
         });
         
         v1.setVisible(true);
@@ -60,7 +56,7 @@ public class SelectionViewController {
         
         
 
-        // Crear Playeres Simulateds para los Drivers y Cars no seleccionados
+       // Crear Playeres Simulateds para los Drivers y Cars no seleccionados
         int CarIndex = 0;
         for (int i = 0; i < Drivers.size(); i++) {
             if (Drivers.get(i) != player.getDriver()) {
@@ -78,8 +74,8 @@ public class SelectionViewController {
             }
         }
         
-        Playeres.add(player);
-        return Playeres;
+      Playeres.add(player);
+        return v1;
     }
 	
 	
@@ -90,8 +86,13 @@ public class SelectionViewController {
             }
         }
     }
+	public List<Player> getListPlayer(){
+		
+		return Playeres;
+	}
 	public void setButtonPressed(boolean isPressed) {
 	    this.isButtonAcceptSelectionPressed = isPressed;
 	    checkSelectionComplete();  
 	    }
+
 }

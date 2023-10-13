@@ -31,21 +31,21 @@ public class MainController {
         CircuitRepository.loadCircuitsFromXML();
         CountryRepository.loadContriesFromXML();
         DriverRepository.loadDriversFromXML();
-
         // Crear Player Real
         Real player = new Real("Gonzalo", 23);
+   
         
-        // Iniciar pantalla de selección
-        SelectionViewController selectionController = new SelectionViewController();
-        players = selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
-        System.out.println("Playeres seleccionados: " + players);
-
+        
+        
+        
+       
         // Crear Races basadas en Circuits disponibles
         int i=0;
         for (Circuit Circuit : CircuitRepository.getCircuits()) {
             Race Race = new Race(null,++i,players,Circuit); 
             races.add(Race);
         }
+  
 
      // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players);
@@ -57,11 +57,18 @@ public class MainController {
         // Pasar la instancia de RaceViewController al ChampionshipController
         championshipController.setRaceController(raceController);
         
-        selectionController.addObserver(new SelectionViewController.SelectionObserver() {
+        
+        PrincipalViewController principalcontroller = new  PrincipalViewController(races.get(1),player, CarRepository, DriverRepository);
+        players = principalcontroller.getListPlayer();
+    
+        		
+        		/*   selectionController.addObserver(new SelectionViewController.SelectionObserver() {
             @Override
             public void onSelectionComplete() {
-                championshipController.onRaceStart();
+            	  PitsViewController pitsview = new PitsViewController(races.get(1), player);
+            	  principalcontroller.removePanel(selectionController.initSelectionScreen(player, CarRepository, DriverRepository));
+                  principalcontroller.setPanel(pitsview.getPanel());
             }
-        });
+        });*/
     }
 }
