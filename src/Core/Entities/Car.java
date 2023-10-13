@@ -17,7 +17,7 @@ public class Car implements Runnable {
     private DrivingMode drivingMode = new DrivingMode(50, 50, "Moderate");
     private double kilometersDriven = 0.0;
     private Player player;
-    
+    private double lapTime;
     private boolean isBroken = false;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
@@ -173,56 +173,94 @@ public class Car implements Runnable {
         // Simulate a pit stop
         health = 100; // Restore the car's health to 100
         tire.setWear(0); // Restore tire wear to 0
+        fuel=100.0;
         System.out.println("The car " + brand + " " + model + " has made a pit stop.");
     }
 
+   
+    
+    
+    public void initializeCarForRace() { // aca deben llegar las deciciones del jugador de como empezar
+        this.health = 100;
+        this.fuel = 100.0;
+        this.tire.setWear(0);
+        this.lapTime = 0.0;
+        this.kilometersDriven = 0.0;
+        this.isBroken = false;
+    }
+    
+    public double getLapTime() {
+        return lapTime;
+    }
+    
     public double simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
-        double lapTime = 0.0;
+    	 lapTime = 0.0;
 
-        // Adjust max speed and acceleration based on driving mode
-        int adjustedMaxSpeed = (int) (maxSpeed * (1 + drivingMode.getAggressiveness() / 100.0));
-        double adjustedAcceleration = acceleration * (1 + drivingMode.getAggressiveness() / 100.0);
+    	    // Ajustar maxSpeed y aceleración según el modo de conducción
+    	    int adjustedMaxSpeed = (int) (maxSpeed * (1 + drivingMode.getAggressiveness() / 100.0));
+    	    double adjustedAcceleration = acceleration * (1 + drivingMode.getAggressiveness() / 100.0);
 
-        // Simulate different track sections and add up the time
-        lapTime += (Circuit.getLength() / adjustedMaxSpeed) * 60 * (1 - adjustedAcceleration / 100);
+    	    double fuelFactor = fuel / 100;  // Suponiendo que el combustible es un porcentaje
+    	    double tireFactor = (100 - tire.getWear()) / 100;
+    	    double realMaxSpeed = adjustedMaxSpeed * fuelFactor * tireFactor;
+    	    double realAcceleration = adjustedAcceleration * fuelFactor * tireFactor;
 
-        // Corners
-        lapTime += (Circuit.getCurveCount() * 0.2) * 60 * (1 + (100 - curvesPerformance) / 100) * (1 + tire.getWear() / 100);
+    	    // Simular diferentes secciones de la pista y sumar el tiempo
+    	    lapTime += (Circuit.getLength() / realMaxSpeed) * 60 * (1 - realAcceleration / 100);
 
-        // Overtaking zones
-        double defenseFactor = driver.getDefense() / 100.0;
-        double overtakingFactor = driver.getOvertaking() / 100.0;
-        lapTime += (Circuit.getOvertakingZoneCount() * 0.3) * 60 * (1 - (overtakingPerformance / 100) - (overtakingFactor * 0.05) + (defenseFactor * 0.05));
+    	    // Curvas
+    	    lapTime += (Circuit.getCurveCount() * 0.2) * 60 * (1 + (100 - curvesPerformance) / 100) * (1 + tire.getWear() / 100);
 
-        // Tire factor
-        double tireCareFactor = driver.getTireCare() / 100.0;
-        tire.setWear(tire.getWear() + (tire.getDurability() * drivingMode.getAggressiveness() / 100.0) * (1 - tireCareFactor * 0.05));
+    	    // Zonas de adelantamiento
+    	    double defenseFactor = driver.getDefense() / 100.0;
+    	    double overtakingFactor = driver.getOvertaking() / 100.0;
+    	    lapTime += (Circuit.getOvertakingZoneCount() * 0.3) * 60 * (1 - (overtakingPerformance / 100) - (overtakingFactor * 0.05) + (defenseFactor * 0.05));
 
-        // Weather condition adjustment
-        if (tire.isSuitableFor(condition.getCondition())) {
-            lapTime *= 0.95;
+    	    // Factor de neumáticos
+    	    double tireCareFactor = driver.getTireCare() / 100.0;
+    	    tire.setWear(tire.getWear() + (tire.getDurability() * drivingMode.getAggressiveness() / 100.0) * (1 - tireCareFactor * 0.05));
+
+    	    // Ajuste de condiciones climáticas
+    	    if (tire.isSuitableFor(condition.getCondition())) {
+    	        lapTime *= 0.95;
+    	    }
+
+    	    // Ajustar el tiempo de vuelta para que sea más realista
+    	    lapTime /= 10;  // Dividir por un factor para hacerlo más realista
+
+    	    // Actualizar atributos del coche
+    	    kilometersDriven += Circuit.getLength();  // Ajuste para que la distancia sea más realista
+    	    health -= (100 - reliability) * 0.01;
+    	    double speedFactor = realMaxSpeed / maxSpeed;
+    	    fuel -= consumption * speedFactor * (1 + drivingMode.getAggressiveness() / 100.0);
+    	    weight -= consumption;
+
+        // Parada en boxes
+        if (shouldPitStop()) {
+            double randomChance = Math.random();
+            if (randomChance >= 0.2) {
+                pitStop();
+                lapTime += 80; // ESTO DEBERÍA SER UN EVENTO
+            } else {
+                System.out.println("El coche " + brand + " " + model + " se saltó la parada en boxes.");
+            }
         }
 
-        // Update car attributes
-        kilometersDriven += Circuit.getLength();
-        health -= (100 - reliability) * 0.01;
-        fuel -= consumption;
-        weight -= consumption;
-
-        if (Math.random() < 0.8) {
-            pitStop(); // THIS SHOULD BE AN EVENT
+        // Fallo mecánico
+        if (Math.random() < 0.01) {
+            isBroken = true;
+            System.out.println("El coche " + brand + " " + model + " ha sufrido un fallo mecánico.");
         }
 
         checkCarStatus();
         if (isBroken) {
-            System.out.println("The car " + brand + " " + model + " is broken and cannot continue.");
-            return lapTime; // Is this correct?
+            System.out.println("El coche " + brand + " " + model + " está roto y no puede continuar.");
+            return lapTime;
         }
 
-        System.out.println("The car " + brand + " " + model + " completed the lap in " + lapTime + " seconds and drove " + kilometersDriven + " Km");
+        System.out.println("El coche " + brand + " " + model + " completó la vuelta en " + lapTime + " segundos y recorrió " + kilometersDriven + " Km");
         return lapTime;
     }
-
     @Override
     public void run() {
         Player associatedPlayer = getPlayer();
@@ -231,18 +269,16 @@ public class Car implements Runnable {
         Driver driver = associatedPlayer.getDriver();
 
         if (!this.isBroken) {
-            double lapTime = this.simulateLap(circuit, condition, driver);
-
-            synchronized (associatedPlayer.getActiveRace().playerTimes) {
-                int playerId = associatedPlayer.getId();
-                double currentTime = associatedPlayer.getActiveRace().playerTimes.getOrDefault(playerId, 0.0);
-                associatedPlayer.getActiveRace().playerTimes.put(playerId, currentTime + lapTime);
-            }
+            lapTime = this.simulateLap(circuit, condition, driver);
         }
     }
 
 	public boolean isBroken() {
 		return isBroken;
+	}
+	
+	private boolean shouldPitStop() {
+	    return tire.getWear() > 70 || fuel < 10 || health < 20;
 	}
 
 	public void setEstaRoto(boolean isBroken) {
