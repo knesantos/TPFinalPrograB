@@ -1,6 +1,7 @@
 package Core.Entities;
 
 public class Driver {
+
     private long budget;
     private int defense;
     private int overtaking;
@@ -9,10 +10,12 @@ public class Driver {
     private int start;
     private String name;
     private String shortName;
+
     private int racesWon;
     private int polePositions;
     private int championships;
     private int participations;
+
 
     public Driver(long budget, int defense, int overtaking, int ranking, int tireCare, int start,
                   String name, String shortName, int racesWon, int polePositions, int championships,
@@ -58,6 +61,7 @@ public class Driver {
         return overtaking;
     }
 
+
     public int getRanking() {
         return ranking;
     }
@@ -73,6 +77,7 @@ public class Driver {
     public String getName() {
         return name;
     }
+
 
     public String getShortName() {
         return shortName;
@@ -106,8 +111,10 @@ public class Driver {
         this.overtaking = overtaking;
     }
 
+
     public void setRanking(int ranking) {
         this.ranking = ranking;
+
     }
 
     public void setTireCare(int tireCare) {
@@ -124,6 +131,7 @@ public class Driver {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+
     }
 
     public void setRacesWon(int racesWon) {
@@ -142,3 +150,4 @@ public class Driver {
         this.participations = participations;
     }
 }
+

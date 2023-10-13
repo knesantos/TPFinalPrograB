@@ -1,6 +1,7 @@
 package Core.Entities;
 
 public abstract class Player {
+
     private String name;
     private int id;
     protected Driver driver;
@@ -58,3 +59,4 @@ public abstract class Player {
         return activeRace;
     }
 }
+

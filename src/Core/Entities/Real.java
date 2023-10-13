@@ -6,6 +6,7 @@ public class Real extends Player {
         super(name, id);
     }
 
+
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
@@ -22,3 +23,4 @@ public class Real extends Player {
         return car;
     }
 }
+

@@ -1,6 +1,5 @@
 package Core.Entities;
 
-
 public class Car implements Runnable {
     private int overtakingPerformance;
     private int curvesPerformance;
@@ -268,6 +267,7 @@ public class Car implements Runnable {
 		 this.fuel = fuel;
 	        this.weight += fuel; // Asumiendo que cada litro de combustible aumenta el peso en 1kg
 	}
+
 
 
 

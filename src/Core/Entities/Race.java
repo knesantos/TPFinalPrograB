@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.concurrent.CountDownLatch;
 
+
 public class Race {
     
     private Date date;
@@ -19,13 +20,16 @@ public class Race {
     List<Player> players = new ArrayList<>();
     Map<Integer, Double> playerTimes = new HashMap<>();
     
+
     public Race(Date date, int id, List<Player> players, Circuit circuit) {
         this.date = date;
         this.id = id;
         this.players = players;
         this.circuit = circuit;
     }
+
     
+
     public Date getDate() {
         return date;
     }
@@ -34,6 +38,7 @@ public class Race {
         return id;
     }
     
+
     public Circuit getCircuit() {
         return circuit;
     }
@@ -66,11 +71,13 @@ public class Race {
         players = sortedPlayers;
 
         // Display current positions
+
         for (int i = 0; i < players.size(); i++) {
             System.out.println("Position " + (i + 1) + ": " + players.get(i).getName());
         }
     }
     
+
     private void checkConditions() {
         if (condition.getPrecipitation() > 100) {
             System.out.println("The race has been suspended due to extreme precipitation.");
@@ -86,12 +93,14 @@ public class Race {
             i++;
         }
         
+
         if (allCarsBroken) {
             System.out.println("All cars are broken. The race is over.");
             raceInProgress = false;
         }
     }
     
+
     public void simulateRace() {
         // Start the race
         System.out.println("The race has started on " + circuit.getName());
