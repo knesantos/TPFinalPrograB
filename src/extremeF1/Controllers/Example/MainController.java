@@ -7,13 +7,14 @@ import Repository.CarRepository;
 import Repository.CircuitRepository;
 import Repository.CountryRepository;
 import Repository.DriverRepository;
+import extremeF1.Views.PrincipalView;
 
 public class MainController {
 
  
     private List<Player> players = new ArrayList<>();
     private List<Race> races = new ArrayList<>();
-    
+    private PrincipalView gameWindow;
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -46,29 +47,32 @@ public class MainController {
             races.add(Race);
         }
   
-
-     // Iniciar el ChampionshipController
-        ChampionshipController championshipController = new ChampionshipController(races, players);
+        gameWindow = new PrincipalView();
+        gameWindow.show();
+        
+        //Iniciar el SelectionController 
+        SelectionViewController selectionController = new SelectionViewController(gameWindow);
+        selectionController.addObserver(() -> {
+            players = selectionController.getListPlayer();
+            startChampionship();
+        });
+        selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
+     	
+    }
+    
+    private void startChampionship() {
+        // Iniciar el ChampionshipController
+        ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
 
         // Iniciar el RaceViewController
-        RaceViewController raceController = new RaceViewController();
+        RaceViewController raceController = new RaceViewController(gameWindow);
         raceController.addRaceEndObserver(() -> championshipController.onRaceEnd());
 
         // Pasar la instancia de RaceViewController al ChampionshipController
         championshipController.setRaceController(raceController);
         
-        
-        PrincipalViewController principalcontroller = new  PrincipalViewController(races.get(1),player, CarRepository, DriverRepository);
-        players = principalcontroller.getListPlayer();
-    
-        		
-        		/*   selectionController.addObserver(new SelectionViewController.SelectionObserver() {
-            @Override
-            public void onSelectionComplete() {
-            	  PitsViewController pitsview = new PitsViewController(races.get(1), player);
-            	  principalcontroller.removePanel(selectionController.initSelectionScreen(player, CarRepository, DriverRepository));
-                  principalcontroller.setPanel(pitsview.getPanel());
-            }
-        });*/
+        // Iniciar la primera carrera
+        championshipController.startNextRace();
     }
+    
 }

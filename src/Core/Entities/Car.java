@@ -132,11 +132,11 @@ public class Car implements Runnable {
         this.model = model;
     }
 
-    public int gethealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void sethealth(int health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 

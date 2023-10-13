@@ -8,6 +8,7 @@ import Core.Entities.Real;
 import Core.Entities.Simulated;
 import Repository.CarRepository;
 import Repository.DriverRepository;
+import extremeF1.Views.PrincipalView;
 import extremeF1.Views.SelectionView;
 
 import java.util.ArrayList;
@@ -20,7 +21,12 @@ public class SelectionViewController {
 	private boolean isButtonAcceptSelectionPressed = false;
 	  private SelectionView v1;
 	  private List<Player> Playeres = new ArrayList<>();
-	
+	  private PrincipalView gameWindow;
+	  
+	  public SelectionViewController(PrincipalView gameWindow) {
+		    this.gameWindow = gameWindow;
+		}
+
 	public interface SelectionObserver {
         void onSelectionComplete();
     }
@@ -49,9 +55,13 @@ public class SelectionViewController {
         
         v1.setButtonAcceptSelectionListener((event) -> {
             setButtonPressed(true);
+            if (observer != null) {
+                observer.onSelectionComplete();
+            }
         });
         
-        v1.setVisible(true);
+        gameWindow.addPanel(v1, "Selection");
+        gameWindow.showPanel("Selection");
         
         
         
@@ -94,5 +104,13 @@ public class SelectionViewController {
 	    this.isButtonAcceptSelectionPressed = isPressed;
 	    checkSelectionComplete();  
 	    }
+
+	public PrincipalView getGameWindow() {
+		return gameWindow;
+	}
+
+	public void setGameWindow(PrincipalView gameWindow) {
+		this.gameWindow = gameWindow;
+	}
 
 }

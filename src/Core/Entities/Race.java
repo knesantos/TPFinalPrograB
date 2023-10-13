@@ -14,12 +14,13 @@ import java.util.concurrent.CountDownLatch;
 public class Race {
     
     private Date date;
+    private int actualLap=0;
     private Circuit circuit;
     private RaceCondition condition = new RaceCondition("Sunny", 20, 0);
     private int id;
     List<Player> players = new ArrayList<>();
     Map<Integer, Double> playerTimes = new HashMap<>();
-    
+    private volatile boolean stopSimulation = false; 
 
     public Race(Date date, int id, List<Player> players, Circuit circuit) {
         this.date = date;
@@ -45,6 +46,15 @@ public class Race {
     
     public List<Player> getPlayers() {
         return players;
+    }
+    
+    public Player getRealPlayer() {
+        for (Player player : players) {
+            if (player instanceof Real) {  
+                return player;
+            }
+        }
+        return null;  // Devuelve null si no hay jugadores reales
     }
     
     public Map<Integer, Double> getTimes() {
@@ -112,8 +122,9 @@ public class Race {
         }
 
         // Simulate each lap
-        for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress; lap++) {
+        for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress && !stopSimulation; lap++) {
             System.out.println("Lap " + lap);
+            setActualLap(lap);
             CountDownLatch latch = new CountDownLatch(players.size());
             for (Player player : players) {
                 new Thread(() -> {
@@ -127,6 +138,7 @@ public class Race {
 
             try {
                 latch.await();
+                Thread.sleep(900);  // Sleep for 2 seconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -140,4 +152,20 @@ public class Race {
     public void setCircuit(Circuit circuit) {
         this.circuit = circuit;
     }
+    
+    public void stopSimulation() {
+        stopSimulation = true;
+    }
+
+
+
+	public int getActualLap() {
+		return actualLap;
+	}
+
+
+
+	public void setActualLap(int actualLap) {
+		this.actualLap = actualLap;
+	}
 }
