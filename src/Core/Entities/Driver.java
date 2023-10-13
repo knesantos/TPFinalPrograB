@@ -1,30 +1,33 @@
 package Core.Entities;
 
 public class Driver {
-	private long budget;
+
+    private long budget;
     private int defense;
     private int overtaking;
-    private int classification;
+    private int ranking;
     private int tireCare;
     private int start;
     private String name;
-    private String abbreviatedName;
+    private String shortName;
+
     private int racesWon;
     private int polePositions;
     private int championships;
     private int participations;
-    
-    public Driver(long budget, int defense, int overtaking, int classification, int tireCare, int start,
-                  String name, String abbreviatedName, int racesWon, int polePositions, int championships,
+
+
+    public Driver(long budget, int defense, int overtaking, int ranking, int tireCare, int start,
+                  String name, String shortName, int racesWon, int polePositions, int championships,
                   int participations) {
         this.budget = budget;
         this.defense = defense;
         this.overtaking = overtaking;
-        this.classification = classification;
+        this.ranking = ranking;
         this.tireCare = tireCare;
         this.start = start;
         this.name = name;
-        this.abbreviatedName = abbreviatedName;
+        this.shortName = shortName;
         this.racesWon = racesWon;
         this.polePositions = polePositions;
         this.championships = championships;
@@ -35,11 +38,11 @@ public class Driver {
         this.budget = 1000000;
         this.defense = 80;
         this.overtaking = 100;
-        this.classification = 1;
+        this.ranking = 1;
         this.tireCare = 100;
         this.start = 100;
         this.name = "Santi";
-        this.abbreviatedName = "SAN";
+        this.shortName = "SAN";
         this.racesWon = 10000;
         this.polePositions = 9;
         this.championships = 100000;
@@ -58,8 +61,9 @@ public class Driver {
         return overtaking;
     }
 
-    public int getClassification() {
-        return classification;
+
+    public int getRanking() {
+        return ranking;
     }
 
     public int getTireCare() {
@@ -74,8 +78,9 @@ public class Driver {
         return name;
     }
 
-    public String getAbbreviatedName() {
-        return abbreviatedName;
+
+    public String getShortName() {
+        return shortName;
     }
 
     public int getRacesWon() {
@@ -106,8 +111,10 @@ public class Driver {
         this.overtaking = overtaking;
     }
 
-    public void setClassification(int classification) {
-        this.classification = classification;
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
+
     }
 
     public void setTireCare(int tireCare) {
@@ -122,8 +129,9 @@ public class Driver {
         this.name = name;
     }
 
-    public void setAbbreviatedName(String abbreviatedName) {
-        this.abbreviatedName = abbreviatedName;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+
     }
 
     public void setRacesWon(int racesWon) {
@@ -142,5 +150,4 @@ public class Driver {
         this.participations = participations;
     }
 }
-
 

@@ -11,20 +11,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import Core.Entities.Circuito;
+import Core.Entities.Circuit;
 
-public class CircuitoRepository {
-    private List<Circuito> circuitos;
+public class CircuitRepository {
+    private List<Circuit> Circuits;
 
-    public CircuitoRepository() {
-        this.circuitos = new ArrayList<>();
+    public CircuitRepository() {
+        this.Circuits = new ArrayList<>();
     }
 
-    public void loadCircuitosFromXML() {
-    	String circuitosXMLPath = "src\\Resources\\XML\\circuitos.xml";
+    public void loadCircuitsFromXML() {
+    	String CircuitsXMLPath = "src\\Resources\\XML\\circuitos.xml";
         
         try {
-            File file = new File(circuitosXMLPath);
+            File file = new File(CircuitsXMLPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -41,10 +41,10 @@ public class CircuitoRepository {
                 int cantZonasSobrepaso = Integer.parseInt(element.getElementsByTagName("cantZonasSobrepaso").item(0).getTextContent());
                 long longitud = Long.parseLong(element.getElementsByTagName("longitud").item(0).getTextContent());
                 long recordVueltaRapida = Long.parseLong(element.getElementsByTagName("recordVueltaRapida").item(0).getTextContent());
-                String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
+                String Name = element.getElementsByTagName("nombre").item(0).getTextContent();
 
-                Circuito circuito = new Circuito(cantVueltas, cantCurvas, cantZonasSobrepaso, longitud, recordVueltaRapida, nombre);
-                circuitos.add(circuito);
+                Circuit Circuit = new Circuit(cantVueltas, cantCurvas, cantZonasSobrepaso, longitud, recordVueltaRapida, Name);
+                Circuits.add(Circuit);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,16 +53,16 @@ public class CircuitoRepository {
 
     
 
-    public List<Circuito> getCircuitos() {
-        return circuitos;
+    public List<Circuit> getCircuits() {
+        return Circuits;
     }
 
-    public Circuito findByNombre(String nombre) {
-        for (Circuito circuito : circuitos) {
-            if (circuito.getNombre().equalsIgnoreCase(nombre)) {
-                return circuito;
+    public Circuit findByName(String Name) {
+        for (Circuit Circuit : Circuits) {
+            if (Circuit.getName().equalsIgnoreCase(Name)) {
+                return Circuit;
             }
         }
-        return null; // Si no se encuentra el circuito con el nombre dado
+        return null; // Si no se encuentra el Circuit con el Name dado
     }
 }

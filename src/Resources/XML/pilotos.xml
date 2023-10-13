@@ -7,12 +7,13 @@
     <clasificacion>90</clasificacion>
     <cuidadoNeumaticos>75</cuidadoNeumaticos>
     <largada>85</largada>
-    <nombre>Lewis Hamilton</nombre>
-    <nombreAbreviado>L. Hamilton</nombreAbreviado>
+    <nombre>Massimo Lentini</nombre>
+    <nombreAbreviado>LEN</nombreAbreviado>
     <cantCarrerasGanadas>100</cantCarrerasGanadas>
     <cantPolePositions>101</cantPolePositions>
     <cantCampeonatos>7</cantCampeonatos>
     <cantParticipaciones>250</cantParticipaciones>
+	<pais>ITA</pais>
   </piloto>
   <piloto>
     <presupuesto>30</presupuesto>
@@ -21,12 +22,13 @@
     <clasificacion>80</clasificacion>
     <cuidadoNeumaticos>70</cuidadoNeumaticos>
     <largada>75</largada>
-    <nombre>Max Verstappen</nombre>
-    <nombreAbreviado>M. Verstappen</nombreAbreviado>
+    <nombre>Max VerSTOPPEN</nombre>
+    <nombreAbreviado>VER</nombreAbreviado>
     <cantCarrerasGanadas>12</cantCarrerasGanadas>
     <cantPolePositions>10</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>70</cantParticipaciones>
+	<pais>GER</pais>
   </piloto>
   <piloto>
     <presupuesto>45</presupuesto>
@@ -35,12 +37,13 @@
     <clasificacion>85</clasificacion>
     <cuidadoNeumaticos>90</cuidadoNeumaticos>
     <largada>95</largada>
-    <nombre>Sebastian Vettel</nombre>
-    <nombreAbreviado>S. Vettel</nombreAbreviado>
+    <nombre>Noami Nora</nombre>
+    <nombreAbreviado>NOR</nombreAbreviado>
     <cantCarrerasGanadas>53</cantCarrerasGanadas>
     <cantPolePositions>57</cantPolePositions>
     <cantCampeonatos>4</cantCampeonatos>
     <cantParticipaciones>250</cantParticipaciones>
+	<pais>JPN</pais>
   </piloto>
   <piloto>
     <presupuesto>35</presupuesto>
@@ -49,12 +52,13 @@
     <clasificacion>80</clasificacion>
     <cuidadoNeumaticos>70</cuidadoNeumaticos>
     <largada>70</largada>
-    <nombre>Charles Leclerc</nombre>
-    <nombreAbreviado>C. Leclerc</nombreAbreviado>
+    <nombre>Chin Chucoche</nombre>
+    <nombreAbreviado>CHU</nombreAbreviado>
     <cantCarrerasGanadas>2</cantCarrerasGanadas>
     <cantPolePositions>7</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>40</cantParticipaciones>
+	<pais>CHN</pais>
   </piloto>
   <piloto>
     <presupuesto>40</presupuesto>
@@ -63,12 +67,13 @@
     <clasificacion>85</clasificacion>
     <cuidadoNeumaticos>80</cuidadoNeumaticos>
     <largada>80</largada>
-    <nombre>Esteban Ocon</nombre>
-    <nombreAbreviado>E. Ocon</nombreAbreviado>
+    <nombre>Mia Utoh</nombre>
+    <nombreAbreviado>UTO</nombreAbreviado>
     <cantCarrerasGanadas>1</cantCarrerasGanadas>
     <cantPolePositions>1</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>60</cantParticipaciones>
+	<pais>USA</pais>
   </piloto>
   <piloto>
     <presupuesto>35</presupuesto>
@@ -77,12 +82,13 @@
     <clasificacion>80</clasificacion>
     <cuidadoNeumaticos>70</cuidadoNeumaticos>
     <largada>75</largada>
-    <nombre>Antonio Giovinazzi</nombre>
-    <nombreAbreviado>A. Giovinazzi</nombreAbreviado>
+    <nombre>Ivo Lante</nombre>
+    <nombreAbreviado>LAN</nombreAbreviado>
     <cantCarrerasGanadas>0</cantCarrerasGanadas>
     <cantPolePositions>0</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>50</cantParticipaciones>
+	<pais>HUN</pais>
   </piloto>
   <piloto>
     <presupuesto>30</presupuesto>
@@ -91,12 +97,13 @@
     <clasificacion>75</clasificacion>
     <cuidadoNeumaticos>65</cuidadoNeumaticos>
     <largada>70</largada>
-    <nombre>Nikita Mazepin</nombre>
-    <nombreAbreviado>N. Mazepin</nombreAbreviado>
+    <nombre>Katra Minah</nombre>
+    <nombreAbreviado>MIN</nombreAbreviado>
     <cantCarrerasGanadas>0</cantCarrerasGanadas>
     <cantPolePositions>0</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>20</cantParticipaciones>
+	<pais>NIG</pais>
   </piloto>
   <piloto>
     <presupuesto>25</presupuesto>
@@ -105,11 +112,12 @@
     <clasificacion>75</clasificacion>
     <cuidadoNeumaticos>65</cuidadoNeumaticos>
     <largada>70</largada>
-    <nombre>Yuki Tsunoda</nombre>
-    <nombreAbreviado>Y. Tsunoda</nombreAbreviado>
+    <nombre>Luka Toppetazzo</nombre>
+    <nombreAbreviado>TOP</nombreAbreviado>
     <cantCarrerasGanadas>0</cantCarrerasGanadas>
     <cantPolePositions>0</cantPolePositions>
     <cantCampeonatos>0</cantCampeonatos>
     <cantParticipaciones>20</cantParticipaciones>
+	<pais>ITA</pais>
   </piloto>
 </pilotos>

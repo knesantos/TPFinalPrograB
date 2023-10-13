@@ -11,19 +11,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import Core.Entities.Pais;
+import Core.Entities.Country;
 
-public class PaisRepository {
-    private List<Pais> paises;
+public class CountryRepository {
+    private List<Country> Contries;
 
-    public PaisRepository() {
-        this.paises = new ArrayList<>();
+    public CountryRepository() {
+        this.Contries = new ArrayList<>();
     }
 
-    public void loadPaisesFromXML() {
-    	 String paisesXMLPath = "src\\Resources\\XML\\paises.xml";
+    public void loadContriesFromXML() {
+    	 String ContriesXMLPath = "src\\Resources\\XML\\paises.xml";
         try {
-            File file = new File(paisesXMLPath);
+            File file = new File(ContriesXMLPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -38,8 +38,8 @@ public class PaisRepository {
                 String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
                 String nombreAbreviado = element.getElementsByTagName("nombreAbreviado").item(0).getTextContent();
 
-                Pais pais = new Pais(nombre, nombreAbreviado);
-                paises.add(pais);
+                Country Country = new Country(nombre, nombreAbreviado);
+                Contries.add(Country);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,14 +48,14 @@ public class PaisRepository {
 
     
 
-    public List<Pais> getPaises() {
-        return paises;
+    public List<Country> getContries() {
+        return Contries;
     }
 
-    public Pais findByNombre(String nombre) {
-        for (Pais pais : paises) {
-            if (pais.getnombre().equalsIgnoreCase(nombre)) {
-                return pais;
+    public Country findByNombre(String nombre) {
+        for (Country Country : Contries) {
+            if (Country.getName().equalsIgnoreCase(nombre)) {
+                return Country;
             }
         }
         return null; // Si no se encuentra el país con el nombre dado

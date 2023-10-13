@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.concurrent.CountDownLatch;
+
 
 public class Race {
     
@@ -12,9 +17,9 @@ public class Race {
     private Circuit circuit;
     private RaceCondition condition = new RaceCondition("Sunny", 20, 0);
     private int id;
-    
     List<Player> players = new ArrayList<>();
-    List<Double> playersTimes = new ArrayList<>();
+    Map<Integer, Double> playerTimes = new HashMap<>();
+    
 
     public Race(Date date, int id, List<Player> players, Circuit circuit) {
         this.date = date;
@@ -22,6 +27,8 @@ public class Race {
         this.players = players;
         this.circuit = circuit;
     }
+
+    
 
     public Date getDate() {
         return date;
@@ -31,54 +38,59 @@ public class Race {
         return id;
     }
     
+
+    public Circuit getCircuit() {
+        return circuit;
+    }
+    
+    public List<Player> getPlayers() {
+        return players;
+    }
+    
+    public Map<Integer, Double> getTimes() {
+        return playerTimes;
+    }
+    
+    public RaceCondition getRaceCondition() {
+        return condition;
+    }
+    
     public boolean raceInProgress;
     
     private void updatePositions() {
-        // Ordenamos los jugadores basándonos en los tiempos totales (el jugador con el menor tiempo estará primero)
-    	List<Integer> sortedIndices = new ArrayList<>();
-    	for (int i = 0; i < players.size(); i++) {
-            sortedIndices.add(i);
-        }
-        Collections.sort(sortedIndices, new Comparator<Integer>() {
-            public int compare(Integer i1, Integer i2) {
-                return playersTimes.get(i1).compareTo(playersTimes.get(i2));
-            }
-        });
+        // Sort players based on total times (the player with the lowest time will be first)
+        List<Player> sortedPlayers = players.stream()
+            .sorted((p1, p2) -> {
+                Double time1 = playerTimes.getOrDefault(p1.getId(), Double.MAX_VALUE);
+                Double time2 = playerTimes.getOrDefault(p2.getId(), Double.MAX_VALUE);
+                return time1.compareTo(time2);
+            })
+            .collect(Collectors.toList());
 
-
-        // Creamos una nueva lista de jugadores ordenados según los tiempos
-        List<Player> sortedPlayers = new ArrayList<>();
-        for (Integer index : sortedIndices) {
-            sortedPlayers.add(players.get(index));
-        }
-
-        // Actualizamos la lista de jugadores con la lista ordenada
+        // Update the player list with the sorted list
         players = sortedPlayers;
-        
-        // Mostramos las posiciones actuales
+
+        // Display current positions
+
         for (int i = 0; i < players.size(); i++) {
             System.out.println("Position " + (i + 1) + ": " + players.get(i).getName());
         }
     }
     
- 
+
     private void checkConditions() {
-    	
-	        if (condition.getPrecipitation() > 100) {
-	            System.out.println("The race has been suspended due to extreme precipitation.");
-	            return;
-	        }
-	        
+        if (condition.getPrecipitation() > 100) {
+            System.out.println("The race has been suspended due to extreme precipitation.");
+            return;
+        }
+        
         boolean allCarsBroken = true;
         int i = 0;
-        
         while (allCarsBroken && i < players.size()) {
-        	
-	        if (!players.get(i).getCar().isBroken()) {
-	            allCarsBroken = false;
-	        }
-	        
-	        i++;
+            if (!players.get(i).getCar().isBroken()) {
+                allCarsBroken = false;
+            }
+            i++;
         }
         
 
@@ -88,36 +100,44 @@ public class Race {
         }
     }
     
-    private void showResults(){
-        // Implementa el código para mostrar los resultados finales aquí
-    }
-    
+
     public void simulateRace() {
-        System.out.println("The race has started at " + circuit.getName());
+        // Start the race
+        System.out.println("The race has started on " + circuit.getName());
         raceInProgress = true;
-        for (int i = 0; i < players.size(); i++) {
-            playersTimes.add(0.0); // Initialize times
+        
+        for (Player player : players) {
+            playerTimes.put(player.getId(), 0.0);
+            player.getCar().setKilometersDriven(0);
         }
 
-        // Simular cada vuelta
+        // Simulate each lap
         for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress; lap++) {
             System.out.println("Lap " + lap);
-
-            for (int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                Car car = player.getCar();
-                Driver driver = player.getDriver();
-                if (!car.isBroken()) {
-                    double lapTime = car.simulateLap(circuit, condition, driver);
-                    playersTimes.set(i, playersTimes.get(i) + lapTime);
-                }
+            CountDownLatch latch = new CountDownLatch(players.size());
+            for (Player player : players) {
+                new Thread(() -> {
+                    Car car = player.getCar();
+                    if (!car.isBroken()) {
+                        car.run();
+                    }
+                    latch.countDown();
+                }).start();
             }
-            
+
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             updatePositions();
             checkConditions();
         }
+        System.out.println("The race is over!");
+    }
 
-        System.out.println("The race has ended!");
-        showResults();
+    public void setCircuit(Circuit circuit) {
+        this.circuit = circuit;
     }
 }
