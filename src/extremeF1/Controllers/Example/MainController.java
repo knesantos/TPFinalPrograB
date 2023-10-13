@@ -7,15 +7,20 @@ import Repository.CarRepository;
 import Repository.CircuitRepository;
 import Repository.CountryRepository;
 import Repository.DriverRepository;
+import extremeF1.Views.PreChampionshipView;
+
+import javax.swing.*;
 
 public class MainController {
 
  
-    private List<Player> players = new ArrayList<>();
+    private static final Race Race = null;
+	private List<Player> players = new ArrayList<>();
     private List<Race> races = new ArrayList<>();
     
     public static void main(String[] args) {
         new MainController().run();
+      
     }
 
     public void run() {
