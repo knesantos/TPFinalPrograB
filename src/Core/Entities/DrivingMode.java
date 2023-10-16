@@ -12,6 +12,28 @@ public class DrivingMode {
 	    this.consumption = consumption;
 	    this.type = type;
 	}
+	
+	public DrivingMode(String type) {
+	    super();
+	    this.type = type;
+	    
+	    switch(type) {
+	        case "Agressive":
+	            this.aggressiveness = 80;
+	            this.consumption = 90; 
+	            break;
+	        case "Moderated":
+	            this.aggressiveness = 50;
+	            this.consumption = 50; 
+	            break;
+	        case "Defensive":
+	            this.aggressiveness = 20; 
+	            this.consumption = 40; 
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Invalid driving mode type");
+	    }
+	}
 
 	public int getAggressiveness() {
 	    return aggressiveness;
@@ -36,6 +58,4 @@ public class DrivingMode {
 	public void setType(String type) {
 	    this.type = type;
 	}
-	
-	
 }

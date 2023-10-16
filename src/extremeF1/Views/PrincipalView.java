@@ -24,6 +24,8 @@ public class PrincipalView extends JFrame implements PrincipalViewInterface {
 
         pack();
         setVisible(true);
+        revalidate();
+        repaint();
     }
 
     public void addPanel(JPanel panel, String name) {
@@ -32,5 +34,7 @@ public class PrincipalView extends JFrame implements PrincipalViewInterface {
 
     public void showPanel(String name) {
         cardLayout.show(cardPanel, name);
+        revalidate();
+        repaint();
     }
 }

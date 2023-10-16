@@ -1,6 +1,8 @@
 package extremeF1.Views;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import Core.Entities.Race;
 import Core.Entities.Player;
@@ -9,13 +11,13 @@ import Core.Entities.Driver;
 public class PreRaceView extends JPanel {
     private Race Race;
     private JButton btnContinuar;
+    private JLabel lblWeather, lblTemperature, lblPrecipitation;
 
     public interface ContinueButtonListener {
         void onContinueButtonPressed();
     }
 
     private ContinueButtonListener continueButtonListener;
-
     public void setContinueButtonListener(ContinueButtonListener listener) {
         this.continueButtonListener = listener;
     }
@@ -52,7 +54,37 @@ public class PreRaceView extends JPanel {
         }
         txtInfo.setText(sb.toString());
         add(new JScrollPane(txtInfo), BorderLayout.CENTER);
+        
+        
+        TitledBorder title = BorderFactory.createTitledBorder("Climate condition");
+        title.setTitleColor(new Color(236, 240, 241)); 
 
+        JPanel weatherPanel = new JPanel();
+        weatherPanel.setLayout(new GridLayout(3, 1));  
+        weatherPanel.setBorder(title);
+        weatherPanel.setBackground(new Color(44, 62, 80)); 
+
+        lblWeather = new JLabel("Clima: " + Race.getRaceCondition().getCondition());
+        lblTemperature = new JLabel("Temperatura: " + Race.getRaceCondition().getTemperature() + "°C");
+        lblPrecipitation = new JLabel("Precipitaciones: " + Race.getRaceCondition().getPrecipitation() + "%");
+
+        lblWeather.setForeground(new Color(236, 240, 241)); // Texto claro
+        lblTemperature.setForeground(new Color(236, 240, 241)); // Texto claro
+        lblPrecipitation.setForeground(new Color(236, 240, 241)); // Texto claro
+
+        weatherPanel.add(lblWeather);
+        weatherPanel.add(lblTemperature);
+        weatherPanel.add(lblPrecipitation);
+
+        JPanel additionalPanel = new JPanel(null);
+        additionalPanel.setBackground(new Color(44, 62, 80)); // Fondo oscuro
+        additionalPanel.setPreferredSize(new Dimension(220, 120));  // Establecer un tamaño preferido para el panel adicional
+        weatherPanel.setBounds(10, 10, 200, 100);  // x, y, ancho, alto
+        additionalPanel.add(weatherPanel);
+
+        // Añadir el panel adicional al panel principal
+        add(additionalPanel, BorderLayout.EAST);
+        
         // Botón para continuar
         btnContinuar = new JButton("Continuar");
         btnContinuar.setFont(new Font("Comic Sans MS", Font.BOLD, 24));

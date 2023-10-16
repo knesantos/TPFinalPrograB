@@ -48,8 +48,7 @@ public class MainController {
         }
   
         gameWindow = new PrincipalView();
-        gameWindow.show();
-        
+
         //Iniciar el SelectionController 
         SelectionViewController selectionController = new SelectionViewController(gameWindow);
         selectionController.addObserver(() -> {

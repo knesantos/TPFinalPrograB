@@ -8,19 +8,19 @@ public class Real extends Player {
 
 
     public void setDriver(Driver driver) {
-        this.driver = driver;
+        super.setDriver(driver);
     }
 
     public Driver getDriver() {
-        return driver;
+    	return super.getDriver();
     }
     
     public void setCar(Car car) {
-        this.car = car;
+       super.setCar(car);
     }
 
     public Car getCar() {
-        return car;
+        return super.getCar();
     }
 }
 

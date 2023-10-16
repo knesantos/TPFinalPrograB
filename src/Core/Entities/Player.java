@@ -4,11 +4,10 @@ public abstract class Player {
 
     private String name;
     private int id;
-    protected Driver driver;
-    protected Car car;
-    
-    protected Race activeRace;
-    
+    private Driver driver;
+    private Car car;
+    private Race activeRace;
+    private DrivingMode divingMode = new DrivingMode("Moderated");
     
     public Player() {
         
@@ -58,5 +57,13 @@ public abstract class Player {
     public Race getActiveRace() {
         return activeRace;
     }
+
+	public DrivingMode getDivingMode() {
+		return divingMode;
+	}
+
+	public void setDivingMode(DrivingMode divingMode) {
+		this.divingMode = divingMode;
+	}
 }
 
