@@ -19,6 +19,7 @@ public class Car implements Runnable {
     private Player player;
     private double lapTime;
     private boolean isBroken = false;
+    private boolean needPits = false;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
                double acceleration, int power, int consumption, Tire tire, String brand, String model) {
@@ -195,30 +196,31 @@ public class Car implements Runnable {
     
     public double simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
     	 lapTime = 0.0;
+    	 double timeMultiplier = 0.0001;
 
     	    // Ajustar maxSpeed y aceleración según el modo de conducción
-    	    int adjustedMaxSpeed = (int) (maxSpeed * (1 + drivingMode.getAggressiveness() / 100.0));
-    	    double adjustedAcceleration = acceleration * (1 + drivingMode.getAggressiveness() / 100.0);
+    	    int adjustedMaxSpeed = Math.max(1, (int) (maxSpeed * (1 + drivingMode.getAggressiveness() / 100.0)));
+    	    double adjustedAcceleration = Math.max(0, acceleration * (1 + drivingMode.getAggressiveness() / 100.0));
 
-    	    double fuelFactor = fuel / 100;  // Suponiendo que el combustible es un porcentaje
-    	    double tireFactor = (100 - tire.getWear()) / 100;
-    	    double realMaxSpeed = adjustedMaxSpeed * fuelFactor * tireFactor;
-    	    double realAcceleration = adjustedAcceleration * fuelFactor * tireFactor;
+    	    double fuelFactor = Math.max(0, fuel / 100);
+    	    double tireFactor = Math.max(0, (100 - tire.getWear()) / 100);
+    	    double realMaxSpeed = Math.max(1, adjustedMaxSpeed * fuelFactor * tireFactor);
+    	    double realAcceleration = Math.max(0, adjustedAcceleration * fuelFactor * tireFactor);
 
     	    // Simular diferentes secciones de la pista y sumar el tiempo
-    	    lapTime += (Circuit.getLength() / realMaxSpeed) * 60 * (1 - realAcceleration / 100);
+    	    lapTime += Math.max(0, (Circuit.getLength() / realMaxSpeed) * 60 * (1 - realAcceleration / 100));
 
     	    // Curvas
-    	    lapTime += (Circuit.getCurveCount() * 0.2) * 60 * (1 + (100 - curvesPerformance) / 100) * (1 + tire.getWear() / 100);
+    	    lapTime += Math.max(0, (Circuit.getCurveCount() * 0.2) * 60 * (1 + (100 - curvesPerformance) / 100) * (1 + tire.getWear() / 100));
 
     	    // Zonas de adelantamiento
-    	    double defenseFactor = driver.getDefense() / 100.0;
-    	    double overtakingFactor = driver.getOvertaking() / 100.0;
-    	    lapTime += (Circuit.getOvertakingZoneCount() * 0.3) * 60 * (1 - (overtakingPerformance / 100) - (overtakingFactor * 0.05) + (defenseFactor * 0.05));
+    	    double defenseFactor = Math.max(0, driver.getDefense() / 100.0);
+    	    double overtakingFactor = Math.max(0, driver.getOvertaking() / 100.0);
+    	    lapTime += Math.max(0, (Circuit.getOvertakingZoneCount() * 0.3) * 60 * (1 - (overtakingPerformance / 100) - (overtakingFactor * 0.05) + (defenseFactor * 0.05)));
 
     	    // Factor de neumáticos
-    	    double tireCareFactor = driver.getTireCare() / 100.0;
-    	    tire.setWear(tire.getWear() + (tire.getDurability() * drivingMode.getAggressiveness() / 100.0) * (1 - tireCareFactor * 0.05));
+    	    double tireCareFactor = Math.max(0, driver.getTireCare() / 100.0);
+    	    tire.setWear(Math.min(100, tire.getWear() + (tire.getDurability() * drivingMode.getAggressiveness() / 100.0) * (1 - tireCareFactor * 0.05)));
 
     	    // Ajuste de condiciones climáticas
     	    if (tire.isSuitableFor(condition.getCondition())) {
@@ -226,17 +228,17 @@ public class Car implements Runnable {
     	    }
 
     	    // Ajustar el tiempo de vuelta para que sea más realista
-    	    lapTime /= 10;  // Dividir por un factor para hacerlo más realista
+    	    lapTime = Math.max(0, lapTime * timeMultiplier);  
 
     	    // Actualizar atributos del coche
-    	    kilometersDriven += Circuit.getLength();  // Ajuste para que la distancia sea más realista
-    	    health -= (100 - reliability) * 0.01;
+    	    kilometersDriven += Circuit.getLength()/Circuit.getLapCount();
+    	    health = (int) Math.max(0, health - (100 - reliability) * 0.01);
     	    double speedFactor = realMaxSpeed / maxSpeed;
-    	    fuel -= consumption * speedFactor * (1 + drivingMode.getAggressiveness() / 100.0);
-    	    weight -= consumption;
+    	    fuel = Math.max(0, fuel - consumption * speedFactor * (1 + drivingMode.getAggressiveness() / 100.0));
+    	    weight = Math.max(0, weight - consumption);
 
         // Parada en boxes
-        if (shouldPitStop()) {
+        if (needPits) {
             double randomChance = Math.random();
             if (randomChance >= 0.2) {
                 pitStop();
@@ -277,10 +279,6 @@ public class Car implements Runnable {
 		return isBroken;
 	}
 	
-	private boolean shouldPitStop() {
-	    return tire.getWear() > 70 || fuel < 10 || health < 20;
-	}
-
 	public void setEstaRoto(boolean isBroken) {
 		this.isBroken= isBroken;
 	} 
@@ -304,7 +302,13 @@ public class Car implements Runnable {
 	        this.weight += fuel; // Asumiendo que cada litro de combustible aumenta el peso en 1kg
 	}
 
+	public boolean getNeedPits () {
+		return needPits;
+	}
 
+	public void setNeedPits(boolean bool) {
+		this.needPits = bool;
+	}
 
 
 }

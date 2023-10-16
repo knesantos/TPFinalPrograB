@@ -6,6 +6,10 @@ public class Wet extends Tire{
 		super(wear,durability,consumption,speed,grip);
 	}
 	
+	public Wet() {
+		super(0, 85, 10, 80, 95); 
+	}
+	
     public boolean isSuitableFor(String weatherCondition) {
         return weatherCondition.equalsIgnoreCase("Rainy");
     }

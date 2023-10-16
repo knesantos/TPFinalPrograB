@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.concurrent.CountDownLatch;
 
@@ -27,8 +28,23 @@ public class Race {
         this.id = id;
         this.players = players;
         this.circuit = circuit;
+        this.condition = generateRandomCondition();
     }
 
+    private RaceCondition generateRandomCondition() {
+        Random rand = new Random();
+        int chance = rand.nextInt(100) + 1;
+
+        if (chance <= 50) {
+            return new RaceCondition("Sunny", 20, 0);
+        } else if (chance <= 80) {
+            return new RaceCondition("Cloudy", 15, 10);
+        } else if (chance <= 95) {
+            return new RaceCondition("Rainy", 10, 80);
+        } else {
+            return new RaceCondition("Stormy", 5, 100);
+        }
+    }
     
 
     public Date getDate() {
@@ -134,6 +150,20 @@ public class Race {
         for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress && !stopSimulation; lap++) {
             System.out.println("Lap " + lap);
             setActualLap(lap);
+            
+            //Sim IA
+            for (Player player : players) {
+                if (player instanceof Simulated) {  
+                    ((Simulated) player).SimIA(this);  
+                }
+            }
+            
+            //Change condition
+            if (new Random().nextInt(100) < 10) {
+                this.condition = generateRandomCondition();
+                System.out.println("Weather condition has changed to: " + this.condition.getCondition());
+            }
+            
             CountDownLatch latch = new CountDownLatch(players.size());
             for (Player player : players) {
                 new Thread(() -> {
@@ -152,7 +182,7 @@ public class Race {
             }
             try {
                 latch.await();
-                Thread.sleep(100);  // Sleep for 2 seconds to slow down the simulation
+                Thread.sleep(100); // Sleep for 1000 milliseconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

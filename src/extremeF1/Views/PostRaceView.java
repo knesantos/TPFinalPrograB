@@ -52,7 +52,7 @@ public class PostRaceView extends JPanel {
             int millis = (int) ((timeInSeconds * 1000) % 1000);
 
             sb.append("Tiempo: ").append(minutes).append("m ").append(seconds).append("s ").append(millis).append("ms\n");
-            sb.append("Recorrido: ").append(player.getCar().getKilometersDriven()).append(" Km\n");
+            sb.append("Recorrido: ").append(player.getCar().getKilometersDriven()).append(" M\n");
             sb.append("------------------------\n");
         }
         txtInfo.setText(sb.toString());

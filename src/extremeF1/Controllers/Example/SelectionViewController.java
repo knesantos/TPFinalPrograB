@@ -65,6 +65,7 @@ public class SelectionViewController {
         
         
         
+        
 
        // Crear Playeres Simulateds para los Drivers y Cars no seleccionados
         int CarIndex = 0;
