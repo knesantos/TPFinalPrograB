@@ -1,17 +1,24 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Championship;
-import Core.Entities.Jugador;
+import Core.Entities.Player;
 import extremeF1.Views.PostRaceView;
 import extremeF1.Views.PreRaceView;
+import extremeF1.Views.PrincipalView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ReportsViewsController {
-
+	private static PrincipalView ReportsGameWindow;
+	
+	public ReportsViewsController(PrincipalView ReportsGameWindow) {
+		ReportsViewsController.ReportsGameWindow =  ReportsGameWindow;
+	}
+	
+	
     public interface PreRaceObserver {
         void onRaceStart();
     }
@@ -21,8 +28,8 @@ public class ReportsViewsController {
     }
 
     public static class PreRaceViewController {
-
-        private Carrera carrera;
+    	private PrincipalView gameWindow = ReportsGameWindow;
+        private Race Race;
         private PreRaceView preRaceView;
         private PreRaceObserver observer;
 
@@ -30,28 +37,29 @@ public class ReportsViewsController {
             this.observer = observer;
         }
 
-        public PreRaceViewController(Carrera carrera) {
-            this.carrera = carrera;
+        public PreRaceViewController(Race Race,PrincipalView gameWindow) {
+            this.Race = Race;
+            this.gameWindow=gameWindow;
             initPreRaceView();
         }
 
         private void initPreRaceView() {
-            preRaceView = new PreRaceView(carrera);
+            preRaceView = new PreRaceView(Race);
             preRaceView.getBtnContinuar().addActionListener(e -> handleContinueButton());
-            preRaceView.setVisible(true);
+            gameWindow.addPanel(preRaceView, "PreRace");
+            gameWindow.showPanel("PreRace");
         }
 
         private void handleContinueButton() {
             if (observer != null) {
                 observer.onRaceStart();
             }
-            preRaceView.dispose();
         }
     }
 
     public static class PostRaceViewController {
-
-        private Carrera carrera;
+    	private PrincipalView gameWindow= ReportsGameWindow;;
+        private Race Race;
         private Championship championship;
         private PostRaceView postRaceView;
         private PostRaceObserver observer;
@@ -60,22 +68,24 @@ public class ReportsViewsController {
             this.observer = observer;
         }
 
-        public PostRaceViewController(Carrera carrera,Championship championship) {
-            this.carrera = carrera;
+        public PostRaceViewController(Race Race,Championship championship,PrincipalView gameWindow) {
+            this.Race = Race;
+            this.gameWindow=gameWindow;
+            this.championship= championship;
             initPostRaceView();
         }
 
         private void initPostRaceView() {
-            postRaceView = new PostRaceView(carrera,championship);
+            postRaceView = new PostRaceView(Race,championship);
             postRaceView.getBtnContinuar().addActionListener(e -> handleContinueButton());
-            postRaceView.setVisible(true);
+            gameWindow.addPanel(postRaceView, "PostRace");
+            gameWindow.showPanel("PostRace");
         }
 
         private void handleContinueButton() {
             if (observer != null) {
                 observer.onRaceEnd();
             }
-            postRaceView.dispose();
         }
     }
 }

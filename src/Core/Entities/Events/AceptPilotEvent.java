@@ -1,15 +1,15 @@
 package Core.Entities.Events;
 
-import Core.Entities.Piloto;
+import Core.Entities.Driver;
 
 public class AceptPilotEvent {
-	private Piloto Piloto;
+	private Driver Driver;
 	
-	public AceptPilotEvent(Piloto piloto) {
-		this.Piloto = piloto;
+	public AceptPilotEvent(Driver Driver) {
+		this.Driver = Driver;
 	}
 	
-	public Piloto getPiloto() {
-		return  Piloto;
+	public Driver getDriver() {
+		return  Driver;
 	}
 }

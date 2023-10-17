@@ -1,20 +1,21 @@
 package Core.Entities;
 
-public class Hard extends Neumatico {
+public class Hard extends Tire {
 
-	public Hard(int desgaste, int durabilidad, int consumo, int velocidad, int agarre) {
-		super(desgaste, durabilidad, consumo, velocidad, agarre);
-		
-	}
-
-	@Override
-    public boolean esAdecuadoPara(String condicionClimatica) {
-        return condicionClimatica.equalsIgnoreCase("Seco");
+    // Constructor con argumentos
+    public Hard(int wear, int durability, int consumption, int speed, int grip) {
+        super(wear, durability, consumption, speed, grip);
+    }
+    
+    public Hard() {
+        super(0, 80, 5, 90, 70); 
     }
 
-	@Override
-	public double obtenerFactorModificacionTiempo() {
-		return 1.1;//10% mas lento
-	}
-	
+    public boolean isSuitableFor(String weatherCondition) {
+        return weatherCondition.equalsIgnoreCase("Dry");
+    }
+
+    public double getModificationFactorTime() {
+        return 1.1; // 10% más lento
+    }
 }
