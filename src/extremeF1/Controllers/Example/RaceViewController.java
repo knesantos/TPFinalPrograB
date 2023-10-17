@@ -38,8 +38,9 @@ public class RaceViewController {
         raceEndObservers.add(observer);
     }
     
-    public  RaceViewController(PrincipalView gameWindow){
-    	this.gameWindow =gameWindow;
+    public RaceViewController(PrincipalView gameWindow, Championship championship) {
+        this.gameWindow = gameWindow;
+        this.championship = championship;
     }
     
     public  RaceViewController(Race race,Championship championship,PrincipalView gameWindow){
@@ -74,21 +75,19 @@ public class RaceViewController {
         new Thread(() -> {
             Race.simulateRace();  // Simula la carrera en un hilo separado
             SwingUtilities.invokeLater(() -> {
-            	 SwingUtilities.invokeLater(() -> {
-                     postRaceController = new PostRaceViewController(Race, championship, gameWindow);
-                     postRaceController.addObserver(() -> {
-                         for (Runnable observer : raceEndObservers) {
-                             observer.run();
-                         }
-                     });
-                     gameWindow.showPanel("PostRace");  // Mostrar la vista PostRace
-                 });
+                for (Runnable observer : raceEndObservers) {
+                    observer.run();
+                }
             });
         }).start();
     }
 
+
     public Race getRace() {
         return Race;
+    }
+    public void setRace(Race race) {
+        this.Race= race;
     }
 
 

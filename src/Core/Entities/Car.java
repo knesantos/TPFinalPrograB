@@ -1,6 +1,7 @@
 package Core.Entities;
 
 public class Car implements Runnable {
+	private static final int OVERALLCONSUMPTION_FACTOR = 65 / 2;
     private int overtakingPerformance;
     private int curvesPerformance;
     private double weight;
@@ -15,11 +16,14 @@ public class Car implements Runnable {
     private int health; // Represents the "health" of the car, could be in a range of 0-100, where 100 is optimal and 0 is inoperable.
     private double fuel; // in liters
     private DrivingMode drivingMode = new DrivingMode(50, 50, "Moderate");
-    private double kilometersDriven = 0.0;
+    private double metersDriven = 0.0;
     private Player player;
     private double lapTime;
+    private int actualLap;
     private boolean isBroken = false;
+    private boolean endRace = false;
     private boolean needPits = false;
+    private String fuelState;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
                double acceleration, int power, int consumption, Tire tire, String brand, String model) {
@@ -144,6 +148,19 @@ public class Car implements Runnable {
     public double getFuel() {
         return fuel;
     }
+    
+    public void updateFuelState() {
+        if (fuel >= 75) {
+            setFuelState("Tanque lleno");
+        } else if (fuel >= 50) {
+            setFuelState("3/4 de tanque");
+        } else if (fuel >= 25) {
+            setFuelState("1/2 tanque");
+        } else {
+            setFuelState("1/4 de tanque");
+        }
+    }
+
 
 
     public DrivingMode getDrivingMode() {
@@ -156,8 +173,8 @@ public class Car implements Runnable {
         this.consumption *= drivingMode.getConsumption();
     }
 
-    public double getKilometersDriven() {
-        return kilometersDriven;
+    public double getmetersDriven() {
+        return metersDriven;
     }
 
     public void checkCarStatus() {
@@ -186,19 +203,22 @@ public class Car implements Runnable {
         this.fuel = 100.0;
         this.tire.setWear(0);
         this.lapTime = 0.0;
-        this.kilometersDriven = 0.0;
+        this.metersDriven = 0.0;
         this.isBroken = false;
+        this.needPits =false;
+        this.fuel = 100.0;
+        this.consumption = 100 / OVERALLCONSUMPTION_FACTOR;
     }
     
     public double getLapTime() {
         return lapTime;
     }
     
-    public double simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
+    public void simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
     	 lapTime = 0.0;
-    	 double timeMultiplier = 0.0001;
+    	 double timeMultiplier = 0.05;
 
-    	    // Ajustar maxSpeed y aceleración según el modo de conducción
+    	// Ajustar maxSpeed y aceleración según el modo de conducción
     	    int adjustedMaxSpeed = Math.max(1, (int) (maxSpeed * (1 + drivingMode.getAggressiveness() / 100.0)));
     	    double adjustedAcceleration = Math.max(0, acceleration * (1 + drivingMode.getAggressiveness() / 100.0));
 
@@ -231,37 +251,39 @@ public class Car implements Runnable {
     	    lapTime = Math.max(0, lapTime * timeMultiplier);  
 
     	    // Actualizar atributos del coche
-    	    kilometersDriven += Circuit.getLength()/Circuit.getLapCount();
+    	    double lapLength = Circuit.getLength() / Circuit.getLapCount()+1;
+    	    metersDriven = lapLength * actualLap;
     	    health = (int) Math.max(0, health - (100 - reliability) * 0.01);
     	    double speedFactor = realMaxSpeed / maxSpeed;
     	    fuel = Math.max(0, fuel - consumption * speedFactor * (1 + drivingMode.getAggressiveness() / 100.0));
+    	    updateFuelState();
     	    weight = Math.max(0, weight - consumption);
+    	    
+    	    
+    	   
 
+    	    
         // Parada en boxes
         if (needPits) {
             double randomChance = Math.random();
             if (randomChance >= 0.2) {
-                pitStop();
-                lapTime += 80; // ESTO DEBERÍA SER UN EVENTO
+                pitStop(); // ESTO DEBERÍA SER UN EVENTO
+                lapTime += 20 - (1 -(100- player.getDriver().getBudget())*0.01);
             } else {
                 System.out.println("El coche " + brand + " " + model + " se saltó la parada en boxes.");
             }
         }
 
-        // Fallo mecánico
-        if (Math.random() < 0.01) {
-            isBroken = true;
-            System.out.println("El coche " + brand + " " + model + " ha sufrido un fallo mecánico.");
-        }
-
+       
         checkCarStatus();
         if (isBroken) {
             System.out.println("El coche " + brand + " " + model + " está roto y no puede continuar.");
-            return lapTime;
+            if(Circuit.getLapCount() == actualLap) {
+            	endRace= true;
+            	metersDriven = Circuit.getLength();
+            }
         }
-
-        System.out.println("El coche " + brand + " " + model + " completó la vuelta en " + lapTime + " segundos y recorrió " + kilometersDriven + " Km");
-        return lapTime;
+        System.out.println("El coche " + brand + " " + model + " completó la vuelta en " + lapTime + " segundos y recorrió " + metersDriven + " M");
     }
     @Override
     public void run() {
@@ -271,7 +293,7 @@ public class Car implements Runnable {
         Driver driver = associatedPlayer.getDriver();
 
         if (!this.isBroken) {
-            lapTime = this.simulateLap(circuit, condition, driver);
+            simulateLap(circuit, condition, driver);
         }
     }
 
@@ -291,15 +313,14 @@ public class Car implements Runnable {
 		this.player = player;
 	}
 
-	public void setKilometersDriven(int i) {
-		this.kilometersDriven = i;
+	public void setmetersDriven(int i) {
+		this.metersDriven = i;
 		
 	}
 
 	public void setFuel(double fuel) {
-		// TODO Auto-generated method stub
 		 this.fuel = fuel;
-	        this.weight += fuel; // Asumiendo que cada litro de combustible aumenta el peso en 1kg
+	        this.weight += fuel; 
 	}
 
 	public boolean getNeedPits () {
@@ -308,6 +329,22 @@ public class Car implements Runnable {
 
 	public void setNeedPits(boolean bool) {
 		this.needPits = bool;
+	}
+
+	public String getFuelState() {
+		return fuelState;
+	}
+
+	public void setFuelState(String fuelState) {
+		this.fuelState = fuelState;
+	}
+
+	public int getActualLap() {
+		return actualLap;
+	}
+
+	public void setActualLap(int actualLap) {
+		this.actualLap = actualLap;
 	}
 
 

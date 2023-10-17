@@ -47,19 +47,17 @@ public class RaceView extends JPanel {
         leftPanel.setLayout(new GridLayout(5, 1));
         leftPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        lblRaceName = new JLabel("Nombre de la Carrera: " + race.getCircuit().getName());
-        lblPlayerName = new JLabel("Nombre del Jugador: " + race.getRealPlayer().getName());
-        lblFuel = new JLabel("Combustible: " + race.getRealPlayer().getCar().getFuel());
+      
+        lblPlayerName = new JLabel("Jugador: " + race.getRealPlayer().getName());
+        lblFuel = new JLabel("Combustible: " + race.getRealPlayer().getCar().getFuelState());
         lblTireStatus = new JLabel("Estado de las Gomas: " + race.getRealPlayer().getCar().getTire().getWear());
         lblCarStatus = new JLabel("Estado del Auto: " + race.getRealPlayer().getCar().getHealth());
 
-        lblRaceName.setFont(titleFont);
         lblPlayerName.setFont(infoFont);
         lblFuel.setFont(infoFont);
         lblTireStatus.setFont(infoFont);
         lblCarStatus.setFont(infoFont);
 
-        leftPanel.add(lblRaceName);
         leftPanel.add(lblPlayerName);
         leftPanel.add(lblFuel);
         leftPanel.add(lblTireStatus);
@@ -71,7 +69,7 @@ public class RaceView extends JPanel {
         rightPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         lblLapNumber = new JLabel("Vuelta " + race.getActualLap() + "/" + race.getCircuit().getLapCount());
-        lblDrivingStyle = new JLabel("Forma de Manejo: ");
+        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDivingMode().getType());
        
         lblLapNumber.setFont(titleFont);
         lblDrivingStyle.setFont(infoFont);
@@ -132,16 +130,16 @@ public class RaceView extends JPanel {
         this.race = updatedRace;
 
         // Actualiza los JLabels con la nueva información
-        lblRaceName.setText("Nombre de la Carrera: " + race.getCircuit().getName());
-        lblPlayerName.setText("Nombre del Jugador: " + race.getRealPlayer().getName());
-        lblFuel.setText("Combustible: " + race.getRealPlayer().getCar().getFuel());
+        lblRaceName.setText("Carrera: " + race.getCircuit().getName());
+        lblPlayerName.setText("Jugador: " + race.getRealPlayer().getName());
+        lblFuel.setText("Combustible: " + race.getRealPlayer().getCar().getFuelState());
         lblTireStatus.setText("Estado de las Gomas: " + race.getRealPlayer().getCar().getTire().getWear());
         lblCarStatus.setText("Estado del Auto: " + race.getRealPlayer().getCar().getHealth());
         lblLapNumber.setText("Vuelta " + race.getActualLap() + "/" + race.getCircuit().getLapCount());
-        lblWeather.setText("Estado del Clima: " + race.getRaceCondition().getCondition());
+        lblWeather.setText("Clima: " + race.getRaceCondition().getCondition());
         lblTemperature.setText("Temperatura: " + race.getRaceCondition().getTemperature() + "°C");  
         lblPrecipitation.setText("Precipitaciones: " + race.getRaceCondition().getPrecipitation() + "%");  
-
+        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDivingMode().getType());
         // Actualiza el ranking
         rankingModel.clear();
         for (Player player : race.getPlayers()) {  

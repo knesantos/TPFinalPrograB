@@ -62,15 +62,6 @@ public class MainController {
     private void startChampionship() {
         // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
-
-        // Iniciar el RaceViewController
-        RaceViewController raceController = new RaceViewController(gameWindow);
-        raceController.addRaceEndObserver(() -> championshipController.onRaceEnd());
-
-        // Pasar la instancia de RaceViewController al ChampionshipController
-        championshipController.setRaceController(raceController);
-        
-        // Iniciar la primera carrera
         championshipController.startNextRace();
     }
     

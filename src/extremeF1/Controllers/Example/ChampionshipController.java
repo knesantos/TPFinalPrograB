@@ -18,12 +18,14 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
     private RaceViewController raceController;
     private PrincipalView gameWindow;
 
-    public ChampionshipController(List<Race> Races, List<Player> players,PrincipalView gameWindow) {
+    public ChampionshipController(List<Race> Races, List<Player> players, PrincipalView gameWindow) {
         this.Races = Races;
         this.players = players;
         this.championship = new Championship(Races.size(), players);
-        this.raceController = new RaceViewController();
-        this.gameWindow =gameWindow;
+        this.gameWindow = gameWindow;
+
+        // Inicializa RaceViewController aquí y pasa el campeonato como argumento
+        this.raceController = new RaceViewController(gameWindow, championship);
         raceController.addRaceEndObserver(() -> onRaceEnd());
     }
     
@@ -42,17 +44,22 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
     @Override
     public void onRaceEnd() {
         // Actualizar puntos y completar la Race
-    	System.out.println("End race index: " + currentRaceIndex);
+        System.out.println("End race index: " + currentRaceIndex);
         championship.raceCompleted();
         championship.updatePointsBasedOnPosition(raceController.getRace().getPlayers());
 
-        if (championship.isChampionshipOver()) {
-            System.out.println("Campeonato terminado");
-            // Mostrar la vista de resultados finales del campeonato
-        } else {
-            currentRaceIndex++;
-            startNextRace();
-        }
+        // Mostrar la vista PostRace
+        ReportsViewsController.PostRaceViewController postRaceController = new ReportsViewsController.PostRaceViewController(raceController.getRace(), championship, gameWindow);
+        postRaceController.addObserver(() -> {
+            if (championship.isChampionshipOver()) {
+                System.out.println("Campeonato terminado");
+                // Mostrar la vista de resultados finales del campeonato
+            } else {
+                currentRaceIndex++;
+                startNextRace();
+            }
+        });
+        gameWindow.showPanel("PostRace");  // Mostrar la vista PostRace
     }
 
     public void startNextRace() {
