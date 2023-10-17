@@ -3,6 +3,7 @@ package Core.Entities;
 public class DrivingMode {
 	
 	private int aggressiveness;
+	private int defensiveness;
 	private int consumption;
 	private String type;
 
@@ -19,16 +20,19 @@ public class DrivingMode {
 	    
 	    switch(type) {
 	        case "Agressive":
-	            this.aggressiveness = 80;
+	            this.aggressiveness = 90;
+	            this.defensiveness= 20;
 	            this.consumption = 90; 
 	            break;
 	        case "Moderated":
 	            this.aggressiveness = 50;
+	            this.defensiveness= 50;
 	            this.consumption = 50; 
 	            break;
 	        case "Defensive":
+	        	 this.defensiveness = 90; 
 	            this.aggressiveness = 20; 
-	            this.consumption = 40; 
+	            this.consumption = 10; 
 	            break;
 	        default:
 	            throw new IllegalArgumentException("Invalid driving mode type");
@@ -57,5 +61,13 @@ public class DrivingMode {
 
 	public void setType(String type) {
 	    this.type = type;
+	}
+
+	public int getDefensiveness() {
+		return defensiveness;
+	}
+
+	public void setDefensiveness(int defensiveness) {
+		this.defensiveness = defensiveness;
 	}
 }

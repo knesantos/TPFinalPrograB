@@ -16,12 +16,12 @@ public class Simulated extends Player {
     public void SimIA(Race race) {
         Random rand = new Random();
         Driver driver = getDriver();
-        Car car = getCar();  // Asumiendo que tienes un método getCar() que devuelve el auto del jugador
+        Car car = getCar();  
 
         // Decisiones basadas en condiciones climáticas
         RaceCondition condition = race.getRaceCondition();
         if (condition.getCondition().equalsIgnoreCase("Rainy")) {
-            // Implementar lógica para tomar decisiones en clima lluvioso
+           
         }
 
         // Decisiones basadas en el modo de conducción y la vuelta actual
@@ -32,7 +32,7 @@ public class Simulated extends Player {
         String goodOptionDrivingMode;
         String badOptionDrivingMode;
 
-        boolean goodOption = rand.nextBoolean();  // Esto determina si se toma la "buena" o la "mala" decisión
+        boolean goodOption = rand.nextInt(100) >= 70;// Esto determina si se toma la "buena" o la "mala" decisión
 
         if (myPosition <= players.size() / 2) {  // En la mitad superior
             if (totalLaps - actualLap <= 5) {  // Últimas 5 vueltas
@@ -57,20 +57,22 @@ public class Simulated extends Player {
                 badOptionDrivingMode = "Defensive";
             }
         }
-
+        
+       
         if (goodOption) {
-            this.setDivingMode(new DrivingMode(goodOptionDrivingMode));
+            this.setDrivingMode(new DrivingMode(goodOptionDrivingMode));
         } else {
-            this.setDivingMode(new DrivingMode(badOptionDrivingMode));
+            this.setDrivingMode(new DrivingMode(badOptionDrivingMode));
         }
 
 
         // Decisiones sobre si parar o no en pits la próxima vuelta
+        goodOption = rand.nextInt(100) >= 70;
         boolean needPitStop = false;
-        if (driver.getTireCare() < 50 || car.getHealth() < 30 || car.getFuel() < 20) {
+        if (driver.getTireCare() < 50 || car.getHealth() < 30 || car.getFuel() < 30) {
             needPitStop = true;
         }
-        if (needPitStop) {
+        if (needPitStop && goodOption ) {
             car.setNeedPits(true); 
         } else {
             car.setNeedPits(false);

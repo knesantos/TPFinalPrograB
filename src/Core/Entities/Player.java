@@ -58,11 +58,11 @@ public abstract class Player {
         return activeRace;
     }
 
-	public DrivingMode getDivingMode() {
+	public DrivingMode getDrivingMode() {
 		return divingMode;
 	}
 
-	public void setDivingMode(DrivingMode divingMode) {
+	public void setDrivingMode(DrivingMode divingMode) {
 		this.divingMode = divingMode;
 	}
 }
