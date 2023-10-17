@@ -87,8 +87,8 @@ public class Race {
         // Sort players based on kilometers driven and total times
         List<Player> sortedPlayers = players.stream()
             .sorted((p1, p2) -> {
-                Double km1 = p1.getCar().getKilometersDriven();
-                Double km2 = p2.getCar().getKilometersDriven();
+                Double km1 = p1.getCar().getmetersDriven();
+                Double km2 = p2.getCar().getmetersDriven();
                 Double time1 = playerTimes.getOrDefault(p1.getId(), Double.MAX_VALUE);
                 Double time2 = playerTimes.getOrDefault(p2.getId(), Double.MAX_VALUE);
 
@@ -147,10 +147,11 @@ public class Race {
         }
 
         // Simulate each lap
-        for (int lap = 1; lap <= circuit.getLapCount() && raceInProgress && !stopSimulation; lap++) {
+        int lap;
+        for (lap = 1; lap <= circuit.getLapCount() && raceInProgress && !stopSimulation; lap++) {
             System.out.println("Lap " + lap);
             setActualLap(lap);
-            
+           
             //Sim IA
             for (Player player : players) {
                 if (player instanceof Simulated) {  
@@ -169,15 +170,23 @@ public class Race {
                 new Thread(() -> {
                     Car car = player.getCar();
                     if (!car.isBroken()) {
+                    	car.setActualLap(getActualLap());
                         car.run();
-                        double lapTime = car.getLapTime();  
+                        double lapTime = car.getLapTime();
+                        System.out.println("Debug: lapTime for player " + player.getId() + " is " + lapTime);  // Debugging
                         synchronized (playerTimes) {
                             int playerId = player.getId();
                             double currentTime = playerTimes.getOrDefault(playerId, 0.0);
+                            System.out.println("Debug: currentTime for player " + playerId + " is " + currentTime);  // Debugging
                             playerTimes.put(playerId, currentTime + lapTime);
                         }
                     }
-                    latch.countDown(); 
+                    else {
+                    	System.out.println("El coche de " + player.getName() + " esta roto y no corrio la vuelta" + getActualLap());
+                    	 
+                    }
+                    
+                    latch.countDown();
                 }).start();
             }
             try {

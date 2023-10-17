@@ -71,6 +71,7 @@ public class ReportsViewsController {
         public PostRaceViewController(Race Race,Championship championship,PrincipalView gameWindow) {
             this.Race = Race;
             this.gameWindow=gameWindow;
+            this.championship= championship;
             initPostRaceView();
         }
 
