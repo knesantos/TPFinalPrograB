@@ -1,5 +1,5 @@
 package extremeF1.Views;
-
+import Core.Entities.Events.*;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
@@ -69,14 +69,40 @@ public class RaceView extends JPanel {
         rightPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         lblLapNumber = new JLabel("Vuelta " + race.getActualLap() + "/" + race.getCircuit().getLapCount());
-        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDivingMode().getType());
-       
+      
+
+        JButton btnAggressive = new JButton("Aggressive");
+        JButton btnNormal = new JButton("Moderated");
+        JButton btnDefensive = new JButton("Defensive");
+
+        // Set initial colors
+        btnAggressive.setBackground(Color.RED);
+        btnNormal.setBackground(Color.YELLOW);
+        btnDefensive.setBackground(Color.GREEN);
+
+        // Set initial state
+        String initialMode = race.getRealPlayer().getDrivingMode().getType(); // Asume que tienes un método getDrivingMode
+        if ("Agressive".equals(initialMode)) {
+            btnAggressive.setEnabled(false);
+        } else if ("Moderated".equals(initialMode)) {
+            btnNormal.setEnabled(false);
+        } else if ("Defensive".equals(initialMode)) {
+            btnDefensive.setEnabled(false);
+        }
+
+        btnAggressive.addActionListener(new DrivingModeButtonListener("Agressive", race.getRealPlayer(), btnAggressive, btnNormal, btnDefensive));
+        btnNormal.addActionListener(new DrivingModeButtonListener("Moderated", race.getRealPlayer(), btnAggressive, btnNormal, btnDefensive));
+        btnDefensive.addActionListener(new DrivingModeButtonListener("Defensive", race.getRealPlayer(), btnAggressive, btnNormal, btnDefensive));
+
+        // Añadir los botones a algún panel, por ejemplo, rightPanel
+        rightPanel.add(btnAggressive);
+        rightPanel.add(btnNormal);
+        rightPanel.add(btnDefensive);
         lblLapNumber.setFont(titleFont);
-        lblDrivingStyle.setFont(infoFont);
       
 
         rightPanel.add(lblLapNumber);
-        rightPanel.add(lblDrivingStyle);
+
       
         // Panel central (Ranking)
         centerPanel = new JPanel();
@@ -139,7 +165,7 @@ public class RaceView extends JPanel {
         lblWeather.setText("Clima: " + race.getRaceCondition().getCondition());
         lblTemperature.setText("Temperatura: " + race.getRaceCondition().getTemperature() + "°C");  
         lblPrecipitation.setText("Precipitaciones: " + race.getRaceCondition().getPrecipitation() + "%");  
-        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDivingMode().getType());
+        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDrivingMode().getType());
         // Actualiza el ranking
         rankingModel.clear();
         for (Player player : race.getPlayers()) {  
