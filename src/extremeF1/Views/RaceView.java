@@ -2,6 +2,9 @@ package extremeF1.Views;
 import Core.Entities.Events.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -19,7 +22,8 @@ public class RaceView extends JPanel {
     private JList<String> rankingList;
     private DefaultListModel<String> rankingModel;
     private Race race;
-
+    private PitsButtonListener pitsbuttonlistener;
+    
     public RaceView(Race race) {
         this.race = race;
         setLayout(new BorderLayout());
@@ -94,6 +98,25 @@ public class RaceView extends JPanel {
         btnNormal.addActionListener(new DrivingModeButtonListener("Moderated", race.getRealPlayer(), btnAggressive, btnNormal, btnDefensive));
         btnDefensive.addActionListener(new DrivingModeButtonListener("Defensive", race.getRealPlayer(), btnAggressive, btnNormal, btnDefensive));
 
+        JButton btnPits = new JButton("Stop pits");
+        btnPits.setBackground(Color.BLUE);
+        rightPanel.add(btnPits);
+        
+        btnPits.addActionListener(new ActionListener() {
+
+    	   @Override
+    	   public void actionPerformed(ActionEvent e) {
+    		   // TODO Auto-generated method stub
+    		   if (pitsbuttonlistener != null) {
+    			   pitsbuttonlistener.ListenerPitsButtonEvent(new PitsButtonEvent());
+		        }
+    	   }
+		});
+    	   
+        
+        
+        
+        
         // Añadir los botones a algún panel, por ejemplo, rightPanel
         rightPanel.add(btnAggressive);
         rightPanel.add(btnNormal);
@@ -117,8 +140,7 @@ public class RaceView extends JPanel {
         rankingList = new JList<>(rankingModel);
         rankingList.setFont(infoFont);
         centerPanel.add(new JScrollPane(rankingList), BorderLayout.CENTER);
-        
-        
+       
         // Panel de clima
         TitledBorder title = BorderFactory.createTitledBorder("Climate condition");
         title.setTitleColor(new Color(236, 240, 241));
@@ -176,4 +198,11 @@ public class RaceView extends JPanel {
         this.revalidate();
         this.repaint();
     }
+
+
+	public void setBtnPitsListener(PitsButtonListener listener) {
+		// TODO Auto-generated method stub
+		pitsbuttonlistener = listener;
+		
+	}
 }

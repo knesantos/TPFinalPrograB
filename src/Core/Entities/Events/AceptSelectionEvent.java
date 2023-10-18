@@ -9,6 +9,6 @@ public class AceptSelectionEvent {
 	}
 	
 	public boolean getPiloto() {
-		return  pressed;
+		return pressed;
 	}
 }

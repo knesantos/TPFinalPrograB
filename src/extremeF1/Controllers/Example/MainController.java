@@ -51,12 +51,12 @@ public class MainController {
 
         //Iniciar el SelectionController 
         SelectionViewController selectionController = new SelectionViewController(gameWindow);
+ 
+        selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
         selectionController.addObserver(() -> {
             players = selectionController.getListPlayer();
             startChampionship();
         });
-        selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
-     	
     }
     
     private void startChampionship() {
