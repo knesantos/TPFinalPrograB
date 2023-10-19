@@ -15,6 +15,7 @@ public class MainController {
     private List<Player> players = new ArrayList<>();
     private List<Race> races = new ArrayList<>();
     private PrincipalView gameWindow;
+    private Real player;
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -32,8 +33,7 @@ public class MainController {
         CircuitRepository.loadCircuitsFromXML();
         CountryRepository.loadContriesFromXML();
         DriverRepository.loadDriversFromXML();
-        // Crear Player Real
-        Real player = new Real("Gonzalo", 23);
+  
    
         
         
@@ -57,7 +57,7 @@ public class MainController {
         
         startcontroller.initialSartView();
         startcontroller.addObserverStart(()->{
-        	startSelection(CarRepository,DriverRepository);
+        	startSelection(startcontroller.getPlayer(),CarRepository,DriverRepository);
         });
         startcontroller.addObserverClose(()->{
             System.out.println("El programa ha sido detenido.");
@@ -65,9 +65,9 @@ public class MainController {
         });
     }
     
-    private void startSelection(CarRepository CarRepository,DriverRepository DriverRepository) {
+    private void startSelection(Real player,CarRepository CarRepository,DriverRepository DriverRepository) {
     	SelectionViewController selectionController = new SelectionViewController(gameWindow);
-		selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
+		selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
     	 selectionController.addObserver(() -> {
              players = selectionController.getListPlayer();
              startChampionship();
