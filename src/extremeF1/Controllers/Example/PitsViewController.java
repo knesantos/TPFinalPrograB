@@ -34,6 +34,17 @@ public class PitsViewController {
 		  PitsView = new PitsView(race, player,this);
 		  gameWindow.addPanel(PitsView, "pitsView");
 		  gameWindow.showPanel("pitsView");
+		  
+		  
+		  
+		  PitsView.setChangeTireListener((event)->{
+			  if (observer!= null) {
+				  observer.onPitsView();
+			  }
+		  });
+		  
+		  
+		  
 	}
 	
 	 public void addResumeRaceObserver(Runnable observer) {

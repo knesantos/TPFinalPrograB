@@ -15,6 +15,7 @@ public class MainController {
     private List<Player> players = new ArrayList<>();
     private List<Race> races = new ArrayList<>();
     private PrincipalView gameWindow;
+    private Real player;
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -32,8 +33,7 @@ public class MainController {
         CircuitRepository.loadCircuitsFromXML();
         CountryRepository.loadContriesFromXML();
         DriverRepository.loadDriversFromXML();
-        // Crear Player Real
-        Real player = new Real("Gonzalo", 23);
+  
    
         
         
@@ -50,19 +50,35 @@ public class MainController {
         gameWindow = new PrincipalView();
 
         //Iniciar el SelectionController 
-        SelectionViewController selectionController = new SelectionViewController(gameWindow);
- 
-        selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
-        selectionController.addObserver(() -> {
-            players = selectionController.getListPlayer();
-            startChampionship();
+        
+        
+        
+        StartViewController startcontroller = new  StartViewController(gameWindow);
+        
+        startcontroller.initialSartView();
+        startcontroller.addObserverStart(()->{
+        	startSelection(startcontroller.getPlayer(),CarRepository,DriverRepository);
+        });
+        startcontroller.addObserverClose(()->{
+            System.out.println("El programa ha sido detenido.");
+            System.exit(1); 
         });
     }
+    
+    private void startSelection(Real player,CarRepository CarRepository,DriverRepository DriverRepository) {
+    	SelectionViewController selectionController = new SelectionViewController(gameWindow);
+		selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
+    	 selectionController.addObserver(() -> {
+             players = selectionController.getListPlayer();
+             startChampionship();
+         });
+     }
+    
     
     private void startChampionship() {
         // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
         championshipController.startNextRace();
     }
-    
+  
 }

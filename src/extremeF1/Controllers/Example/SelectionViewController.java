@@ -37,7 +37,7 @@ public class SelectionViewController {
         this.observer = observer;
     }
 	
-	public JPanel initSelectionScreen(Real player, CarRepository CarRepository, DriverRepository DriverRepository) {
+	public void initSelectionScreen(Real player, CarRepository CarRepository, DriverRepository DriverRepository) {
         List<Car> Cars = CarRepository.getCars();
         List<Driver> Drivers = DriverRepository.getDrivers();
         
@@ -86,7 +86,6 @@ public class SelectionViewController {
         }
         
       Playeres.add(player);
-        return v1;
     }
 	
 	
