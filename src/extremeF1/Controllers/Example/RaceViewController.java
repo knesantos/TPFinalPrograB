@@ -27,15 +27,14 @@ public class RaceViewController {
     private PitsViewController pitscontroller;
     private RaceView raceView; 
     private List<Runnable> raceEndObservers = new ArrayList<>();
+   
     private PrincipalView gameWindow;
     
-    Timer timer = new Timer(100, e -> SwingUtilities.invokeLater(() -> updateRaceView()));  // Actualiza cada segundo
+    Timer timer = new Timer(900, e -> SwingUtilities.invokeLater(() -> updateRaceView()));  // Actualiza cada segundo
 
     public void updateRaceView() {
-        // Actualiza la información en raceView
         raceView.updateInfo(Race);
     }
-    
     
     public void addRaceEndObserver(Runnable observer) {
         raceEndObservers.add(observer);
@@ -71,24 +70,27 @@ public class RaceViewController {
         raceView = new RaceView(Race);  
         gameWindow.addPanel(raceView, "RaceView");
         gameWindow.showPanel("RaceView");
-        player = players.get(1);
+        player = Race.getRealPlayer();
         
-        raceView.setBtnPitsListener(event ->{
-        	pitscontroller = new PitsViewController(Race, player, gameWindow);
+        raceView.setBtnPitsListener(event -> {
+            Race.setRealPlayerPitStop(true);  // Indicar que el jugador real quiere hacer una parada en boxes
+            pitscontroller = new PitsViewController(Race, player, gameWindow);
         });
-        
     }
     
     public void runRace() {
         System.out.println("Se corre la carrera");
+        timer.start();
         new Thread(() -> {
-            Race.simulateRace();  // Simula la carrera en un hilo separado
+            Race.simulateRace(); 
+            // Simula la carrera en un hilo separado
             SwingUtilities.invokeLater(() -> {
                 for (Runnable observer : raceEndObservers) {
                     observer.run();
                 }
             });
         }).start();
+        
     }
 
 

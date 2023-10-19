@@ -12,6 +12,7 @@ import Core.Entities.Events.ChangeTireEvent;
 import Core.Entities.Events.ChangeTireListener;
 import Core.Entities.Events.LoadFuelEvent;
 import Core.Entities.Events.LoadFuelListener;
+import extremeF1.Controllers.Example.PitsViewController;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,12 +31,14 @@ public class PitsView extends JPanel implements PitsViewInterface{
 	private Player Player;
 	private LoadFuelListener loadfuellistener;
 	private ChangeTireListener changetirelistener;
+	 private PitsViewController controller; 
+	 private JButton btnResumeRace;
 	
 	
-	
-	public PitsView (Race race, Player player) {
+	public PitsView (Race race, Player player,PitsViewController controller) {
 		Race = race;
 		Player = player;
+		this.controller = controller;
 		setSize(1500, 1500);
 		this.setLayout(null);
 		
@@ -174,6 +177,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Medium(50,50,50,50,50)));  
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						controller.updateView();
 						repaint();
 					}
 					
@@ -190,6 +194,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Wet(50,50,50,50,50))); 
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						controller.updateView();
 						repaint();
 					}
 					
@@ -208,6 +213,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Hard(50,50,50,50,50))); 
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						controller.updateView();
 						repaint();
 					}
 					
@@ -226,6 +232,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Soft(50,50,50,50,50))); 
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						controller.updateView();
 						repaint();
 					}
 					
@@ -295,6 +302,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 				BtmFuel4.setHorizontalAlignment(JLabel.CENTER);
 				BtmFuel4.setVerticalAlignment(JLabel.CENTER);
 				add(BtmFuel4);
+				controller.updateView();
 				repaint();
 				
 				BtmFuel1.addActionListener(new ActionListener() {
@@ -311,6 +319,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmRepairEngine.setEnabled(true);
 						BtmChangeTires.setEnabled(true);
 						BtmLoadFuel.setEnabled(true);
+						controller.updateView();
 						repaint();
 					}
 					
@@ -329,6 +338,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmRepairEngine.setEnabled(true);
 						BtmChangeTires.setEnabled(true);
 						BtmLoadFuel.setEnabled(true);
+						controller.updateView();
 						repaint();
 					}
 					
@@ -347,6 +357,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmRepairEngine.setEnabled(true);
 						BtmChangeTires.setEnabled(true);
 						BtmLoadFuel.setEnabled(true);
+						controller.updateView();
 						repaint();
 					}
 					
@@ -365,6 +376,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmRepairEngine.setEnabled(true);
 						BtmChangeTires.setEnabled(true);
 						BtmLoadFuel.setEnabled(true);
+						controller.updateView();
 						repaint();
 					}
 					
@@ -374,8 +386,22 @@ public class PitsView extends JPanel implements PitsViewInterface{
 			
 		});
 		
+		
+		btnResumeRace = new JButton("Resume Race");
+        btnResumeRace.setBounds(500, 600, 400, 100);  // Ajusta la posición y el tamaño según tus necesidades
+        btnResumeRace.addActionListener(e -> {
+            // Aquí notificas al observador para reanudar la carrera
+        	if (controller != null) {
+        		Race.setRealPlayerPitStop(false);
+                controller.finishPitStop();  
+                controller.notifyResumeRaceObservers();
+                controller.switchToRaceView();
+            }
+        });
+        this.add(btnResumeRace);
+    }
 	
-	}
+	
 	@Override
 	public void setLoadFuelListener(LoadFuelListener listener) {
 		// TODO Auto-generated method stub
@@ -385,4 +411,12 @@ public class PitsView extends JPanel implements PitsViewInterface{
 		// TODO Auto-generated method stub
 		changetirelistener = listener;
 	}
+	
+	 public void updateFuelLabel(int newFuelAmount) {
+	        fuel.setText("Combustible: " + newFuelAmount);
+	    }
+	 
+	 public void updateTireWearLabel(int newTireWear) {
+	        tirewear.setText("Desgaste de Neumáticos: " + newTireWear);
+	    }
 }
