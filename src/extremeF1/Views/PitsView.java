@@ -2,9 +2,11 @@ package extremeF1.Views;
 
 import java.awt.Color;
 
+import Core.Entities.Hard;
 import Core.Entities.Medium;
 import Core.Entities.Race;
-import Core.Entities.Real;
+import Core.Entities.Soft;
+import Core.Entities.Player;
 import Core.Entities.Wet;
 import Core.Entities.Events.ChangeTireEvent;
 import Core.Entities.Events.ChangeTireListener;
@@ -25,13 +27,13 @@ public class PitsView extends JPanel implements PitsViewInterface{
 	private JLabel namerace,nameplayer,tirewear,carcondition,fuel,positionts;
 	private Font font;
 	private Race Race;
-	private Real Player;
+	private Player Player;
 	private LoadFuelListener loadfuellistener;
 	private ChangeTireListener changetirelistener;
 	
 	
 	
-	public PitsView (Race race, Real player) {
+	public PitsView (Race race, Player player) {
 		Race = race;
 		Player = player;
 		setSize(1500, 1500);
@@ -129,19 +131,35 @@ public class PitsView extends JPanel implements PitsViewInterface{
 				text.setOpaque(true);
 				add(text);
 				JButton BtmTiresMedium = new JButton();
-				BtmTiresMedium.setBounds(700, 800, 200, 70);
-				BtmTiresMedium.setText("Regulares");
-				BtmTiresMedium.setFont(new Font("Arial",Font.BOLD,20));
+				BtmTiresMedium.setBounds(800, 800, 100, 70);
+				BtmTiresMedium.setText("Medium");
+				BtmTiresMedium.setFont(new Font("Arial",Font.BOLD,15));
 				BtmTiresMedium.setHorizontalAlignment(JLabel.CENTER);
 				BtmTiresMedium.setVerticalAlignment(JLabel.CENTER);
 				add(BtmTiresMedium);
+				JButton BtmTiresHard = new JButton();
+				BtmTiresHard.setBounds(900, 800, 100, 70);
+				BtmTiresHard.setText("Hard");
+				BtmTiresHard.setFont(new Font("Arial",Font.BOLD,20));
+				BtmTiresHard.setHorizontalAlignment(JLabel.CENTER);
+				BtmTiresHard.setVerticalAlignment(JLabel.CENTER);
+				add(BtmTiresHard);
+				JButton BtmTiresSoft = new JButton();
+				BtmTiresSoft.setBounds(700, 800, 100, 70);
+				BtmTiresSoft.setText("Soft");
+				BtmTiresSoft.setFont(new Font("Arial",Font.BOLD,20));
+				BtmTiresSoft.setHorizontalAlignment(JLabel.CENTER);
+				BtmTiresSoft.setVerticalAlignment(JLabel.CENTER);
+				add(BtmTiresSoft);
 				JButton BtmTiresWet = new JButton();
-				BtmTiresWet.setBounds(900, 800, 200, 70);
+				BtmTiresWet.setBounds(1000, 800, 100, 70);
 				BtmTiresWet.setText("Lluvia");
 				BtmTiresWet.setFont(new Font("Arial",Font.BOLD,20));
 				BtmTiresWet.setHorizontalAlignment(JLabel.CENTER);
 				BtmTiresWet.setVerticalAlignment(JLabel.CENTER);
 				add(BtmTiresWet);
+				
+				
 				repaint();
 				
 				BtmTiresMedium.addActionListener(new ActionListener() {
@@ -176,6 +194,43 @@ public class PitsView extends JPanel implements PitsViewInterface{
 					}
 					
 				});
+				BtmTiresHard.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
+						remove(BtmTiresMedium);
+						remove(BtmTiresWet);
+						remove(BtmTiresHard);
+						remove(BtmTiresSoft);
+						remove(text);
+						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Hard(50,50,50,50,50))); 
+						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						repaint();
+					}
+					
+				});
+				BtmTiresSoft.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BtmRepairEngine.setEnabled(true);
+						BtmChangeTires.setEnabled(true);
+						BtmLoadFuel.setEnabled(true);
+						remove(BtmTiresMedium);
+						remove(BtmTiresWet);
+						remove(BtmTiresHard);
+						remove(BtmTiresSoft);
+						remove(text);
+						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Soft(50,50,50,50,50))); 
+						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
+						repaint();
+					}
+					
+				});
+				
 			}
 			                     
 		});
