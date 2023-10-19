@@ -50,19 +50,35 @@ public class MainController {
         gameWindow = new PrincipalView();
 
         //Iniciar el SelectionController 
-        SelectionViewController selectionController = new SelectionViewController(gameWindow);
- 
-        selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
-        selectionController.addObserver(() -> {
-            players = selectionController.getListPlayer();
-            startChampionship();
+        
+        
+        
+        StartViewController startcontroller = new  StartViewController(gameWindow);
+        
+        startcontroller.initialSartView();
+        startcontroller.addObserverStart(()->{
+        	startSelection(CarRepository,DriverRepository);
+        });
+        startcontroller.addObserverClose(()->{
+            System.out.println("El programa ha sido detenido.");
+            System.exit(1); 
         });
     }
+    
+    private void startSelection(CarRepository CarRepository,DriverRepository DriverRepository) {
+    	SelectionViewController selectionController = new SelectionViewController(gameWindow);
+		selectionController.initSelectionScreen(new Real("Gonzalo", 23), CarRepository, DriverRepository);
+    	 selectionController.addObserver(() -> {
+             players = selectionController.getListPlayer();
+             startChampionship();
+         });
+     }
+    
     
     private void startChampionship() {
         // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
         championshipController.startNextRace();
     }
-    
+  
 }

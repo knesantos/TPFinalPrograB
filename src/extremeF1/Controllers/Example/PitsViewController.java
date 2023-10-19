@@ -29,6 +29,17 @@ public class PitsViewController {
 		  PitsView = new PitsView(race, player);
 		  gameWindow.addPanel(PitsView, "pitsView");
 		  gameWindow.showPanel("pitsView");
+		  
+		  
+		  
+		  PitsView.setChangeTireListener((event)->{
+			  if (observer!= null) {
+				  observer.onPitsView();
+			  }
+		  });
+		  
+		  
+		  
 	}
 	
 }
