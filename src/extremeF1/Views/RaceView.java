@@ -108,6 +108,7 @@ public class RaceView extends JPanel {
     	   public void actionPerformed(ActionEvent e) {
     		   // TODO Auto-generated method stub
     		   if (pitsbuttonlistener != null) {
+    			   race.setRealPlayerPitStop(true);
     			   pitsbuttonlistener.ListenerPitsButtonEvent(new PitsButtonEvent());
 		        }
     	   }
@@ -187,7 +188,6 @@ public class RaceView extends JPanel {
         lblWeather.setText("Clima: " + race.getRaceCondition().getCondition());
         lblTemperature.setText("Temperatura: " + race.getRaceCondition().getTemperature() + "°C");  
         lblPrecipitation.setText("Precipitaciones: " + race.getRaceCondition().getPrecipitation() + "%");  
-        lblDrivingStyle = new JLabel("Forma de Manejo: " + race.getRealPlayer().getDrivingMode().getType());
         // Actualiza el ranking
         rankingModel.clear();
         for (Player player : race.getPlayers()) {  

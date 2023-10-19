@@ -189,6 +189,9 @@ public class Car implements Runnable {
 
     public void pitStop() {
         // Simulate a pit stop
+    	if (player instanceof Real) {
+          	 System.out.println("QUE HACES EN LOS PITS GONZALO");
+          }
         health = 100; // Restore the car's health to 100
         tire.setWear(0); // Restore tire wear to 0
         fuel=100.0;
@@ -208,7 +211,6 @@ public class Car implements Runnable {
         this.isBroken = false;
         this.needPits =false;
         this.fuel = 100.0;
-        this.consumption = consumption / OVERALLCONSUMPTION_FACTOR;
     }
     
     public double getLapTime() {
@@ -255,13 +257,24 @@ public class Car implements Runnable {
         // Actualizar atributos del coche
         double lapLength = Circuit.getLength() / Circuit.getLapCount() + 1;
         metersDriven = lapLength * actualLap;
+        if (player instanceof Simulated) {
+        	 System.out.println("vida de gonza " + health);
+        }
         health = (int) Math.max(0, health - (100 - reliability) * 0.01);
+        if (player instanceof Simulated) {
+       	 System.out.println("vida actualizada de gonza " + health);
+       }
         fuel = Math.max(0, fuel - adjustedConsumption * realMaxSpeed / maxSpeed);
         updateFuelState();
         weight = Math.max(0, weight - adjustedConsumption);
 
         // Parada en boxes
-        if (needPits) {
+        System.out.println("Tipo de player antes del if: " + player.getClass().getSimpleName());
+        if (needPits && player instanceof Simulated) {
+        System.out.println("Dentro del if, tipo de player: " + player.getClass().getSimpleName());
+        	if (player instanceof Real) {
+             	 System.out.println("QUE RECONTRA RE PIJA HACES ACA  GONZALO");
+             }
             double randomChance = Math.random();
             if (randomChance >= 0.2) {
                 pitStop();
@@ -279,7 +292,7 @@ public class Car implements Runnable {
                 metersDriven = Circuit.getLength();
             }
         }
-        System.out.println("El coche " + brand + " " + model + " completó la vuelta en " + lapTime + " segundos y recorrió " + metersDriven + " M");
+      
     }
     @Override
     public void run() {
@@ -341,6 +354,10 @@ public class Car implements Runnable {
 
 	public void setActualLap(int actualLap) {
 		this.actualLap = actualLap;
+	}
+
+	public void addLapTime(int i) {
+		this.lapTime += i;
 	}
 
 

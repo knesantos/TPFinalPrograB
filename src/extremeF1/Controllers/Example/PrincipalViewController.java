@@ -24,7 +24,7 @@ public class PrincipalViewController {
 	            @Override
 	            public void onSelectionComplete() {
 	            	//pitsview = new PitsViewController(race, player);
-	            	v1.addPanel(pitsview.getPanel(),"PitsView");
+	            	//v1.addPanel(pitsview.getPanel(),"PitsView");
 	            	
 	            	
 	            }

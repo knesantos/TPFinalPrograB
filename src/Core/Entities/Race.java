@@ -22,6 +22,9 @@ public class Race {
     List<Player> players = new ArrayList<>();
     Map<Integer, Double> playerTimes = new HashMap<>();
     private volatile boolean stopSimulation = false; 
+    private boolean realPlayerPitStop = false;
+    private CountDownLatch pitStopLatch = null;
+    private Real realPlayer = null;
 
     public Race(Date date, int id, List<Player> players, Circuit circuit) {
         this.date = date;
@@ -172,12 +175,10 @@ public class Race {
                     if (!car.isBroken()) {
                     	car.setActualLap(getActualLap());
                         car.run();
-                        double lapTime = car.getLapTime();
-                        System.out.println("Debug: lapTime for player " + player.getId() + " is " + lapTime);  // Debugging
+                        double lapTime = car.getLapTime();  
                         synchronized (playerTimes) {
                             int playerId = player.getId();
-                            double currentTime = playerTimes.getOrDefault(playerId, 0.0);
-                            System.out.println("Debug: currentTime for player " + playerId + " is " + currentTime);  // Debugging
+                            double currentTime = playerTimes.getOrDefault(playerId, 0.0); 
                             playerTimes.put(playerId, currentTime + lapTime);
                         }
                     }
@@ -189,9 +190,19 @@ public class Race {
                     latch.countDown();
                 }).start();
             }
+            if(realPlayerPitStop) {
+            	
+                pitStopLatch = new CountDownLatch(1);  
+                try {
+                	getRealPlayer().getCar().addLapTime(20);
+                    pitStopLatch.await();  
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
                 latch.await();
-                Thread.sleep(100); // Sleep for 1000 milliseconds to slow down the simulation
+                Thread.sleep(900); // Sleep for 1000 milliseconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -220,5 +231,24 @@ public class Race {
 
 	public void setActualLap(int actualLap) {
 		this.actualLap = actualLap;
+	}
+	
+	
+	public CountDownLatch getPitStopLatch() {
+		return pitStopLatch;
+	}
+
+
+
+	public void setPitStopLatch(CountDownLatch pitStopLatch) {
+		this.pitStopLatch = pitStopLatch;
+	}
+
+	public boolean isRealPlayerPitStop() {
+		return realPlayerPitStop;
+	}
+
+	public void setRealPlayerPitStop(boolean realPlayerPitStop) {
+		this.realPlayerPitStop = realPlayerPitStop;
 	}
 }
