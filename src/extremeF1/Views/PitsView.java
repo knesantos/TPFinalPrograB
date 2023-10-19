@@ -174,6 +174,8 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmLoadFuel.setEnabled(true);
 						remove(BtmTiresMedium);
 						remove(BtmTiresWet);
+						remove(BtmTiresHard);
+						remove(BtmTiresSoft);
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Medium(50,50,50,50,50)));  
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
@@ -191,6 +193,8 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmLoadFuel.setEnabled(true);
 						remove(BtmTiresMedium);
 						remove(BtmTiresWet);
+						remove(BtmTiresHard);
+						remove(BtmTiresSoft);
 						remove(text);
 						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Wet(50,50,50,50,50))); 
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
