@@ -8,5 +8,6 @@ public interface PitsViewInterface {
 	public void setLoadFuelListener(LoadFuelListener listener);
 	
 	public void setChangeTireListener(ChangeTireListener listener);
+	
 
 }

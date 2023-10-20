@@ -15,7 +15,7 @@ public class Car implements Runnable {
     private double acceleration;
     private int power;
     private int consumption; // Liters per lap
-    private Tire tire = new Medium(50, 50, 50, 50, 50);
+    private Tire tire = new Medium();
     private String brand;
     private String model;
     private int health; // Represents the "health" of the car, could be in a range of 0-100, where 100 is optimal and 0 is inoperable.
@@ -43,7 +43,6 @@ public class Car implements Runnable {
         this.acceleration = acceleration;
         this.power = power;
         this.consumption = consumption;
-        this.tire = tire;
         this.brand = brand;
         this.model = model;
         this.health = 100;
@@ -196,13 +195,9 @@ public class Car implements Runnable {
 
     public void pitStop() {
         // Simulate a pit stop
-    	if (player instanceof Real) {
-          	 System.out.println("QUE HACES EN LOS PITS GONZALO");
-          }
         health = 100; // Restore the car's health to 100
         tire.setWear(0); // Restore tire wear to 0
         fuel=100.0;
-        System.out.println("The car " + brand + " " + model + " has made a pit stop.");
         needPits =false;
     }
 
@@ -226,7 +221,7 @@ public class Car implements Runnable {
     
     public void simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
         lapTime = 0.0;
-        double timeMultiplier = 0.151;
+        double timeMultiplier = 0.0000151;
 
         // Ajustar maxSpeed y aceleración según el modo de conducción y habilidades del conductor
         int adjustedMaxSpeed = Math.max(1, (int) (maxSpeed * (1 + (drivingMode.getAggressiveness() + driver.getOvertaking()) / 200.0)));
@@ -250,8 +245,9 @@ public class Car implements Runnable {
         lapTime += Math.max(0, (Circuit.getOvertakingZoneCount() * 0.3) * 60 * (1 - overtakingFactor));
 
         // Factor de neumáticos
-        double tireWearFactor = 1 + (drivingMode.getAggressiveness() + driver.getTireCare()) / 200.0;
-        tire.setWear(Math.min(100, tire.getWear() + (tire.getDurability() * tireWearFactor)));
+        double tireWearFactor = 0.1 * tire.getDurability()*(drivingMode.getAggressiveness() + driver.getTireCare()) / 500.0;
+        tire.setWear(Math.min(100, tire.getWear() + ((int)(tireWearFactor))));
+
 
         // Ajuste de condiciones climáticas
         if (tire.isSuitableFor(condition.getCondition())) {
@@ -264,24 +260,21 @@ public class Car implements Runnable {
         // Actualizar atributos del coche
         double lapLength = Circuit.getLength() / Circuit.getLapCount() + 1;
         metersDriven = lapLength * actualLap;
-        if (player instanceof Simulated) {
+        if (player instanceof Real) {
         	 System.out.println("vida de gonza " + health);
         }
         health = (int) Math.max(0, health - (100 - reliability) * 0.01);
-        if (player instanceof Simulated) {
+        if (player instanceof Real) {
        	 System.out.println("vida actualizada de gonza " + health);
        }
-        fuel = Math.max(0, fuel - adjustedConsumption * realMaxSpeed / maxSpeed);
+        double fuelConsumed = (adjustedConsumption * realMaxSpeed / maxSpeed)/10;
+        fuel = Math.max(0, fuel - fuelConsumed);
         updateFuelState();
         weight = Math.max(0, weight - adjustedConsumption);
 
         // Parada en boxes
-        System.out.println("Tipo de player antes del if: " + player.getClass().getSimpleName());
         if (needPits && player instanceof Simulated) {
-        System.out.println("Dentro del if, tipo de player: " + player.getClass().getSimpleName());
-        	if (player instanceof Real) {
-             	 System.out.println("QUE RECONTRA RE PIJA HACES ACA  GONZALO");
-             }
+
             double randomChance = Math.random();
             if (randomChance >= 0.2) {
                 pitStop();

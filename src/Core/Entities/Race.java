@@ -32,7 +32,8 @@ public class Race {
         this.players = players;
         this.circuit = circuit;
         this.condition = generateRandomCondition();
-    }
+        setRealPLayer();
+        }
 
     private RaceCondition generateRandomCondition() {
         Random rand = new Random();
@@ -49,7 +50,10 @@ public class Race {
         }
     }
     
-
+     public void setRealPLayer() {
+    	 this.realPlayer= (Real) getRealPlayer();
+     }
+     
     public Date getDate() {
         return date;
     }
