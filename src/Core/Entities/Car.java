@@ -1,5 +1,10 @@
 package Core.Entities;
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 public class Car implements Runnable {
 	private static final int OVERALLCONSUMPTION_FACTOR = 65 / 2;
     private int overtakingPerformance;
@@ -24,6 +29,8 @@ public class Car implements Runnable {
     private boolean endRace = false;
     private boolean needPits = false;
     private String fuelState;
+    private String imagePath;
+    private Image avatar;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
                double acceleration, int power, int consumption, Tire tire, String brand, String model) {
@@ -359,6 +366,33 @@ public class Car implements Runnable {
 	public void addLapTime(int i) {
 		this.lapTime += i;
 	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public Image getAvatar() {
+		return avatar;
+	}
+	
+	
+
+	public void setAvatar(String imagePath) {
+        this.imagePath = imagePath;
+        File f = new File(imagePath);
+        if(f.exists() && !f.isDirectory()) { 
+            System.out.println("Imagen existe: " + imagePath);
+        } else {
+            System.out.println("Imagen no existe: " + imagePath);
+        }
+        // Cargar la imagen en el atributo avatar
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        this.avatar = imageIcon.getImage();
+    }
 
 
 }

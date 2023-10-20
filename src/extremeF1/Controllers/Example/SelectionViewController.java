@@ -11,6 +11,7 @@ import Repository.DriverRepository;
 import extremeF1.Views.PrincipalView;
 import extremeF1.Views.SelectionView;
 
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,10 +60,9 @@ public class SelectionViewController {
                 observer.onSelectionComplete();
             }
         });
-        
         gameWindow.addPanel(v1, "Selection");
         gameWindow.showPanel("Selection");
-        
+        gameWindow.pack();
         
         
         

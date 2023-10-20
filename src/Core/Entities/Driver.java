@@ -1,5 +1,10 @@
 package Core.Entities;
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 public class Driver {
 
     private long budget;
@@ -15,6 +20,8 @@ public class Driver {
     private int polePositions;
     private int championships;
     private int participations;
+    private Image avatar;
+    private String avatarPath;
 
 
     public Driver(long budget, int defense, int overtaking, int ranking, int tireCare, int start,
@@ -149,5 +156,31 @@ public class Driver {
     public void setParticipations(int participations) {
         this.participations = participations;
     }
+
+	
+	public Image getAvatar() {
+        return avatar;
+    }
+	
+	public String getAvatarPath() {
+        return avatarPath;
+    }
+	
+	public void setAvatar(String imagePath) {
+        this.avatarPath = imagePath;
+        File f = new File(imagePath);
+        if(f.exists() && !f.isDirectory()) { 
+            System.out.println("Imagen existe: " + imagePath);
+        } else {
+            System.out.println("Imagen no existe: " + imagePath);
+        }
+        // Cargar la imagen en el atributo avatar
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        this.avatar = imageIcon.getImage();
+    }
+
+	public void setAvatarPath(String imagePath) {
+		this.avatarPath =imagePath;
+	}
 }
 

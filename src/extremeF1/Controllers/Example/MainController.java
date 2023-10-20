@@ -34,12 +34,6 @@ public class MainController {
         CountryRepository.loadContriesFromXML();
         DriverRepository.loadDriversFromXML();
   
-   
-        
-        
-        
-        
-       
         // Crear Races basadas en Circuits disponibles
         int i=0;
         for (Circuit Circuit : CircuitRepository.getCircuits()) {
@@ -50,9 +44,6 @@ public class MainController {
         gameWindow = new PrincipalView();
 
         //Iniciar el SelectionController 
-        
-        
-        
         StartViewController startcontroller = new  StartViewController(gameWindow);
         
         startcontroller.initialSartView();
