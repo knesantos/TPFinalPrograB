@@ -19,6 +19,7 @@ public class MainController {
     private CarRepository CarRepository;
     private DriverRepository DriverRepository;
     
+
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -37,12 +38,7 @@ public class MainController {
         CountryRepository.loadContriesFromXML();
         DriverRepository.loadDriversFromXML();
   
-   
-        
-        
-        
-        
-       
+
         // Crear Races basadas en Circuits disponibles
         int i=0;
         for (Circuit Circuit : CircuitRepository.getCircuits()) {
@@ -51,11 +47,13 @@ public class MainController {
         }
   
         gameWindow = new PrincipalView();
+
         StartGame(CarRepository,DriverRepository);
  
     }
         
       private void StartGame(CarRepository CarRepository,DriverRepository DriverRepository) { 
+
         StartViewController startcontroller = new  StartViewController(gameWindow);
         
         startcontroller.initialSartView();
@@ -86,6 +84,7 @@ public class MainController {
         	startEndView(championshipController.getChampionship());
         });
     }
+
     private void startEndView(Championship championship) {
     	EndViewController endController = new EndViewController(gameWindow,championship);
     	endController.initalEndView();
@@ -94,5 +93,5 @@ public class MainController {
     	});
     	
     }
-  
+ 
 }

@@ -55,11 +55,7 @@ public class DriverRepository {
                 String relativePath = "src/Resources/Images/" + nombreAbrev + ".png";
                 File f = new File(relativePath);
 
-                if(f.exists() && !f.isDirectory()) { 
-                    System.out.println("Imagen existe: " + relativePath);
-                } else {
-                    System.out.println("Imagen no existe: " + relativePath);
-                }
+
 
                 driver.setAvatarPath(relativePath);
                 driver.setAvatar(relativePath);

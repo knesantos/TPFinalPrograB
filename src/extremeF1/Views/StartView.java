@@ -72,6 +72,7 @@ public class StartView extends JPanel implements StartViewInterface{
 	       	loadgame.setHorizontalAlignment(JLabel.CENTER);
 	       	loadgame.setVerticalAlignment(JLabel.CENTER);
 	       
+
 	     // texto para el nombre
 	        JTextField textfield = new JTextField();
 	        textfield.setBounds(600, 500, 500, 30);
@@ -107,6 +108,7 @@ public class StartView extends JPanel implements StartViewInterface{
 	        text.setVisible(false);
 			
 	       	
+
 	    setCloseGameListener(closelistener) ;
 	    closegame.addActionListener(new ActionListener() {
 
@@ -128,6 +130,7 @@ public class StartView extends JPanel implements StartViewInterface{
 				remove(loadgame);
 				remove(closegame);
 				remove(startgame);
+
 				text.setVisible(true);
 				textfield.setVisible(true);
                 aceptname.setVisible(true);
@@ -136,6 +139,7 @@ public class StartView extends JPanel implements StartViewInterface{
                 revalidate();
 				
 			 
+
 			
 			 back.addActionListener(new ActionListener() {
 
@@ -146,6 +150,7 @@ public class StartView extends JPanel implements StartViewInterface{
 					remove(aceptname);
 					remove(textfield);
 					remove(text);
+
 					add(loadgame);
 					add(closegame);
 					add(startgame);
@@ -176,8 +181,12 @@ public class StartView extends JPanel implements StartViewInterface{
 	    add(startgame);   
 	    add(closegame);   
 	    add(loadgame);
+
 	   
 	    }
+
+
+
 	public void setPlayer(String name) {
 		player = new Real(name,1);
 	}

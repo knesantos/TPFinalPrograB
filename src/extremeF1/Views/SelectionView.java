@@ -13,7 +13,9 @@ import Core.Entities.Driver;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+
 import java.awt.Font;
+
 import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -34,7 +36,9 @@ import Core.Interfaces.SelectionObserver;
 public class SelectionView extends JPanel implements SelectionViewInterface {
 
 	private JButton boton1, boton2,boton3,boton4, ButtomSelect1, ButtomCancel1,ButtomSelect2,ButtomCancel2 ,btnAceptarSeleccion;
+
 	private JLabel titulo,titulo1, Name, nomabv, imagenDriver,imagenAuto, Budget, Defense, sobrepaso, clasificacion, cantCarrerasGanadas,
+
 			cantPolePosition, cantCampeonatos, cantParticipaciones, cuidadoNeumaticos, largada,marca,modelo,peso,aceleracion,
 			velocidadmax,potencia,consumo,fiabilidad,performancecurvas,performancesobrepaso;
 	private List<Driver> Drivers = new ArrayList<>();
@@ -58,12 +62,16 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 	public SelectionView(List<Driver> listDrivers,List<Car> listaCars) {
 		Drivers = listDrivers;
 		Cars = listaCars;
+
 		setBackground(new Color(44, 62, 80));
+
 		this.setPreferredSize(new Dimension(1500,1500));
 		this.setLayout(null);
 		imagenDriver = new JLabel();
 		imagenAuto = new JLabel();
+
 		Font infoFont = new Font("Comic Sans MS", Font.PLAIN, 18);
+
 		SeleccionDriver();
 		SeleccionCar();
 	}
@@ -112,7 +120,9 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					    Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // escala la imagen
 					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
 					    System.out.println("Asignando imagen desde: " + avatar);
+
 					    imagenDriver.setBounds(600, 200, 300, 300);  // x, y, width, height
+
 					    imagenDriver.setIcon(icon);
 					    imagenDriver.setVisible(true);
 					    add(imagenDriver);
@@ -153,6 +163,7 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
 					    System.out.println("Asignando imagen desde: " + avatar);
 					    imagenDriver.setBounds(600, 200, 300, 300);  // x, y, width, height
+
 					    imagenDriver.setIcon(icon);
 					    imagenDriver.setVisible(true);
 					    add(imagenDriver);
@@ -408,7 +419,9 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					    Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // escala la imagen
 					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
 					    System.out.println("Asignando imagen del auto desde: " + avatar);
+
 					    imagenAuto.setBounds(1500, 200, 300, 300);  // x, y, width, height
+
 					    imagenAuto.setIcon(icon);
 					    imagenAuto.setVisible(true);
 					    add(imagenAuto);
@@ -553,7 +566,9 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 		    Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // escala la imagen
 		    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
 		    System.out.println("Asignando imagen del auto desde: " + avatar);
+
 		    imagenAuto.setBounds(1500, 200, 300, 300);  // x, y, width, height
+
 		    imagenAuto.setIcon(icon);
 		    imagenAuto.setVisible(true);
 		    add(imagenAuto);
