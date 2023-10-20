@@ -38,7 +38,7 @@ public class StartView extends JPanel implements StartViewInterface{
 	       	titleGame.setBounds(450, 100, 1000, 300);
 	       	titleGame.setHorizontalAlignment(JLabel.CENTER);
 	       	titleGame.setVerticalAlignment(JLabel.CENTER);
-	       	titleGame.setForeground(new Color(200, 17, 17));
+	       	titleGame.setForeground(new Color(200, 17, 17);
 	       add(titleGame);
 	       
 	       
