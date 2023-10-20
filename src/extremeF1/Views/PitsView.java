@@ -174,8 +174,8 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						BtmLoadFuel.setEnabled(true);
 						remove(BtmTiresMedium);
 						remove(BtmTiresWet);
-						remove(text);
-						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Medium(50,50,50,50,50)));  
+						remove(text);  
+						controller.changeTires("Medium");
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
 						controller.updateView();
 						repaint();
@@ -192,7 +192,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(BtmTiresMedium);
 						remove(BtmTiresWet);
 						remove(text);
-						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Wet(50,50,50,50,50))); 
+						controller.changeTires("Wet");
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
 						controller.updateView();
 						repaint();
@@ -210,8 +210,8 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(BtmTiresWet);
 						remove(BtmTiresHard);
 						remove(BtmTiresSoft);
-						remove(text);
-						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Hard(50,50,50,50,50))); 
+						remove(text); 
+						controller.changeTires("Hard");
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
 						controller.updateView();
 						repaint();
@@ -222,6 +222,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
 						BtmRepairEngine.setEnabled(true);
 						BtmChangeTires.setEnabled(true);
 						BtmLoadFuel.setEnabled(true);
@@ -230,7 +231,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 						remove(BtmTiresHard);
 						remove(BtmTiresSoft);
 						remove(text);
-						changetirelistener.listenerChangeTireEvent(new ChangeTireEvent(new Soft(50,50,50,50,50))); 
+						controller.changeTires("Soft");
 						tirewear.setText("Desgaste de Neumaticos: "+ player.getCar().getTire().getWear());
 						controller.updateView();
 						repaint();
@@ -248,6 +249,17 @@ public class PitsView extends JPanel implements PitsViewInterface{
 		BtmRepairEngine.setHorizontalAlignment(JLabel.CENTER);
 		BtmRepairEngine.setVerticalAlignment(JLabel.CENTER);
 		this.add(BtmRepairEngine);
+		BtmRepairEngine.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.repairEngine();
+				carcondition.setText("Condicion motor: "+ player.getCar().getHealth());
+				controller.updateView();
+				repaint();
+			}
+			
+		});
 		
 		BtmLoadFuel = new JButton();
 		BtmLoadFuel.setBounds(500, 500, 400, 100);
@@ -310,6 +322,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						loadfuellistener.listenerLoadFuelEvent(new LoadFuelEvent(player.getCar(), 25));
+						controller.loadFuel(25);
 						fuel.setText("Combustible: "+ player.getCar().getFuel());
 						remove(BtmFuel1);
 						remove(BtmFuel2);
@@ -329,6 +342,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						loadfuellistener.listenerLoadFuelEvent(new LoadFuelEvent(player.getCar(), 50));
+						controller.loadFuel(50);
 						fuel.setText("Combustible: "+ player.getCar().getFuel());
 						remove(BtmFuel1);
 						remove(BtmFuel2);
@@ -343,11 +357,16 @@ public class PitsView extends JPanel implements PitsViewInterface{
 					}
 					
 				});
+				
+				
+				
 				BtmFuel3.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
 						loadfuellistener.listenerLoadFuelEvent(new LoadFuelEvent(player.getCar(), 75));
+						controller.loadFuel(75);
 						fuel.setText("Combustible: "+ player.getCar().getFuel());
 						remove(BtmFuel1);
 						remove(BtmFuel2);
@@ -367,6 +386,7 @@ public class PitsView extends JPanel implements PitsViewInterface{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						loadfuellistener.listenerLoadFuelEvent(new LoadFuelEvent(player.getCar(), 100));
+						controller.loadFuel(100);
 						fuel.setText("Combustible: "+ player.getCar().getFuel());
 						remove(BtmFuel1);
 						remove(BtmFuel2);
@@ -386,6 +406,21 @@ public class PitsView extends JPanel implements PitsViewInterface{
 			
 		});
 		
+		setLoadFuelListener(new LoadFuelListener() {
+	        @Override
+	        public void listenerLoadFuelEvent(LoadFuelEvent event) {
+	            // Actualizar la etiqueta de combustible
+	            updateFuelLabel((int) Race.getRealPlayer().getCar().getFuel());
+	        }
+	    });
+	    
+	    setChangeTireListener(new ChangeTireListener() {
+	        @Override
+	        public void listenerChangeTireEvent(ChangeTireEvent event) {
+	            // Actualizar la etiqueta de desgaste de neumáticos
+	            updateTireWearLabel((int) Race.getRealPlayer().getCar().getTire().getWear());
+	        }
+	    });
 		
 		btnResumeRace = new JButton("Resume Race");
         btnResumeRace.setBounds(500, 600, 400, 100);  // Ajusta la posición y el tamaño según tus necesidades
@@ -404,19 +439,19 @@ public class PitsView extends JPanel implements PitsViewInterface{
 	
 	@Override
 	public void setLoadFuelListener(LoadFuelListener listener) {
-		// TODO Auto-generated method stub
-		loadfuellistener = listener;
+	    loadfuellistener = listener;
 	}
+
+	@Override
 	public void setChangeTireListener(ChangeTireListener listener) {
-		// TODO Auto-generated method stub
-		changetirelistener = listener;
+	    changetirelistener = listener;
 	}
-	
-	 public void updateFuelLabel(int newFuelAmount) {
-	        fuel.setText("Combustible: " + newFuelAmount);
-	    }
-	 
-	 public void updateTireWearLabel(int newTireWear) {
-	        tirewear.setText("Desgaste de Neumáticos: " + newTireWear);
-	    }
+
+	public void updateFuelLabel(int newFuelAmount) {
+	    fuel.setText("Combustible: " + newFuelAmount);
+	}
+
+	public void updateTireWearLabel(int newTireWear) {
+	    tirewear.setText("Desgaste de Neumáticos: " + newTireWear);
+	}
 }

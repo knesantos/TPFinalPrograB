@@ -58,12 +58,7 @@ public class CarRepository {
                 String relativePath = "src/Resources/Images/" + modelo + ".png";
                 File f = new File(relativePath);
 
-                if(f.exists() && !f.isDirectory()) { 
-                    System.out.println("Imagen existe: " + relativePath);
-                } else {
-                    System.out.println("Imagen no existe: " + relativePath);
-                }
-
+               
                 Car.setAvatar(relativePath);
                 Cars.add(Car);
             }
