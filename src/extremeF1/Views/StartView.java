@@ -69,7 +69,32 @@ public class StartView extends JPanel implements StartViewInterface{
 	       	loadgame.setHorizontalAlignment(JLabel.CENTER);
 	       	loadgame.setVerticalAlignment(JLabel.CENTER);
 	       
-		 
+	     // texto para el nombre
+	        JTextField textfield = new JTextField();
+	        textfield.setBounds(600, 500, 500, 30);
+	        textfield.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+	        textfield.setBackground(new Color(200, 17, 17));
+	        textfield.setVisible(false);  
+	        add(textfield);
+
+	        //aceptar el nombre
+	        JButton aceptname = new JButton("Aceptar");
+	        aceptname.setFont(infoFont);
+	        aceptname.setBackground(new Color(200, 17, 17));
+	        aceptname.setBounds(700, 600, 300, 100);  
+	        aceptname.setBorder(new EmptyBorder(10, 10, 10, 10));
+	        aceptname.setVisible(false);
+	        add(aceptname);
+	        
+	        JButton back = new JButton("Atras");
+		 	back.setFont(infoFont);
+		 	back.setBackground(new Color(200, 17, 17));
+		 	back.setBounds(700,800,300,100);
+		 	back.setBorder(new EmptyBorder(10, 10, 10, 10));
+		 	back.setVisible(false);
+			add(back);	
+	       	
+	       	
 	    setCloseGameListener(closelistener) ;
 	    closegame.addActionListener(new ActionListener() {
 
@@ -91,33 +116,13 @@ public class StartView extends JPanel implements StartViewInterface{
 				remove(loadgame);
 				remove(closegame);
 				remove(startgame);
+				textfield.setVisible(true);
+                aceptname.setVisible(true);
+                back.setVisible(true);
+                repaint();
+                revalidate();
 				
-				
-			 JButton aceptname = new JButton("Aceptar");
-			 	aceptname.setFont(infoFont);
-			 	aceptname.setBackground(new Color(200, 17, 17));
-			 	aceptname.setBounds(1100,800,300,100);
-			 	aceptname.setBorder(new EmptyBorder(10, 10, 10, 10));
-			 	add(aceptname);
-			 JButton back = new JButton("Atras");
-			 	back.setFont(infoFont);
-			 	back.setBackground(new Color(200, 17, 17));
-			 	back.setBounds(700,800,300,100);
-			 	back.setBorder(new EmptyBorder(10, 10, 10, 10));
-				add(back);	
-			JLabel textname = new JLabel("Ingrese su nombre");
-				textname.setFont(infoFont);
-				textname.setBackground(new Color(200, 17, 17));
-				textname.setBounds(450,450,300,70);
-				textname.setBorder(new EmptyBorder(10, 10, 10, 10));
-		 	add(textname);
-				
-			 JTextField textfield = new JTextField();
-			 	textfield.setBounds(450, 500, 500, 30);
-			 	textfield.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-			 	textfield.setBackground(new Color(200, 17, 17));
-			 	add(textfield);
-			 	repaint();
+			 
 			
 			 back.addActionListener(new ActionListener() {
 
@@ -127,7 +132,7 @@ public class StartView extends JPanel implements StartViewInterface{
 					remove(back);
 					remove(aceptname);
 					remove(textfield);
-					remove(textname);
+
 					add(loadgame);
 					add(closegame);
 					add(startgame);
@@ -158,7 +163,8 @@ public class StartView extends JPanel implements StartViewInterface{
 	    add(startgame);   
 	    add(closegame);   
 	    add(loadgame);
-	}
+	   
+	    }
 	public void setPlayer(String name) {
 		player = new Real(name,1);
 	}
