@@ -1,5 +1,6 @@
 package extremeF1.Views;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -12,10 +13,14 @@ import Core.Entities.Driver;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import Core.Entities.Events.AceptCarEvent;
 import Core.Entities.Events.AceptCarListener;
@@ -28,7 +33,7 @@ import Core.Interfaces.SelectionObserver;
 public class SelectionView extends JPanel implements SelectionViewInterface {
 
 	private JButton boton1, boton2,boton3,boton4, ButtomSelect1, ButtomCancel1,ButtomSelect2,ButtomCancel2 ,btnAceptarSeleccion;
-	private JLabel titulo, Name, nomabv, imagen, Budget, Defense, sobrepaso, clasificacion, cantCarrerasGanadas,
+	private JLabel titulo, Name, nomabv, imagenDriver,imagenAuto, Budget, Defense, sobrepaso, clasificacion, cantCarrerasGanadas,
 			cantPolePosition, cantCampeonatos, cantParticipaciones, cuidadoNeumaticos, largada,marca,modelo,peso,aceleracion,
 			velocidadmax,potencia,consumo,fiabilidad,performancecurvas,performancesobrepaso;
 	private List<Driver> Drivers = new ArrayList<>();
@@ -52,8 +57,10 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 	public SelectionView(List<Driver> listDrivers,List<Car> listaCars) {
 		Drivers = listDrivers;
 		Cars = listaCars;
-		this.setSize(1500,1500);
+		this.setPreferredSize(new Dimension(1500,1500));
 		this.setLayout(null);
+		imagenDriver = new JLabel();
+		imagenAuto = new JLabel();
 		SeleccionDriver();
 		SeleccionCar();
 	}
@@ -93,6 +100,23 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					cantParticipaciones.setText("Cantiddad de parcitipaciones: " + Drivers.get(i).getParticipations());
 					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Drivers.get(i).getTireCare());
 					largada.setText("Largada: " + Drivers.get(i).getStart());
+					String avatar = Drivers.get(i).getAvatarPath();  
+					if (avatar != null) {
+					    ImageIcon icon = new ImageIcon(avatar);
+					    Image image = icon.getImage(); // transforma el icono en una imagen
+					    Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // escala la imagen
+					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+					    System.out.println("Asignando imagen desde: " + avatar);
+					    imagenDriver.setBounds(400, 100, 300, 300);  // x, y, width, height
+					    imagenDriver.setIcon(icon);
+					    imagenDriver.setVisible(true);
+					    add(imagenDriver);
+					    revalidate();
+					    repaint();
+					} else {
+					    System.out.println("No se pudo asignar la imagen desde: " + avatar);
+					    imagenDriver.setIcon(null);
+					}
 				}
 			}
 
@@ -117,7 +141,26 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					cantParticipaciones.setText("Cantiddad de parcitipaciones: " + Drivers.get(i).getParticipations());
 					cuidadoNeumaticos.setText("Cuidado de neumaticos: " + Drivers.get(i).getTireCare());
 					largada.setText("Largada: " + Drivers.get(i).getStart());
+					Image avatar = Drivers.get(i).getAvatar();  
+					if (avatar != null) {
+					    ImageIcon icon = new ImageIcon(avatar);
+					    Image image = icon.getImage(); // transforma el icono en una imagen
+					    Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // escala la imagen
+					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+					    System.out.println("Asignando imagen desde: " + avatar);
+					    imagenDriver.setBounds(400, 100, 300, 300);  // x, y, width, height
+					    imagenDriver.setIcon(icon);
+					    imagenDriver.setVisible(true);
+					    add(imagenDriver);
+					    revalidate();
+					    repaint();
+					} else {
+					    System.out.println("No se pudo asignar la imagen desde: " + avatar);
+					    imagenDriver.setIcon(null);
+					}
 				}
+				revalidate();
+				 repaint();
 			}
 
 		});
@@ -230,12 +273,27 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 		largada.setBounds(75, 250, 200, 15);
 		largada.setText("Largada: " + Drivers.get(i).getStart());
 		this.add(largada);
-
-		imagen = new JLabel();
-		imagen.setBounds(400, 100, 300, 300);
-		imagen.setOpaque(true);
-		imagen.setBackground(Color.black);
-		this.add(imagen);
+		
+		
+		String avatar = Drivers.get(i).getAvatarPath();  
+		
+		if (avatar != null) {
+		    ImageIcon icon = new ImageIcon(avatar);
+		    Image image = icon.getImage(); // transforma el icono en una imagen
+		    Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // escala la imagen
+		    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+		    System.out.println("Asignando imagen desde: " + avatar);
+		    imagenDriver.setBounds(400, 100, 300, 300);  // x, y, width, height
+		    imagenDriver.setIcon(icon);
+		    imagenDriver.setVisible(true);
+		    this.add(imagenDriver);
+		    this.revalidate();
+		    this.repaint();
+		} else {
+		    System.out.println("No se pudo asignar la imagen desde: " + avatar);
+		    imagenDriver.setIcon(null);
+		}
+		this.add(imagenDriver);
 
 	}
 	
@@ -266,8 +324,27 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					consumo.setText("Consumo: " + Cars.get(j).getConsumption());					
 					fiabilidad.setText("Fiabilidad: " + Cars.get(j).getReliability());
 					performancecurvas.setText("Performancecurvas: " + Cars.get(j).getCurvesPerformance());
-					performancesobrepaso.setText("Performancesobrepaso: " + Cars.get(j).getOvertakingPerformance());
+					performancesobrepaso.setText("Performancesobrepaso: " + Cars.get(j).getOvertakingPerformance()); 
+					Image avatar = Cars.get(j).getAvatar();  // Asumiendo que Cars.get(j).getAvatar() te da la imagen del auto
+					if (avatar != null) {
+					    ImageIcon icon = new ImageIcon(avatar);
+					    Image image = icon.getImage(); // transforma el icono en una imagen
+					    Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // escala la imagen
+					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+					    System.out.println("Asignando imagen del auto desde: " + avatar);
+					    imagenAuto.setBounds(1150, 100, 300, 300);  // x, y, width, height
+					    imagenAuto.setIcon(icon);
+					    imagenAuto.setVisible(true);
+					    add(imagenAuto);
+					    revalidate();
+					    repaint();
+					} else {
+					    System.out.println("No se pudo asignar la imagen del auto desde: " + avatar);
+					    imagenAuto.setIcon(null);
+					}
 				}
+				 revalidate();
+				 repaint();
 			}
 
 		});
@@ -290,7 +367,26 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 					fiabilidad.setText("Fiabilidad: " + Cars.get(j).getReliability());
 					performancecurvas.setText("Performancecurvas: " + Cars.get(j).getCurvesPerformance());
 					performancesobrepaso.setText("Performancesobrepaso: " + Cars.get(j).getOvertakingPerformance());
+					Image avatar = Cars.get(j).getAvatar();  // Asumiendo que Cars.get(j).getAvatar() te da la imagen del auto
+					if (avatar != null) {
+					    ImageIcon icon = new ImageIcon(avatar);
+					    Image image = icon.getImage(); // transforma el icono en una imagen
+					    Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // escala la imagen
+					    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+					    System.out.println("Asignando imagen del auto desde: " + avatar);
+					    imagenAuto.setBounds(1150, 100, 300, 300);  // x, y, width, height
+					    imagenAuto.setIcon(icon);
+					    imagenAuto.setVisible(true);
+					    add(imagenAuto);
+					    revalidate();
+					    repaint();
+					} else {
+					    System.out.println("No se pudo asignar la imagen del auto desde: " + avatar);
+					    imagenAuto.setIcon(null);
+					}
 				}
+				revalidate();
+				 repaint();
 			}
 
 		});
@@ -393,13 +489,27 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 		performancesobrepaso.setText("Performancesobrepaso: " + Cars.get(i).getOvertakingPerformance());
 		this.add(performancesobrepaso);
 
-		imagen = new JLabel();
-		imagen.setBounds(1150, 100, 300, 300);
-		imagen.setOpaque(true);
-		imagen.setBackground(Color.black);
-		this.add(imagen);
+		Image avatar = Cars.get(j).getAvatar();  // Asumiendo que Cars.get(j).getAvatar() te da la imagen del auto
+		if (avatar != null) {
+		    ImageIcon icon = new ImageIcon(avatar);
+		    Image image = icon.getImage(); // transforma el icono en una imagen
+		    Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // escala la imagen
+		    icon = new ImageIcon(newimg);  // transforma la imagen escalada en un icono
+		    System.out.println("Asignando imagen del auto desde: " + avatar);
+		    imagenAuto.setBounds(1150, 100, 300, 300);  // x, y, width, height
+		    imagenAuto.setIcon(icon);
+		    imagenAuto.setVisible(true);
+		    add(imagenAuto);
+		    revalidate();
+		    repaint();
+		} else {
+		    System.out.println("No se pudo asignar la imagen del auto desde: " + avatar);
+		    imagenAuto.setIcon(null);
+		}
+		this.add(imagenAuto);
 		
-	
+		System.out.println("JLabel imagenAuto es visible: " + imagenAuto.isVisible());
+		System.out.println("JLabel imagenDriver es visible: " + imagenDriver.isVisible());
 		
 		btnAceptarSeleccion.addActionListener(new ActionListener() {
 		    @Override
@@ -436,7 +546,14 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 	}
 
 	
-	
+	public Image getScaledImage(Image srcImg, int w, int h){
+	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2 = resizedImg.createGraphics();
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+	    g2.drawImage(srcImg, 0, 0, w, h, null);
+	    g2.dispose();
+	    return resizedImg;
+	}
 	
 
 }
