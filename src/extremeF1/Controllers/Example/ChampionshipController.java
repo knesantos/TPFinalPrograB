@@ -1,64 +1,96 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Carrera;
+import Core.Entities.Race;
 import Core.Entities.Championship;
-import Core.Entities.Jugador;
+import Core.Entities.Player;
 import extremeF1.Controllers.Example.ReportsViewsController.PreRaceViewController;
+import extremeF1.Controllers.Example.StartViewController.StartObserver;
+import extremeF1.Views.PreRaceView;
+import extremeF1.Views.PrincipalView;
 import extremeF1.Controllers.Example.ReportsViewsController.PostRaceViewController;
 
 import java.util.List;
 
 public class ChampionshipController implements ReportsViewsController.PreRaceObserver, ReportsViewsController.PostRaceObserver {
-    private List<Carrera> carreras;
-    private List<Jugador> players;
+    private List<Race> Races;
+    private List<Player> players;
     private int currentRaceIndex = 0;
     private Championship championship;
     private RaceViewController raceController;
+    private PrincipalView gameWindow;
 
-    public ChampionshipController(List<Carrera> carreras, List<Jugador> players) {
-        this.carreras = carreras;
+    public ChampionshipController(List<Race> Races, List<Player> players, PrincipalView gameWindow) {
+        this.Races = Races;
         this.players = players;
-        this.championship = new Championship(carreras.size(), players);
-        this.raceController = new RaceViewController();
+        this.championship = new Championship(Races.size(), players);
+        this.gameWindow = gameWindow;
+
+        // Inicializa RaceViewController aquí y pasa el campeonato como argumento
+        this.raceController = new RaceViewController(gameWindow, championship);
         raceController.addRaceEndObserver(() -> onRaceEnd());
     }
+    
+    
+    public interface EndObserver{
+		void onEndObserver();
+	}
+	
+	private EndObserver endobserver;
+	
+	public void addObserverEnd(EndObserver endobserver) {
+		// TODO Auto-generated method stub
+		this.endobserver = endobserver;
+	}
+	
     
     public void setRaceController(RaceViewController raceController) {
         this.raceController = raceController;
     }
     
     public void onRaceStart() {
-        // Iniciar la carrera
-    	System.out.println("onRaceStart index: " + currentRaceIndex);
-        Carrera currentRace = carreras.get(currentRaceIndex);
-        championship.setActiveCircuit(currentRace.getCircuito());
-        raceController.startRace(championship.getPlayers(), currentRace.getCircuito());
+        // iniciar Carrera
+        System.out.println("onRaceStart index: " + currentRaceIndex);
+        Race currentRace = Races.get(currentRaceIndex);
+        championship.setActiveCircuit(currentRace.getCircuit());
+        raceController.startRace(championship.getPlayers(), currentRace.getCircuit());
     }
 
     @Override
     public void onRaceEnd() {
-        // Actualizar puntos y completar la carrera
-    	System.out.println("End race index: " + currentRaceIndex);
+        // Actualizar puntos y completar la Race
+        System.out.println("End race index: " + currentRaceIndex);
         championship.raceCompleted();
         championship.updatePointsBasedOnPosition(raceController.getRace().getPlayers());
 
-        if (championship.isChampionshipOver()) {
-            System.out.println("Campeonato terminado");
-            // Mostrar la vista de resultados finales del campeonato
-        } else {
-            currentRaceIndex++;
-            startNextRace();
-        }
+        // Mostrar la vista PostRace
+        ReportsViewsController.PostRaceViewController postRaceController = new ReportsViewsController.PostRaceViewController(raceController.getRace(), championship, gameWindow);
+        postRaceController.addObserver(() -> {
+            if (championship.isChampionshipOver()) {
+                System.out.println("Campeonato terminado");
+                // Mostrar la vista de resultados finales del campeonato
+                endobserver.onEndObserver();
+            } else {
+                currentRaceIndex++;
+                startNextRace();
+            }
+        });
+        gameWindow.showPanel("PostRace");  // Mostrar la vista PostRace
     }
 
     public void startNextRace() {
-        if (currentRaceIndex < carreras.size()) {
+        if (currentRaceIndex < Races.size()) {
         	System.out.println("startNextRace index: " + currentRaceIndex);
-            Carrera nextRace = carreras.get(currentRaceIndex);
-            championship.setActiveCircuit(nextRace.getCircuito()); 
+            Race nextRace = Races.get(currentRaceIndex);
+            championship.setActiveCircuit(nextRace.getCircuit()); 
             onRaceStart();
         } else {
-            System.out.println("No hay más carreras en el campeonato");
+            System.out.println("No hay más Races en el campeonato");
         }
     }
+    public Championship getChampionship() {
+    	return  championship;
+    }
+
+
+
 }

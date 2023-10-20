@@ -1,27 +1,33 @@
 package extremeF1.Controllers.Example;
 
-import Core.Entities.Events.AceptCarEvent;
-import Core.Entities.Events.AceptCarListener;
-import Core.Entities.Events.AceptPilotEvent;
-import Core.Entities.Events.AceptPilotListener;
-import Core.Entities.Auto;
-import Core.Entities.Jugador;
-import Core.Entities.Piloto;
+
+import Core.Entities.Car;
+import Core.Entities.Player;
+import Core.Entities.Driver;
 import Core.Entities.Real;
-import Core.Entities.Simulado;
-import Repository.AutoRepository;
-import Repository.PilotoRepository;
+import Core.Entities.Simulated;
+import Repository.CarRepository;
+import Repository.DriverRepository;
+import extremeF1.Views.PrincipalView;
 import extremeF1.Views.SelectionView;
 
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPanel;
 
 public class SelectionViewController {
 	
 	private boolean isButtonAcceptSelectionPressed = false;
 	  private SelectionView v1;
-	
-	
+	  private List<Player> Playeres = new ArrayList<>();
+	  private PrincipalView gameWindow;
+	  
+	  public SelectionViewController(PrincipalView gameWindow) {
+		    this.gameWindow = gameWindow;
+		}
+
 	public interface SelectionObserver {
         void onSelectionComplete();
     }
@@ -32,54 +38,53 @@ public class SelectionViewController {
         this.observer = observer;
     }
 	
-	public List<Jugador> initSelectionScreen(Real player, AutoRepository autoRepository, PilotoRepository pilotoRepository) {
-        List<Auto> autos = autoRepository.getAutos();
-        List<Piloto> pilotos = pilotoRepository.getPilotos();
-        List<Jugador> jugadores = new ArrayList<>();
-
-        v1 = new SelectionView(pilotos, autos);
+	public void initSelectionScreen(Real player, CarRepository CarRepository, DriverRepository DriverRepository) {
+        List<Car> Cars = CarRepository.getCars();
+        List<Driver> Drivers = DriverRepository.getDrivers();
+        
+        v1 = new SelectionView(Drivers, Cars);
         
         v1.setAceptPilotListener(event -> {
-            player.setPilot(event.getPiloto());
-            System.out.println(player.getPilot().getnombre());
+            player.setDriver(event.getDriver());
+            System.out.println(player.getDriver().getName());
         });
 
         v1.setAceptCarListener(event -> {
-            player.setAuto(event.getAuto());
-            System.out.println(player.getAuto().getMarca());
-            System.out.println(player.getAuto().getModelo());
+            player.setCar(event.getCar());
+            System.out.println(player.getCar().getBrand());
         });
         
         v1.setButtonAcceptSelectionListener((event) -> {
             setButtonPressed(true);
-            v1.dispose();
+            if (observer != null) {
+                observer.onSelectionComplete();
+            }
         });
-        
-        v1.setVisible(true);
-        
+        gameWindow.addPanel(v1, "Selection");
+        gameWindow.showPanel("Selection");
+
         
         
 
-        // Crear jugadores simulados para los pilotos y autos no seleccionados
-        int autoIndex = 0;
-        for (int i = 0; i < pilotos.size(); i++) {
-            if (pilotos.get(i) != player.getPilot()) {
-                Jugador jugadorSimulado = new Simulado();
-                jugadorSimulado.setPiloto(pilotos.get(i));
-                if (autoIndex < autos.size()) {
-                    jugadorSimulado.setAuto(autos.get(autoIndex));
-                    autos.get(autoIndex).setJugador(jugadorSimulado);
-                    autoIndex++;
+       // Crear Playeres Simulateds para los Drivers y Cars no seleccionados
+        int CarIndex = 0;
+        for (int i = 0; i < Drivers.size(); i++) {
+            if (Drivers.get(i) != player.getDriver()) {
+                Player PlayerSimulated = new Simulated();
+                PlayerSimulated.setDriver(Drivers.get(i));
+                if (CarIndex < Cars.size()) {
+                    PlayerSimulated.setCar(Cars.get(CarIndex));
+                    Cars.get(CarIndex).setPlayer(PlayerSimulated);
+                    CarIndex++;
                 }
                 
-                jugadorSimulado.setNombre("Jugador Simulado " + (i + 1));
-                jugadorSimulado.setId(i+1);
-                jugadores.add(jugadorSimulado);
+                PlayerSimulated.setName("Player Simulated " + (i + 1));
+                PlayerSimulated.setId(i+1);
+                Playeres.add(PlayerSimulated);
             }
         }
         
-        jugadores.add(player);
-        return jugadores;
+      Playeres.add(player);
     }
 	
 	
@@ -90,8 +95,21 @@ public class SelectionViewController {
             }
         }
     }
+	public List<Player> getListPlayer(){
+		
+		return Playeres;
+	}
 	public void setButtonPressed(boolean isPressed) {
 	    this.isButtonAcceptSelectionPressed = isPressed;
 	    checkSelectionComplete();  
 	    }
+
+	public PrincipalView getGameWindow() {
+		return gameWindow;
+	}
+
+	public void setGameWindow(PrincipalView gameWindow) {
+		this.gameWindow = gameWindow;
+	}
+
 }

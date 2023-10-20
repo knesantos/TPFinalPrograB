@@ -3,17 +3,23 @@ package extremeF1.Controllers.Example;
 import java.util.ArrayList;
 import java.util.List;
 import Core.Entities.*;
-import Repository.AutoRepository;
-import Repository.CircuitoRepository;
-import Repository.PaisRepository;
-import Repository.PilotoRepository;
+import Repository.CarRepository;
+import Repository.CircuitRepository;
+import Repository.CountryRepository;
+import Repository.DriverRepository;
+import extremeF1.Views.PrincipalView;
 
 public class MainController {
 
  
-    private List<Jugador> players = new ArrayList<>();
-    private List<Carrera> races = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
+    private List<Race> races = new ArrayList<>();
+    private PrincipalView gameWindow;
+    private Real player;
+    private CarRepository CarRepository;
+    private DriverRepository DriverRepository;
     
+
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -21,47 +27,71 @@ public class MainController {
     public void run() {
     	   
         // Crear instancias de los repositorios
-        AutoRepository autoRepository = new AutoRepository();
-        CircuitoRepository circuitoRepository = new CircuitoRepository();
-        PaisRepository paisRepository = new PaisRepository();
-        PilotoRepository pilotoRepository = new PilotoRepository();
+    	CarRepository = new CarRepository();
+        CircuitRepository CircuitRepository = new CircuitRepository();
+        CountryRepository CountryRepository = new CountryRepository();
+        DriverRepository = new DriverRepository();
 
         // Cargar datos desde XML
-        autoRepository.loadAutosFromXML();
-        circuitoRepository.loadCircuitosFromXML();
-        paisRepository.loadPaisesFromXML();
-        pilotoRepository.loadPilotosFromXML();
+        CarRepository.loadCarsFromXML();
+        CircuitRepository.loadCircuitsFromXML();
+        CountryRepository.loadContriesFromXML();
+        DriverRepository.loadDriversFromXML();
+  
 
-        // Crear jugador Real
-        Real player = new Real("Gonzalo", 23);
-        
-        // Iniciar pantalla de selección
-        SelectionViewController selectionController = new SelectionViewController();
-        players = selectionController.initSelectionScreen(player, autoRepository, pilotoRepository);
-        System.out.println("Jugadores seleccionados: " + players);
-
-        // Crear carreras basadas en circuitos disponibles
+        // Crear Races basadas en Circuits disponibles
         int i=0;
-        for (Circuito circuito : circuitoRepository.getCircuitos()) {
-            Carrera carrera = new Carrera(null,++i,players,circuito); 
-            races.add(carrera);
+        for (Circuit Circuit : CircuitRepository.getCircuits()) {
+            Race Race = new Race(null,++i,players,Circuit); 
+            races.add(Race);
         }
+  
+        gameWindow = new PrincipalView();
 
-     // Iniciar el ChampionshipController
-        ChampionshipController championshipController = new ChampionshipController(races, players);
-
-        // Iniciar el RaceViewController
-        RaceViewController raceController = new RaceViewController();
-        raceController.addRaceEndObserver(() -> championshipController.onRaceEnd());
-
-        // Pasar la instancia de RaceViewController al ChampionshipController
-        championshipController.setRaceController(raceController);
+        StartGame(CarRepository,DriverRepository);
+ 
+    }
         
-        selectionController.addObserver(new SelectionViewController.SelectionObserver() {
-            @Override
-            public void onSelectionComplete() {
-                championshipController.onRaceStart();
-            }
+      private void StartGame(CarRepository CarRepository,DriverRepository DriverRepository) { 
+
+        StartViewController startcontroller = new  StartViewController(gameWindow);
+        
+        startcontroller.initialSartView();
+        startcontroller.addObserverStart(()->{
+        	startSelection(startcontroller.getPlayer(),CarRepository,DriverRepository);
+        });
+        startcontroller.addObserverClose(()->{
+            System.out.println("El programa ha sido detenido.");
+            System.exit(1); 
         });
     }
+    
+    private void startSelection(Real player,CarRepository CarRepository,DriverRepository DriverRepository) {
+    	SelectionViewController selectionController = new SelectionViewController(gameWindow);
+		selectionController.initSelectionScreen(player, CarRepository, DriverRepository);
+    	 selectionController.addObserver(() -> {
+             players = selectionController.getListPlayer();
+             startChampionship();
+         });
+     }
+    
+    
+    private void startChampionship() {
+        // Iniciar el ChampionshipController
+        ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
+        championshipController.startNextRace();
+        championshipController.addObserverEnd(()->{
+        	startEndView(championshipController.getChampionship());
+        });
+    }
+
+    private void startEndView(Championship championship) {
+    	EndViewController endController = new EndViewController(gameWindow,championship);
+    	endController.initalEndView();
+    	endController.addObserverNext(()->{
+    		StartGame(CarRepository,DriverRepository);
+    	});
+    	
+    }
+ 
 }

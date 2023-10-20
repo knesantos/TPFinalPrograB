@@ -1,17 +1,22 @@
 package Core.Entities;
 
-public class Soft extends Neumatico {
+public class Soft extends Tire {
 
-	public Soft(int desgaste, int durabilidad, int consumo, int velocidad, int agarre) {
-		super(desgaste, durabilidad, consumo, velocidad, agarre);
-		
-	}
-	@Override
-    public boolean esAdecuadoPara(String condicionClimatica) {
-        return condicionClimatica.equalsIgnoreCase("Seco");
+    // Constructor con argumentos
+    public Soft(int wear, int durability, int consumption, int speed, int grip) {
+        super(wear, durability, consumption, speed, grip);
     }
-	@Override
-	public double obtenerFactorModificacionTiempo() {
-		return 0.90; //10% mas rapido
-	}
+
+    // Constructor sin argumentos con valores por defecto
+    public Soft() {
+        super(0, 60, 8, 95, 80); 
+    }
+
+    public boolean isSuitableFor(String weatherCondition) {
+        return weatherCondition.equalsIgnoreCase("Dry");
+    }
+
+    public double getModificationFactorTime() {
+        return 0.90; // 10% más rápido
+    }
 }

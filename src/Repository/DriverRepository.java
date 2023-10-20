@@ -11,19 +11,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import Core.Entities.Piloto;
+import Core.Entities.Driver;
 
-public class PilotoRepository {
-    private List<Piloto> pilotos;
+public class DriverRepository {
+    private List<Driver> Drivers;
 
-    public PilotoRepository() {
-        this.pilotos = new ArrayList<>();
+    public DriverRepository() {
+        this.Drivers = new ArrayList<>();
     }
 
-    public void loadPilotosFromXML() {
-    	 String pilotosXMLPath = "src\\Resources\\XML\\pilotos.xml";
+    public void loadDriversFromXML() {
+    	 String DriversXMLPath = "src\\Resources\\XML\\pilotos.xml";
         try {
-            File file = new File(pilotosXMLPath);
+            File file = new File(DriversXMLPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -48,9 +48,18 @@ public class PilotoRepository {
                 int cantCampeonatos = Integer.parseInt(element.getElementsByTagName("cantCampeonatos").item(0).getTextContent());
                 int cantParticipaciones = Integer.parseInt(element.getElementsByTagName("cantParticipaciones").item(0).getTextContent());
 
-                Piloto piloto = new Piloto(presupuesto, defensa, sobrepaso, clasificacion, cuidadoNeumaticos, largada,
+                Driver driver = new Driver(presupuesto, defensa, sobrepaso, clasificacion, cuidadoNeumaticos, largada,
                         nombre, nombreAbrev, cantCarrerasGanadas, cantPolePositions, cantCampeonatos, cantParticipaciones);
-                pilotos.add(piloto);
+                
+                
+                String relativePath = "src/Resources/Images/" + nombreAbrev + ".png";
+                File f = new File(relativePath);
+
+
+
+                driver.setAvatarPath(relativePath);
+                driver.setAvatar(relativePath);
+                Drivers.add(driver);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,17 +68,17 @@ public class PilotoRepository {
 
  
 
-    public List<Piloto> getPilotos() {
-        return pilotos;
+    public List<Driver> getDrivers() {
+        return Drivers;
     }
 
-    public Piloto findByNombre(String nombre) {
+    public Driver findByNombre(String nombre) {
        
-        for (Piloto piloto : pilotos) {
-            if (piloto.getnombre().equalsIgnoreCase(nombre)) {
-                return piloto;
+        for (Driver Driver : Drivers) {
+            if (Driver.getName().equalsIgnoreCase(nombre)) {
+                return Driver;
             }
         }
-        return null; // Si no se encuentra el piloto con el nombre dado
+        return null; // Si no se encuentra el Driver con el nombre dado
     }
 }
