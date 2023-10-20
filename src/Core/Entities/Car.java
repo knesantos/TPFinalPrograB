@@ -221,7 +221,7 @@ public class Car implements Runnable {
     
     public void simulateLap(Circuit Circuit, RaceCondition condition, Driver driver) {
         lapTime = 0.0;
-        double timeMultiplier = 0.0000151;
+        double timeMultiplier = 0.0551;
 
         // Ajustar maxSpeed y aceleración según el modo de conducción y habilidades del conductor
         int adjustedMaxSpeed = Math.max(1, (int) (maxSpeed * (1 + (drivingMode.getAggressiveness() + driver.getOvertaking()) / 200.0)));

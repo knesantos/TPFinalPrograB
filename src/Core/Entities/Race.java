@@ -206,7 +206,7 @@ public class Race {
             }
             try {
                 latch.await();
-                Thread.sleep(90); // Sleep for 1000 milliseconds to slow down the simulation
+                Thread.sleep(900); // Sleep for 900 milliseconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
