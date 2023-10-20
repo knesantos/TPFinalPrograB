@@ -69,7 +69,9 @@ public class StartView extends JPanel implements StartViewInterface{
 	       	loadgame.setHorizontalAlignment(JLabel.CENTER);
 	       	loadgame.setVerticalAlignment(JLabel.CENTER);
 	       
+
 		 
+
 	    setCloseGameListener(closelistener) ;
 	    closegame.addActionListener(new ActionListener() {
 
@@ -91,6 +93,7 @@ public class StartView extends JPanel implements StartViewInterface{
 				remove(loadgame);
 				remove(closegame);
 				remove(startgame);
+
 				
 				
 			 JButton aceptname = new JButton("Aceptar");
@@ -118,6 +121,7 @@ public class StartView extends JPanel implements StartViewInterface{
 			 	textfield.setBackground(new Color(200, 17, 17));
 			 	add(textfield);
 			 	repaint();
+
 			
 			 back.addActionListener(new ActionListener() {
 
@@ -127,7 +131,9 @@ public class StartView extends JPanel implements StartViewInterface{
 					remove(back);
 					remove(aceptname);
 					remove(textfield);
+
 					remove(textname);
+
 					add(loadgame);
 					add(closegame);
 					add(startgame);
@@ -158,7 +164,9 @@ public class StartView extends JPanel implements StartViewInterface{
 	    add(startgame);   
 	    add(closegame);   
 	    add(loadgame);
+
 	}
+
 	public void setPlayer(String name) {
 		player = new Real(name,1);
 	}

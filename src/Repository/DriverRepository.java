@@ -48,9 +48,18 @@ public class DriverRepository {
                 int cantCampeonatos = Integer.parseInt(element.getElementsByTagName("cantCampeonatos").item(0).getTextContent());
                 int cantParticipaciones = Integer.parseInt(element.getElementsByTagName("cantParticipaciones").item(0).getTextContent());
 
-                Driver Driver = new Driver(presupuesto, defensa, sobrepaso, clasificacion, cuidadoNeumaticos, largada,
+                Driver driver = new Driver(presupuesto, defensa, sobrepaso, clasificacion, cuidadoNeumaticos, largada,
                         nombre, nombreAbrev, cantCarrerasGanadas, cantPolePositions, cantCampeonatos, cantParticipaciones);
-                Drivers.add(Driver);
+                
+                
+                String relativePath = "src/Resources/Images/" + nombreAbrev + ".png";
+                File f = new File(relativePath);
+
+               
+
+                driver.setAvatarPath(relativePath);
+                driver.setAvatar(relativePath);
+                Drivers.add(driver);
             }
         } catch (Exception e) {
             e.printStackTrace();

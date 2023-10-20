@@ -53,6 +53,13 @@ public class CarRepository {
                 Tire Tire = new Medium(0, 0, 0, 0, 0);
 
                 Car Car = new Car(performanceSobrepaso, performanceCurvas, peso, fiabilidad, velocidadMax, aceleracion, potencia, consumo, Tire, marca, modelo);
+
+                // Establecer la ruta de la imagen del auto
+                String relativePath = "src/Resources/Images/" + modelo + ".png";
+                File f = new File(relativePath);
+
+               
+                Car.setAvatar(relativePath);
                 Cars.add(Car);
             }
         } catch (Exception e) {

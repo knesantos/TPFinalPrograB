@@ -6,9 +6,14 @@ import extremeF1.Views.PrincipalView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Core.Entities.Hard;
+import Core.Entities.Medium;
 import Core.Entities.Player;
 import Core.Entities.Race;
 import Core.Entities.Real;
+import Core.Entities.Soft;
+import Core.Entities.Tire;
+import Core.Entities.Wet;
 import extremeF1.Views.PitsView;
 
 
@@ -57,20 +62,54 @@ public class PitsViewController {
 	        }
 	    }
 	
-	public void changeTires(String tireType) {
-        // Aquí puedes implementar la lógica para cambiar los neumáticos
-        // Por ejemplo, puedes emitir un evento que el modelo escuchará y actuará en consecuencia
-        //observer.onTireChange(tireType);
-    }
+	    public void changeTires(String tireType) {
+	        Tire tire = null; 
+	        switch (tireType) {
+	            case "Medium":
+	                tire = new Medium();
+	                break;
+	            case "Hard":
+	                tire = new Hard();
+	                break;
+	            case "Soft":
+	                tire = new Soft();
+	                break;
+	            case "Wet":
+	                tire = new Wet();
+	                break;
+	            default:
+	                System.out.println("Tipo de neumático no válido");
+	                return;
+	        }
 
-    public void loadFuel(int fuelAmount) {
-        // Similarmente, implementa la lógica para cargar combustible
-       // observer.onFuelLoad(fuelAmount);
-    }
+	        race.getRealPlayer().getCar().setTire(tire); 
+	    }
+
+	    public void loadFuel(int fuelAmount) {
+	        int actualFuelAmount = 0; // Inicializa la variable para la cantidad real de combustible
+
+	        switch (fuelAmount) {
+	            case 1:
+	                actualFuelAmount = 25;
+	                break;
+	            case 2:
+	                actualFuelAmount = 50;
+	                break;
+	            case 3:
+	                actualFuelAmount = 75;
+	                break;
+	            case 4:
+	                actualFuelAmount = 100;
+	                break;
+	            default:
+	                System.out.println("Cantidad de combustible no válida");
+	                return;
+	        }
+	        race.getRealPlayer().getCar().setFuel(actualFuelAmount); 
+	    }
 
     public void repairEngine() {
-        // Implementa la lógica para reparar el motor
-        //observer.onEngineRepair();
+    	race.getRealPlayer().getCar().setHealth(100); 
     }
 	
     public void finishPitStop() {

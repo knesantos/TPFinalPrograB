@@ -18,7 +18,7 @@ public class PrincipalViewController {
 		v1 = new PrincipalView();
 		v1.setVisible(true); 
 		//selectionview = new SelectionViewController();
-		v1.addPanel(selectionview.initSelectionScreen(player, carRepository, driverRepository),"SelectionView");
+		//v1.addPanel(selectionview.initSelectionScreen(player, carRepository, driverRepository),"SelectionView");
 		
 		 selectionview.addObserver(new SelectionViewController.SelectionObserver() {
 	            @Override
