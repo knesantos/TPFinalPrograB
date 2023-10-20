@@ -16,6 +16,9 @@ public class MainController {
     private List<Race> races = new ArrayList<>();
     private PrincipalView gameWindow;
     private Real player;
+    private CarRepository CarRepository;
+    private DriverRepository DriverRepository;
+    
     public static void main(String[] args) {
         new MainController().run();
     }
@@ -23,10 +26,10 @@ public class MainController {
     public void run() {
     	   
         // Crear instancias de los repositorios
-        CarRepository CarRepository = new CarRepository();
+    	CarRepository = new CarRepository();
         CircuitRepository CircuitRepository = new CircuitRepository();
         CountryRepository CountryRepository = new CountryRepository();
-        DriverRepository DriverRepository = new DriverRepository();
+        DriverRepository = new DriverRepository();
 
         // Cargar datos desde XML
         CarRepository.loadCarsFromXML();
@@ -48,11 +51,11 @@ public class MainController {
         }
   
         gameWindow = new PrincipalView();
-
-        //Iniciar el SelectionController 
+        StartGame(CarRepository,DriverRepository);
+ 
+    }
         
-        
-        
+      private void StartGame(CarRepository CarRepository,DriverRepository DriverRepository) { 
         StartViewController startcontroller = new  StartViewController(gameWindow);
         
         startcontroller.initialSartView();
@@ -79,6 +82,17 @@ public class MainController {
         // Iniciar el ChampionshipController
         ChampionshipController championshipController = new ChampionshipController(races, players, gameWindow);
         championshipController.startNextRace();
+        championshipController.addObserverEnd(()->{
+        	startEndView(championshipController.getChampionship());
+        });
+    }
+    private void startEndView(Championship championship) {
+    	EndViewController endController = new EndViewController(gameWindow,championship);
+    	endController.initalEndView();
+    	endController.addObserverNext(()->{
+    		StartGame(CarRepository,DriverRepository);
+    	});
+    	
     }
   
 }
