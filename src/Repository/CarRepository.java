@@ -58,7 +58,7 @@ public class CarRepository {
                 String relativePath = "src/Resources/Images/" + modelo + ".png";
                 File f = new File(relativePath);
 
-               
+
                 Car.setAvatar(relativePath);
                 Cars.add(Car);
             }

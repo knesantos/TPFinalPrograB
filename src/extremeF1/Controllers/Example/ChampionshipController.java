@@ -4,6 +4,7 @@ import Core.Entities.Race;
 import Core.Entities.Championship;
 import Core.Entities.Player;
 import extremeF1.Controllers.Example.ReportsViewsController.PreRaceViewController;
+import extremeF1.Controllers.Example.StartViewController.StartObserver;
 import extremeF1.Views.PreRaceView;
 import extremeF1.Views.PrincipalView;
 import extremeF1.Controllers.Example.ReportsViewsController.PostRaceViewController;
@@ -28,6 +29,19 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
         this.raceController = new RaceViewController(gameWindow, championship);
         raceController.addRaceEndObserver(() -> onRaceEnd());
     }
+    
+    
+    public interface EndObserver{
+		void onEndObserver();
+	}
+	
+	private EndObserver endobserver;
+	
+	public void addObserverEnd(EndObserver endobserver) {
+		// TODO Auto-generated method stub
+		this.endobserver = endobserver;
+	}
+	
     
     public void setRaceController(RaceViewController raceController) {
         this.raceController = raceController;
@@ -54,6 +68,7 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
             if (championship.isChampionshipOver()) {
                 System.out.println("Campeonato terminado");
                 // Mostrar la vista de resultados finales del campeonato
+                endobserver.onEndObserver();
             } else {
                 currentRaceIndex++;
                 startNextRace();
@@ -72,4 +87,10 @@ public class ChampionshipController implements ReportsViewsController.PreRaceObs
             System.out.println("No hay más Races en el campeonato");
         }
     }
+    public Championship getChampionship() {
+    	return  championship;
+    }
+
+
+
 }

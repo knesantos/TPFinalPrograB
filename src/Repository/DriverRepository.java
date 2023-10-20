@@ -55,7 +55,7 @@ public class DriverRepository {
                 String relativePath = "src/Resources/Images/" + nombreAbrev + ".png";
                 File f = new File(relativePath);
 
-               
+
 
                 driver.setAvatarPath(relativePath);
                 driver.setAvatar(relativePath);

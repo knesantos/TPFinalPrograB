@@ -62,8 +62,7 @@ public class SelectionViewController {
         });
         gameWindow.addPanel(v1, "Selection");
         gameWindow.showPanel("Selection");
-        gameWindow.pack();
-        
+
         
         
 
