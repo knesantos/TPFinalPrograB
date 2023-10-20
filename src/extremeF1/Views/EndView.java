@@ -30,6 +30,7 @@ public class EndView extends JPanel implements EndViewInterface{
 	public EndView(Championship championship) {
 		
 		setLayout(null);
+		setBackground(new Color(44, 62, 80));
 		Font titleFont = new Font("Comic Sans MS", Font.BOLD, 150);
 	     Font infoFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 	     
@@ -39,13 +40,13 @@ public class EndView extends JPanel implements EndViewInterface{
 	       	titleGame.setBounds(300, 100, 1000, 300);
 	       	titleGame.setHorizontalAlignment(JLabel.CENTER);
 	       	titleGame.setVerticalAlignment(JLabel.CENTER);
-	       	titleGame.setForeground(new Color(200, 17, 17));
+	       	titleGame.setForeground(new Color(236, 240, 241));
 	       add(titleGame);
 	    
 	       
 	     JButton btsNext = new JButton("Siguente");
 	     	btsNext.setFont(infoFont);
-	     	btsNext.setBackground(new Color(200, 17, 17));
+	     	btsNext.setBackground(new Color(236, 240, 241));
 	     	btsNext.setBounds(450,500,300,100);
 	     	btsNext.setBorder(new EmptyBorder(10, 10, 10, 10));
 	     	btsNext.setHorizontalAlignment(JLabel.CENTER);

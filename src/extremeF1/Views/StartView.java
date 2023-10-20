@@ -29,6 +29,9 @@ public class StartView extends JPanel implements StartViewInterface{
 	
 	public StartView() {
 		 setLayout(null);
+		 setBackground(new Color(44, 62, 80));
+		 
+		 
 		 Font titleFont = new Font("Comic Sans MS", Font.BOLD, 150);
 	     Font infoFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 	     
@@ -38,14 +41,14 @@ public class StartView extends JPanel implements StartViewInterface{
 	       	titleGame.setBounds(450, 100, 1000, 300);
 	       	titleGame.setHorizontalAlignment(JLabel.CENTER);
 	       	titleGame.setVerticalAlignment(JLabel.CENTER);
-	       	titleGame.setForeground(new Color(200, 17, 17));
+	       	titleGame.setForeground(new Color(236, 240, 241));
 	       add(titleGame);
 	       
 	       
 	      
 	      JButton startgame = new JButton("Jugar");
 	      	startgame.setFont(infoFont);
-	      	startgame.setBackground(new Color(200, 17, 17));
+	      	startgame.setBackground(new Color(236, 240, 241));
 	      	startgame.setBounds(800,500,300,100);
 	      	startgame.setBorder(new EmptyBorder(10, 10, 10, 10));
 	      	startgame.setHorizontalAlignment(JLabel.CENTER);
@@ -54,7 +57,7 @@ public class StartView extends JPanel implements StartViewInterface{
 	      
 	      JButton closegame = new JButton("Cerrar");
 	      	closegame.setFont(infoFont);
-	      	closegame.setBackground(new Color(200, 17, 17));
+	      	closegame.setBackground(new Color(236, 240, 241));
 	      	closegame.setBounds(1200,500,300,100);
 	      	closegame.setBorder(new EmptyBorder(10, 10, 10, 10));
 	      	closegame.setHorizontalAlignment(JLabel.CENTER);
@@ -63,14 +66,48 @@ public class StartView extends JPanel implements StartViewInterface{
 	       
 	       JButton loadgame = new JButton("Cargar Partida");
 	       	loadgame.setFont(infoFont);
-	       	loadgame.setBackground(new Color(200, 17, 17));
+	       	loadgame.setBackground(new Color(236, 240, 241));
 	       	loadgame.setBounds(400,500,300,100);
 	       	loadgame.setBorder(new EmptyBorder(10, 10, 10, 10));
 	       	loadgame.setHorizontalAlignment(JLabel.CENTER);
 	       	loadgame.setVerticalAlignment(JLabel.CENTER);
 	       
 
-		 
+	     // texto para el nombre
+	        JTextField textfield = new JTextField();
+	        textfield.setBounds(600, 500, 500, 30);
+	        textfield.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+	        textfield.setBackground(new Color(236, 240, 241));
+	        textfield.setVisible(false);  
+	        add(textfield);
+
+	        //aceptar el nombre
+	        JButton aceptname = new JButton("Aceptar");
+	        aceptname.setFont(infoFont);
+	        aceptname.setBackground(new Color(236, 240, 241));
+	        aceptname.setBounds(700, 600, 300, 100);  
+	        aceptname.setBorder(new EmptyBorder(10, 10, 10, 10));
+	        aceptname.setVisible(false);
+	        add(aceptname);
+	        
+	        JButton back = new JButton("Atras");
+		 	back.setFont(infoFont);
+		 	back.setBackground(new Color(236, 240, 241));
+		 	back.setBounds(1100,600,300,100);
+		 	back.setBorder(new EmptyBorder(10, 10, 10, 10));
+		 	back.setVisible(false);
+			add(back);	
+	       	
+			JLabel text = new JLabel("Ingrese su nombre");
+			text.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+			text.setForeground(new Color(236, 240, 241));
+			text.setBounds(600,430,300,100);
+			text.setHorizontalAlignment(JLabel.CENTER);
+			text.setVerticalAlignment(JLabel.CENTER);
+	        add(text);
+	        text.setVisible(false);
+			
+	       	
 
 	    setCloseGameListener(closelistener) ;
 	    closegame.addActionListener(new ActionListener() {
@@ -94,33 +131,14 @@ public class StartView extends JPanel implements StartViewInterface{
 				remove(closegame);
 				remove(startgame);
 
+				text.setVisible(true);
+				textfield.setVisible(true);
+                aceptname.setVisible(true);
+                back.setVisible(true);
+                repaint();
+                revalidate();
 				
-				
-			 JButton aceptname = new JButton("Aceptar");
-			 	aceptname.setFont(infoFont);
-			 	aceptname.setBackground(new Color(200, 17, 17));
-			 	aceptname.setBounds(1100,800,300,100);
-			 	aceptname.setBorder(new EmptyBorder(10, 10, 10, 10));
-			 	add(aceptname);
-			 JButton back = new JButton("Atras");
-			 	back.setFont(infoFont);
-			 	back.setBackground(new Color(200, 17, 17));
-			 	back.setBounds(700,800,300,100);
-			 	back.setBorder(new EmptyBorder(10, 10, 10, 10));
-				add(back);	
-			JLabel textname = new JLabel("Ingrese su nombre");
-				textname.setFont(infoFont);
-				textname.setBackground(new Color(200, 17, 17));
-				textname.setBounds(450,450,300,70);
-				textname.setBorder(new EmptyBorder(10, 10, 10, 10));
-		 	add(textname);
-				
-			 JTextField textfield = new JTextField();
-			 	textfield.setBounds(450, 500, 500, 30);
-			 	textfield.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-			 	textfield.setBackground(new Color(200, 17, 17));
-			 	add(textfield);
-			 	repaint();
+			 
 
 			
 			 back.addActionListener(new ActionListener() {
@@ -131,8 +149,7 @@ public class StartView extends JPanel implements StartViewInterface{
 					remove(back);
 					remove(aceptname);
 					remove(textfield);
-
-					remove(textname);
+					remove(text);
 
 					add(loadgame);
 					add(closegame);
@@ -165,7 +182,10 @@ public class StartView extends JPanel implements StartViewInterface{
 	    add(closegame);   
 	    add(loadgame);
 
-	}
+	   
+	    }
+
+
 
 	public void setPlayer(String name) {
 		player = new Real(name,1);
