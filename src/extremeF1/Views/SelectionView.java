@@ -65,10 +65,11 @@ public class SelectionView extends JPanel implements SelectionViewInterface {
 
 		setBackground(new Color(44, 62, 80));
 
-		this.setPreferredSize(new Dimension(1500,1500));
+		this.setPreferredSize(new Dimension(100,100));
 		this.setLayout(null);
 		imagenDriver = new JLabel();
 		imagenAuto = new JLabel();
+		this.setSize(getPreferredSize());
 
 		Font infoFont = new Font("Comic Sans MS", Font.PLAIN, 18);
 
