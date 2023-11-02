@@ -142,14 +142,62 @@ public class Race {
         }
     }
     
+    
+    public void simulateQualifyingLap() {
+        System.out.println("Qualifying lap has started!");
 
+        CountDownLatch latch = new CountDownLatch(players.size());
+
+        // 1. Simulate the qualifying lap
+        for (Player player : players) {
+            new Thread(() -> {
+                Car car = player.getCar();
+                car.initializeCarForRace();
+                car.setActualLap(1);  // Set the current lap to 1 for the qualifying lap
+                car.run();  // Run the lap simulation
+                double lapTime = car.getLapTime();
+                synchronized (playerTimes) {
+                    playerTimes.put(player.getId(), lapTime);
+                }
+                latch.countDown();
+            }).start();
+        }
+
+        try {
+            latch.await();  // Wait for all threads to finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // 2. Sort the players based on their lap times
+        Collections.sort(players, Comparator.comparing(p -> playerTimes.get(p.getId())));
+
+        // 3. Print the qualifying lap results
+        System.out.println("Qualifying lap results:");
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            double lapTime = playerTimes.get(player.getId());
+            System.out.println((i + 1) + ". " + player.getName() + " - " + lapTime + " seconds");
+        }
+        adjustStartingTimesBasedOnQualification();
+        System.out.println("Qualifying lap is over!");
+    }
+    
+    public void adjustStartingTimesBasedOnQualification() {
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            double adjustedTime = i * 10;  // 10 segundos por cada posición
+            playerTimes.put(player.getId(), adjustedTime);
+        }
+    }
+    
     public void simulateRace() {
         // Start the race
         System.out.println("The race has started on " + circuit.getName());
         raceInProgress = true;
-        
+        simulateQualifyingLap();
         for (Player player : players) {
-            playerTimes.put(player.getId(), 0.0);
+        	adjustStartingTimesBasedOnQualification();
             player.getCar().initializeCarForRace();
         }
 
