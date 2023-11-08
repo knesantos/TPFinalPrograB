@@ -22,5 +22,17 @@ public class Real extends Player {
     public Car getCar() {
         return super.getCar();
     }
+
+
+	@Override
+	public void SimIA(Race race) {
+
+	}
+
+
+	@Override
+	protected boolean isReal() {
+		return true;
+	}
 }
 

@@ -65,5 +65,9 @@ public abstract class Player {
 	public void setDrivingMode(DrivingMode divingMode) {
 		this.divingMode = divingMode;
 	}
+	
+	public  abstract void SimIA(Race race);
+
+	protected abstract boolean isReal();
 }
 

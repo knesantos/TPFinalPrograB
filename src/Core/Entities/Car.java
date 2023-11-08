@@ -260,27 +260,23 @@ public class Car implements Runnable {
         // Actualizar atributos del coche
         double lapLength = Circuit.getLength() / Circuit.getLapCount() + 1;
         metersDriven = lapLength * actualLap;
-        if (player instanceof Real) {
-        	 System.out.println("vida de gonza " + health);
-        }
+
         health = (int) Math.max(0, health - (100 - reliability) * 0.01);
-        if (player instanceof Real) {
-       	 System.out.println("vida actualizada de gonza " + health);
-       }
+       
         double fuelConsumed = (adjustedConsumption * realMaxSpeed / maxSpeed)/10;
         fuel = Math.max(0, fuel - fuelConsumed);
         updateFuelState();
         weight = Math.max(0, weight - adjustedConsumption);
 
         // Parada en boxes
-        if (needPits && player instanceof Simulated) {
+        if (needPits) {
 
             double randomChance = Math.random();
             if (randomChance >= 0.2) {
                 pitStop();
                 lapTime += 20 - (1 - (100 - player.getDriver().getBudget()) * 0.01);
             } else {
-                System.out.println("El coche " + brand + " " + model + " se saltó la parada en boxes.");
+                System.out.println("El coche " + brand + " " + model + " se saltó la parada en boxes."+ player.getName());
             }
         }
 
