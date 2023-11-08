@@ -73,11 +73,11 @@ public class Race {
     
     public Player getRealPlayer() {
         for (Player player : players) {
-            if (player instanceof Real) {  
+            if (player.isReal()) {  // Assuming isReal() is a method that returns true for real players
                 return player;
             }
         }
-        return null;  // Devuelve null si no hay jugadores reales
+        return null;  // Returns null if no real players are found
     }
     
     public Map<Integer, Double> getTimes() {
@@ -208,11 +208,9 @@ public class Race {
             setActualLap(lap);
            
             //Sim IA
-            for (Player player : players) {
-                if (player instanceof Simulated) {  
-                    ((Simulated) player).SimIA(this);  
-                }
-            }
+            for (Player player : players) 
+               player.SimIA(this);  
+
             
             //Change condition
             if (new Random().nextInt(100) < 10) {
