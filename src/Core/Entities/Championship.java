@@ -1,20 +1,24 @@
 package Core.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Championship {
+public class Championship implements Serializable{
 
     private int remainingRaces;
+    private int raceIndex;
     private Map<Integer, Integer> playerPoints;
     private List<Circuit> circuits = new ArrayList<>();
+    private List<Circuit> remainingCircuits = new ArrayList<>();
     private List<Player> players = new ArrayList<>();
     private Circuit activeCircuit;
 
     public Championship(int totalRaces, List<Player> players) {
         this.remainingRaces = totalRaces;
+        raceIndex=0;
         this.playerPoints = new HashMap<>();
         this.players = players;
         for (Player player : players) {
@@ -66,6 +70,11 @@ public class Championship {
     public void raceCompleted() {
         if (remainingRaces > 0) {
             remainingRaces--;
+            raceIndex++;
+            if (raceIndex < circuits.size()) {
+                removeCircuitFromRemaining(activeCircuit);
+                activeCircuit = circuits.get(raceIndex);
+            }
         }
     }
 
@@ -95,4 +104,21 @@ public class Championship {
             addPoints(player.getId(), points);
         }
     }
+    
+    public void initializeRemainingCircuits(List<Circuit> circuits) {
+        this.remainingCircuits = new ArrayList<>(circuits); 
+        this.circuits = circuits; 
+    }
+    
+    public List<Circuit> getRemainingCircuits() {
+        return remainingCircuits;
+    }
+    
+    public void removeCircuitFromRemaining(Circuit circuit) {
+        remainingCircuits.remove(circuit);
+    }
+
+	public int getRaceIndex() {
+		return raceIndex;
+	}
 }

@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Real extends Player {
+import java.io.Serializable;
+
+public class Real extends Player implements Serializable {
     
     public Real(String name, int id) {
         super(name, id);

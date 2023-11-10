@@ -11,13 +11,14 @@ import Core.Entities.Medium;
 import Core.Entities.Player;
 import Core.Entities.Race;
 import Core.Entities.Real;
+
 import Core.Entities.Soft;
 import Core.Entities.Tire;
 import Core.Entities.Wet;
 import extremeF1.Views.PitsView;
 
 
-public class PitsViewController {
+public class PitsViewController implements java.io.Serializable{
 	private PrincipalView gameWindow;
 	private PitsView PitsView;
 	private Race race;

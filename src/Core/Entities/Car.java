@@ -2,12 +2,12 @@ package Core.Entities;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Car implements Runnable {
-	private static final int OVERALLCONSUMPTION_FACTOR = 65 / 2;
-    private int overtakingPerformance;
+public class Car implements Runnable , Serializable {
+	private int overtakingPerformance;
     private int curvesPerformance;
     private double weight;
     private int reliability;
@@ -30,7 +30,7 @@ public class Car implements Runnable {
     private boolean needPits = false;
     private String fuelState;
     private String imagePath;
-    private Image avatar;
+    private transient Image avatar;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
                double acceleration, int power, int consumption, Tire tire, String brand, String model) {

@@ -1,6 +1,7 @@
 package Repository;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import Core.Entities.Car;
 import Core.Entities.Medium;
 import Core.Entities.Tire;
 
-public class CarRepository {
+public class CarRepository implements Serializable{
     private List<Car> Cars;
 
     public CarRepository() {

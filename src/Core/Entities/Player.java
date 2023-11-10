@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public abstract class Player {
+import java.io.Serializable;
+
+public abstract class Player implements Serializable{
 
     private String name;
     private int id;

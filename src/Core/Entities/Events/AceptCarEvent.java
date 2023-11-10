@@ -1,8 +1,11 @@
 package Core.Entities.Events;
 
+import java.io.Serializable;
+
 import Core.Entities.Car;
 
-public class AceptCarEvent {
+
+public class AceptCarEvent{
 	private Car car;
 	
 	public AceptCarEvent(Car car) {

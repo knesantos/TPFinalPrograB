@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class DrivingMode {
+import java.io.Serializable;
+
+public class DrivingMode implements Serializable{
 	
 	private int aggressiveness;
 	private int defensiveness;

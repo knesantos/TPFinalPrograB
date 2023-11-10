@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,12 +19,13 @@ import javax.swing.border.EmptyBorder;
 
 import Core.Entities.Championship;
 import Core.Entities.Player;
+
 import Core.Entities.Events.NextBtnEndViewEvent;
 import Core.Entities.Events.NextBtnEndViewListener;
 
 import javax.swing.JButton;
 
-public class EndView extends JPanel implements EndViewInterface{
+public class EndView extends JPanel implements EndViewInterface , Serializable{
 	private JTextArea txtChampionshipRanking;
 	private Championship championship;
 	private NextBtnEndViewListener nextlistener;

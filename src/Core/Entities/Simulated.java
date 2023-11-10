@@ -1,9 +1,10 @@
 package Core.Entities;
 
 import java.util.Random;
+import java.io.Serializable;
 import java.util.List;
 
-public class Simulated extends Player {
+public class Simulated extends Player implements Serializable{
 
     public Simulated() {
         super();

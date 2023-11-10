@@ -1,5 +1,6 @@
 package Core.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.concurrent.CountDownLatch;
 
 
-public class Race {
+public class Race implements Serializable{
     
     private Date date;
     private int actualLap=0;
@@ -252,7 +253,7 @@ public class Race {
             }
             try {
                 latch.await();
-                Thread.sleep(900); // Sleep for 900 milliseconds to slow down the simulation
+                Thread.sleep(90); // Sleep for 900 milliseconds to slow down the simulation
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package Repository;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import org.w3c.dom.NodeList;
 
 import Core.Entities.Circuit;
 
-public class CircuitRepository {
+
+public class CircuitRepository implements Serializable{
     private List<Circuit> Circuits;
 
     public CircuitRepository() {

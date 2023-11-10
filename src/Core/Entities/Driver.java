@@ -2,10 +2,11 @@ package Core.Entities;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Driver {
+public class Driver implements Serializable{
 
     private long budget;
     private int defense;
@@ -20,7 +21,7 @@ public class Driver {
     private int polePositions;
     private int championships;
     private int participations;
-    private Image avatar;
+    private transient Image avatar;
     private String avatarPath;
 
 

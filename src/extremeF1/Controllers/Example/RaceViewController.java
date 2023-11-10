@@ -18,7 +18,7 @@ import javax.swing.Timer;
 
 import javax.swing.SwingUtilities;
 
-public class RaceViewController {
+public class RaceViewController implements java.io.Serializable{
     private Race Race;
     private Player player;
     private Championship championship;

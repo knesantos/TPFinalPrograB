@@ -1,6 +1,7 @@
 package extremeF1.Controllers.Example;
 
 import Core.Entities.Race;
+
 import Core.Entities.Championship;
 import Core.Entities.Player;
 import extremeF1.Views.PostRaceView;
@@ -11,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ReportsViewsController {
+public class ReportsViewsController implements java.io.Serializable{
 	private static PrincipalView ReportsGameWindow;
 	
 	public ReportsViewsController(PrincipalView ReportsGameWindow) {

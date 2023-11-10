@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Soft extends Tire {
+import java.io.Serializable;
+
+public class Soft extends Tire implements Serializable{
 
     // Constructor con argumentos
     public Soft(int wear, int durability, int consumption, int speed, int grip) {

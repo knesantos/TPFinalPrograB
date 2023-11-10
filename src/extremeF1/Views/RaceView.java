@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -12,9 +13,11 @@ import Core.Entities.Car;
 import Core.Entities.Driver;
 import Core.Entities.Player;
 import Core.Entities.Race;
+
+
 import java.util.ArrayList;
 
-public class RaceView extends JPanel {
+public class RaceView extends JPanel implements Serializable{
     private static final long serialVersionUID = 1L;
     private JPanel leftPanel, rightPanel, centerPanel;
     private JLabel lblRaceName, lblPlayerName, lblFuel, lblTireStatus, lblCarStatus;

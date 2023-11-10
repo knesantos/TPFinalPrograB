@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Wet extends Tire{
+import java.io.Serializable;
+
+public class Wet extends Tire implements Serializable{
 
 	public Wet(int wear, int durability, int consumption, int speed, int grip) {
 		super(wear,durability,consumption,speed,grip);
