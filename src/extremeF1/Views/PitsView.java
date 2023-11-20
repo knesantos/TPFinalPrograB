@@ -23,7 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
  
-public class PitsView extends JPanel implements PitsViewInterface{
+public class PitsView extends JPanel implements PitsViewInterface , java.io.Serializable{
 	private JButton BtmChangeTires,BtmLoadFuel,BtmRepairEngine;
 	private JLabel namerace,nameplayer,tirewear,carcondition,fuel,positionts;
 	private Font font;

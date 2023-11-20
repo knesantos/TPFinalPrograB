@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class RaceCondition {
+import java.io.Serializable;
+
+public class RaceCondition implements Serializable{
 	private String condition;
 	private int temperature, precipitation;
 

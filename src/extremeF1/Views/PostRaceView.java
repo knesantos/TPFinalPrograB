@@ -13,7 +13,7 @@ import Core.Entities.Championship;
 import Core.Entities.Player;
 import Core.Entities.Driver;
 
-public class PostRaceView extends JPanel {
+public class PostRaceView extends JPanel implements java.io.Serializable {
     private Race race;
     private Championship championship;
     private Map<Integer, Double> playersTimes = new HashMap<>();

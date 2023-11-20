@@ -1,9 +1,10 @@
 package Core.Entities;
 
 import java.util.Random;
+import java.io.Serializable;
 import java.util.List;
 
-public class Simulated extends Player {
+public class Simulated extends Player implements Serializable{
 
     public Simulated() {
         super();
@@ -61,11 +62,10 @@ public class Simulated extends Player {
 	            }
 	        }
 	        
-	       
 	        if (goodOption) {
-	            this.setDrivingMode(new DrivingMode(goodOptionDrivingMode));
+	        	this.getDrivingMode().setDrivingMode(goodOptionDrivingMode);
 	        } else {
-	            this.setDrivingMode(new DrivingMode(badOptionDrivingMode));
+	        	this.getDrivingMode().setDrivingMode(badOptionDrivingMode);
 	        }
 
 

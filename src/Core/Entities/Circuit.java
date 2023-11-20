@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Circuit {
+import java.io.Serializable;
+
+public class Circuit implements Serializable {
 
     private int lapCount, curveCount, overtakingZoneCount;
     private long length, fastestLapRecord;

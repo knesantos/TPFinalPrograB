@@ -2,11 +2,13 @@ package extremeF1.Views;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PrincipalView extends JFrame implements PrincipalViewInterface {
+
+public class PrincipalView extends JFrame implements PrincipalViewInterface , Serializable{
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
@@ -37,4 +39,6 @@ public class PrincipalView extends JFrame implements PrincipalViewInterface {
         revalidate();
         repaint();
     }
+    
+    
 }

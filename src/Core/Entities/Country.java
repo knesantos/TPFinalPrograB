@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Country {
+import java.io.Serializable;
+
+public class Country implements Serializable{
     private String name;
     private String abbreviatedName;
 

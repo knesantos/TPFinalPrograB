@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class Medium extends Tire {
+import java.io.Serializable;
+
+public class Medium extends Tire implements Serializable{
 
     // Constructor con argumentos
     public Medium(int wear, int durability, int consumption, int speed, int grip) {

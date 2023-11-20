@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public abstract class Tire {
+import java.io.Serializable;
+
+public abstract class Tire implements Serializable{
 		private double wear;
 		private int durability;
 		private int consumption;

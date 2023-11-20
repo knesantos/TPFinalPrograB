@@ -2,12 +2,12 @@ package Core.Entities;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Car implements Runnable {
-	private static final int OVERALLCONSUMPTION_FACTOR = 65 / 2;
-    private int overtakingPerformance;
+public class Car implements Runnable , Serializable {
+	private int overtakingPerformance;
     private int curvesPerformance;
     private double weight;
     private int reliability;
@@ -30,7 +30,7 @@ public class Car implements Runnable {
     private boolean needPits = false;
     private String fuelState;
     private String imagePath;
-    private Image avatar;
+    private transient Image avatar;
 
     public Car(int overtakingPerformance, int curvesPerformance, double weight, int reliability, int maxSpeed,
                double acceleration, int power, int consumption, Tire tire, String brand, String model) {
@@ -184,12 +184,8 @@ public class Car implements Runnable {
     }
 
     public void checkCarStatus() {
-        if (health <= 0) {
+        if (health <= 0 ) {
             isBroken = true;
-        } else if (health < 20 || tire.getWear() > 70) {
-            // PIT STOP
-        } else {
-            // OK
         }
     }
 
@@ -204,7 +200,7 @@ public class Car implements Runnable {
    
     
     
-    public void initializeCarForRace() { // aca deben llegar las deciciones del jugador de como empezar
+    public void initializeCarForRace() {
         this.health = 100;
         this.fuel = 100.0;
         this.tire.setWear(0);
@@ -292,13 +288,11 @@ public class Car implements Runnable {
     }
     @Override
     public void run() {
-        Player associatedPlayer = getPlayer();
-        Circuit circuit = associatedPlayer.getActiveRace().getCircuit();
-        RaceCondition condition = associatedPlayer.getActiveRace().getRaceCondition();
-        Driver driver = associatedPlayer.getDriver();
-
         if (!this.isBroken) {
-            simulateLap(circuit, condition, driver);
+            simulateLap(getPlayer().getActiveRace().getCircuit(),  getPlayer().getActiveRace().getRaceCondition(), getPlayer().getDriver());
+        }
+        else {
+        	lapTime=0;
         }
     }
 

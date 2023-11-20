@@ -1,6 +1,8 @@
 package Core.Entities;
 
-public class DrivingMode {
+import java.io.Serializable;
+
+public class DrivingMode implements Serializable{
 	
 	private int aggressiveness;
 	private int defensiveness;
@@ -12,6 +14,10 @@ public class DrivingMode {
 	    this.aggressiveness = aggressiveness;
 	    this.consumption = consumption;
 	    this.type = type;
+	}
+	public DrivingMode() {
+	    super();
+	  
 	}
 	
 	public DrivingMode(String type) {
@@ -45,6 +51,28 @@ public class DrivingMode {
 
 	public void setAggressiveness(int aggressiveness) {
 	    this.aggressiveness = aggressiveness;
+	}
+	
+	public void setDrivingMode(String drivingMode) {
+		 switch(drivingMode) {
+	        case "Agressive":
+	            this.aggressiveness = 90;
+	            this.defensiveness= 20;
+	            this.consumption = 90; 
+	            break;
+	        case "Moderated":
+	            this.aggressiveness = 50;
+	            this.defensiveness= 50;
+	            this.consumption = 50; 
+	            break;
+	        case "Defensive":
+	        	 this.defensiveness = 90; 
+	            this.aggressiveness = 20; 
+	            this.consumption = 10; 
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Invalid driving mode type");
+		 }
 	}
 
 	public int getConsumption() {

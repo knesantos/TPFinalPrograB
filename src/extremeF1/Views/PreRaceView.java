@@ -5,10 +5,11 @@ import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 import Core.Entities.Race;
+
 import Core.Entities.Player;
 import Core.Entities.Driver;
 
-public class PreRaceView extends JPanel {
+public class PreRaceView extends JPanel implements java.io.Serializable{
     private Race Race;
     private JButton btnContinuar;
     private JLabel lblWeather, lblTemperature, lblPrecipitation;

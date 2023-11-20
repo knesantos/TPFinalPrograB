@@ -6,11 +6,12 @@ import java.util.Comparator;
 
 import Core.Entities.Championship;
 import Core.Entities.Player;
+
 import extremeF1.Controllers.Example.StartViewController.StartObserver;
 import extremeF1.Views.EndView;
 import extremeF1.Views.PrincipalView;
 
-public class EndViewController {
+public class EndViewController implements java.io.Serializable{
 	private EndView endView;
 	private PrincipalView gameWindow;
 	private Championship championship;

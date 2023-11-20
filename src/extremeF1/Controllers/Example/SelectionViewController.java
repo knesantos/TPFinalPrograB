@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class SelectionViewController {
+public class SelectionViewController implements java.io.Serializable{
 	
 	private boolean isButtonAcceptSelectionPressed = false;
 	  private SelectionView v1;

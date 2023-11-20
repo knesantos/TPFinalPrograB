@@ -1,6 +1,7 @@
 package Repository;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import org.w3c.dom.NodeList;
 
 import Core.Entities.Country;
 
-public class CountryRepository {
+public class CountryRepository implements Serializable{
     private List<Country> Contries;
 
     public CountryRepository() {
