@@ -62,11 +62,10 @@ public class Simulated extends Player implements Serializable{
 	            }
 	        }
 	        
-	       
 	        if (goodOption) {
-	            this.setDrivingMode(new DrivingMode(goodOptionDrivingMode));
+	        	this.getDrivingMode().setDrivingMode(goodOptionDrivingMode);
 	        } else {
-	            this.setDrivingMode(new DrivingMode(badOptionDrivingMode));
+	        	this.getDrivingMode().setDrivingMode(badOptionDrivingMode);
 	        }
 
 
